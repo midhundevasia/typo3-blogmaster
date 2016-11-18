@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-10-02T12:00:00Z" product-name="blogmaster">
+		<header/>
+		<body>
+
+			<trans-unit id="blog.pluginWizardTitle">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="blog.pluginWizardDescription">
+				<source>A Blog system for TYPO3</source>
+			</trans-unit>
+
+			<trans-unit id="flexform.tabOne">
+				<source>Display</source>
+			</trans-unit>
+				<trans-unit id="flexform.blog.general.whaToDisplay">
+					<source>What to display:</source>
+				</trans-unit>
+					<trans-unit id="flexform.blog.displayType.displays">
+						<source>Content Displays</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.none">
+						<source>--</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.postList">
+						<source>Standard Blog Home</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.latest">
+						<source>Latest Posts</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.singlePage">
+						<source>Detail View</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.categoryView">
+						<source>Category View</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.tagView">
+						<source>Tag View</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.archiveView">
+						<source>Archive View</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.searchResultView">
+						<source>Search Result</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.authorPageView">
+						<source>Author Page</source>
+					</trans-unit>
+
+					<trans-unit id="flexform.blog.displayType.widgets">
+						<source>Widgets</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.tagCloud">
+						<source>Tag Cloud</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.archives">
+						<source>Archives</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.categories">
+						<source>Categories</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.recentComments">
+						<source>Recent Comments</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.recentPosts">
+						<source>Recent Posts</source>
+					</trans-unit>
+					<trans-unit id="flexform.blog.displayType.search">
+						<source>Search Form</source>
+					</trans-unit>
+				
+			
+			<trans-unit id="flexform.tabTwo">
+				<source>Configuration</source>
+			</trans-unit>
+				<trans-unit id="flexform.settings.singlePageId">
+					<source>Page ID for display Detail View of an Item</source>
+				</trans-unit>
+				<trans-unit id="flexform.settings.maxItemPerPage">
+					<source>Maximum items per page</source>
+				</trans-unit>
+				<trans-unit id="flexform.settings.hidePagination">
+					<source>Hide Pagination</source>
+				</trans-unit>
+				<trans-unit id="flexform.settings.paginationType">
+					<source>Pagination Type</source>
+				</trans-unit>
+			<trans-unit id="tca.categoryTitle">
+				<source>Blog Category</source>
+			</trans-unit>
+			
+
+			<trans-unit id="blog.mlang_tabs_tab">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="blog.mlang_labels_tablabel">
+				<source>A blog system for TYPO3</source>
+			</trans-unit>
+			<trans-unit id="post.mlang_tabs_tab">
+				<source>Posts</source>
+			</trans-unit>
+			<trans-unit id="post.mlang_labels_tabdescr">
+				<source>List of all posts</source>
+			</trans-unit>
+			<trans-unit id="category.mlang_tabs_tab">
+				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="category.mlang_labels_tabdescr">
+				<source>List of all categories</source>
+			</trans-unit>
+			<trans-unit id="tag.mlang_tabs_tab">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="tag.mlang_labels_tabdescr">
+				<source>List of all tags</source>
+			</trans-unit>
+			<trans-unit id="comment.mlang_tabs_tab">
+				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="comment.mlang_labels_tabdescr">
+				<source>List of all comments</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

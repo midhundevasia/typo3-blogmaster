@@ -1,0 +1,14 @@
+{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
+<TB:be.collapseBox title="Discussion">
+<div class="form-group">
+	<div class="checkbox">
+		<label>
+			<f:form.checkbox property='commentStatus' 
+				id="post-comment-status"
+				value="open" 
+				checked="{f:if(condition: '{postObject.commentStatus} == \"open\"', then: 'true')}"
+			/>
+			<f:translate key="label.allowComments"/>.</label>
+	</div>
+</div>
+</TB:be.collapseBox>

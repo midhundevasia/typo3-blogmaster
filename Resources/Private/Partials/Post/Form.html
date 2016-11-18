@@ -1,0 +1,64 @@
+<div class="row">
+<f:form method="post" controller="Post" 
+	action="<f:if condition='{postObject.uid}'><f:then>update</f:then><f:else>create</f:else></f:if>" 
+	name="newPost" object="{postObject}" id="post-data">
+	<input type="hidden" name="__additionalData[]"/>
+	<div class="col-sm-9">
+
+		<f:form.hidden property="modified"/><br>
+		<div class="form-group">
+			<f:form.textfield property="title" id="post-title" class='form-control' placeholder='Post Title - eg: Hello World'/>
+			<small class="form-text text-muted"><f:translate key="label.postTitleHelp"/></small>
+		</div>
+		<div class="form-group">
+			<f:form.textfield property="slug" id="post-slug" class='form-control' placeholder='Post Slug - eg: hello-world'/>
+			<small class="form-text text-muted"><f:translate key="label.postSlugHelp"/></small>
+		</div>
+		<div class="form-group">
+<!-- 			<f:link.action action="new" class="btn btn-default" controller="Comment">Add Media</f:link.action>
+ -->			<f:form.textarea property='content' id="post-content" class='form-control rte-editor' cols="10" rows="10"/>
+			<small class="form-text text-muted"></small>
+		</div>
+
+		<div>
+			<f:render partial="Post/Additional/Excerpt" arguments="{_all}"/>
+			<f:render partial="Post/Additional/Discussion" arguments="{_all}"/>
+			<f:render partial="Post/Additional/Comments" arguments="{_all}"/>
+			<f:render partial="Post/Additional/Author" arguments="{_all}"/>
+		</div>
+	</div>
+	<div class="col-sm-3 pull-right">
+		<f:render partial="Post/Sidebar/PostStatus" arguments="{_all}"/>
+		<f:render partial="Post/Sidebar/Category" arguments="{_all}"/>
+		<f:render partial="Post/Sidebar/Tag" arguments="{_all}"/>
+		<f:render partial="Post/Sidebar/Images" arguments="{_all}"/>
+	</div>
+</f:form>
+</div>
+<script type="text/javascript">
+	TYPO3.jQuery(document).ready(function() {
+		TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+	});
+	function setStatus() {
+		TYPO3.jQuery('#post-status-panel,#set-status').toggle();
+		TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+		if (TYPO3.jQuery('#post-status').val() == 'pending') {
+			TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
+		}
+		if (TYPO3.jQuery('#post-status').val() == 'draft') {
+			TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
+		}
+	}
+	function saveAsDraft() {
+		TYPO3.jQuery('#post-status').val('draft');
+		TYPO3.jQuery('#post-data').submit();
+	}
+	function saveAsPending() {
+		TYPO3.jQuery('#post-status').val('pending');
+		TYPO3.jQuery('#post-data').submit();
+	}
+	function saveAndPublish() {
+		TYPO3.jQuery('#post-status').val('publish');
+		TYPO3.jQuery('#post-data').submit();
+	}
+</script>

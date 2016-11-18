@@ -1,0 +1,35 @@
+{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
+<TB:be.collapseBox title="Categories">
+	
+	<input type="hidden" name="__additionalData[newCategories]" value="array" />
+	<div id="postCategories">
+		<f:for each="{categoryList}" as="category">
+			<div class="checkbox category-items"><label><f:form.checkbox property="categories" value="{category.uid}"/>{category.title}</label></div>
+		</f:for>
+	</div>
+	
+	<a href="javascript:;" class="addCategory" id="btn-add-category" onclick="TYPO3.jQuery('#btn-add-category,#add-category-form').toggle();">+ <f:translate key="label.addNewCategory"/></a>
+	<div id="add-category-form" class="display-none">
+		<fieldset>
+			<strong><f:translate key="label.addNewCategory"/></strong>
+			<f:form.textfield name="categoryName" class="form-control" placeholder="Category Name" id="categoryName"/>
+			<label for="categoryParent"><f:translate key="label.parent"/></label>
+			<f:form.select name="categoryParent" class="form-control" options="{catList}" id="categoryParent" optionLabelField="title"></f:form.select>
+			<br/>
+			<a class="btn btn-success" id="addCategory" href="javascript:;" onclick="javascript:addCategory();"><f:translate key="label.add"/></a>
+			<a class="btn btn-default" id="cancelCategory" href="javascript:;" onclick="javascript:TYPO3.jQuery('#btn-add-category,#add-category-form').toggle();"><f:translate key="label.cancel"/></a>
+		</fieldset>
+	</div>
+
+	<script type="text/javascript">
+	function addCategory() {
+		var postId = '{postObject.uid}';
+		TYPO3.jQuery.ajax({
+			url: "<f:uri.action action='ajax' controller='Category'/>",
+			data: {action: 'add', postId: postId, parent: TYPO3.jQuery('#categoryParent').val(), name: TYPO3.jQuery('#categoryName').val()}
+		}).done(function(data) {
+			TYPO3.jQuery('#postCategories').prepend('<div id="newCategories-'+data.id+'" class="checkbox"><label><input name="__additionalData[newCategories][]" value="'+data.id+'" type="checkbox" checked="checked"/>'+data.name+'</label></div>');
+		});
+	}
+	</script>
+</TB:be.collapseBox>

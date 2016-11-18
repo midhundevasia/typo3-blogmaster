@@ -1,0 +1,16 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<aside class="widget widget-categories">
+<h2 class="widget-title">{cObject.header}</h2>
+<f:if condition="{categories}">
+	<ul class="categories">
+		<f:for each='{categories}' as='category'>
+			<li><blog:link 
+			class="category-item category-item-{category.uid}" 
+			title="{category.count} topics" 
+			type="category" 
+			params="{id:category.uid}">{category.title} ({category.count})</blog:link>
+			</li>
+		</f:for>
+	</ul>
+</f:if>
+</aside>

@@ -1,0 +1,17 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<blog:be.collapseBox title="Image">
+<a class="btn btn-default" onclick="Blogmaster.openFileBrowser('file', '||||feature-image|Blogmaster.fileFn.checkUniqueElement||Blogmaster.fileFn.importElement'); return false;" ><f:translate key="label.addImage"/></a>
+<div id="imageContainer">
+	<f:form.hidden property="image" id="feature-image"/>
+	<f:if condition="{postObject.image}">
+		<f:image image="{postObject.featureImage}" alt="test" minWidth="20"/><br>
+		<a href="javascript:;" onclick="javascript:TYPO3.jQuery('#feature-image').val(0);TYPO3.jQuery('#imageContainer').hide();" class="text-danger"><f:translate key="label.delImage"/></a>
+	</f:if>
+</div>
+<style type="text/css">
+#imageContainer img {
+	width: 100%;
+	height: auto;
+}
+</style>
+</blog:be.collapseBox>

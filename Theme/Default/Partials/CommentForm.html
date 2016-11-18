@@ -1,0 +1,36 @@
+<f:if condition="{post}">
+	<f:if condition="{settings.comments.active}">
+		<f:if condition="{post.commentStatus} == 'open'">
+			<f:then>
+				<div id="comment-form">
+				<h3 class="comment-title"><f:translate key="comment.leaveAReply"/></h3>
+				<f:form action="addComment" name="comment" controller="Comment" addQueryString='true' absolute='true' pluginName="Comment">
+					<f:form.hidden name="post" value="{post}" />
+					<div class="form-group">
+						<label for="comment-message"><f:translate key="comment.comment" /></label>
+						<f:form.textarea id="comment-message" property="message" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="comment-author"><f:translate key="comment.name" /></label>
+						<f:form.textfield id="comment-author" property="name" class="form-control" placeholder="eg: John Smith"/>
+					</div>
+					<div class="form-group">
+						<label for="comment-email"><f:translate key="comment.email" /></label>
+						<f:form.textfield id="comment-email" property="email" class="form-control" placeholder="eg: mail@example.com"/>
+					</div>
+					<div class="form-group">
+						<label for="comment-url"><f:translate key="comment.url" /></label>
+						<f:form.textfield id="comment-url" property="url" class="form-control" placeholder="eg: www.example.com"/>
+					</div>
+					<f:form.submit name="submit"  class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
+				</f:form>
+				</div>
+			</f:then>
+
+			<f:else>
+				<h3 class="comment-title"><f:translate key="comment.leaveAReply"/></h3>
+				<p><f:translate key="comment.comments_closed" /></p>
+			</f:else>
+		</f:if>
+	</f:if>
+</f:if>

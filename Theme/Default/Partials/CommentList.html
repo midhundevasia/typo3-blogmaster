@@ -1,0 +1,26 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<div id="comments" class="commentwrap">
+	<h4 class="comment-title"><f:translate key="comment.comments"/></h4>
+
+	<ol class="commentlist">
+		<f:for each="{comments}" as="comment">
+			<f:if condition="{comment.status} == 'publish'">
+			<f:cycle values="{0: 'odd-comment', 1: 'even-comment'}" as="oddEvent">
+			<li class="comment depth-1 {oddEvent}" id="comment-{comment.uid}">
+				<p class="comment-author">
+					<blog:gravatar email="{comment.authorEmail}" itemprop='image' alt="{comment.authorName}"/>
+					<cite><a href="{comment.authorUrl}" rel="external nofollow" class="url">{comment.authorName}</a></cite><br>
+					<time class="comment-time" datetime="{comment.created}">
+						<f:format.date format="{settings.dateFormat}">{comment.created}</f:format.date>
+					</time>
+				</p>
+				<div class="commententry">
+					{comment.content}
+				</div>
+			</li>
+			</f:cycle>
+			</f:if>
+	</f:for>
+	</ol>
+
+</div>

@@ -1,0 +1,52 @@
+{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
+<TB:be.collapseBox title="Publish">
+	<div>
+		<f:switch expression="{postObject.status}">
+			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/>Save As Draft</button></f:case>
+			<f:case value="draft">
+				<button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/>/button>
+				<button class="btn btn-default display-none" id="btn-pending" type='button' onclick="javascript:saveAsPending();"><f:translate key="label.saveAsPending"/></button>
+			</f:case>
+			<f:case value="pending">
+				<button class="btn btn-default" id="btn-pending" type='button' onclick="javascript:saveAsPending();"><f:translate key="label.saveAsPending"/></button>
+				<button class="btn btn-default display-none" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button>
+			</f:case>
+		</f:switch>
+		<!-- <button class="btn btn-default pull-right" type='button' onclick="">Preview</button> -->
+	</div>
+	<br>
+	<div>
+		<div class="clear panel-label"><f:translate key="label.status"/>: <strong id="post-status-label"><f:translate key="label.draft"/></strong> <a class="text-info" id="set-status" href="javascript:;" onclick="javascript:TYPO3.jQuery('#post-status-panel,#set-status').toggle()"><f:translate key="label.edit"/></a></div>
+		<div id="post-status-panel" class="display-none">
+			<div class="panel-label col-sm-6">
+				<f:form.select 
+					id="post-status"
+					property="status"
+					class="form-control"
+					options="{publish: 'Published', draft: 'Draft', pending: 'Pending Review'}"
+				/>
+			</div>
+			<div class="panel-label col-sm-6 pull-left">
+				<a class="btn btn-default pull-left" href="javascript:;" onclick="javascript:setStatus();"><f:translate key="label.ok"/></a>
+				<a class="btn text-info pull-left" href="javascript:;" onclick="javascript:TYPO3.jQuery('#post-status-panel,#set-status').toggle()"><f:translate key="label.cancel"/></a>
+			</div>
+		</div>
+		<!-- <div class="clear panel-label">Visibility: <strong id="post-visibility-label">Public</strong> <a class=" text-info" href="javascript:;">Edit</a></div>
+		<div class="clear panel-label">Publish: <strong id="post-schedule-label">Draft</strong> <a class=" text-info" href="javascript:;">Edit</a></div>-->
+	 </div>
+	<div>
+		<a class="btn panel-label text-danger" id="delete-post" href="<f:uri.action action='delete' arguments='{delete: \'{postObject.uid}\'}' />"><f:translate key="label.moveToTrash"/></a>
+		<f:if condition="{postObject.uid} == 0">
+			<f:then>
+				<button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button>
+			</f:then>
+			<f:else>
+				<f:switch expression="{postObject.status}">
+					<f:case value="publish"><button class="btn btn-success pull-right" type='submit' onclick="">Update</button></f:case>
+					<f:case value="draft"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
+					<f:case value="pending"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
+				</f:switch>
+			</f:else>
+		</f:if>
+	</div>
+</TB:be.collapseBox>

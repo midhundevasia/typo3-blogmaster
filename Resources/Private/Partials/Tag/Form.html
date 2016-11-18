@@ -1,0 +1,34 @@
+<div class="row">
+<h3 class="page-heading">
+	<f:if condition="{tagObject.uid}">
+		<f:then><f:translate key="label.editTag"/></f:then>
+		<f:else><f:translate key="label.addTag"/></f:else>
+	</f:if>
+</h3>
+	<f:form controller="Tag" 
+	action="create" 
+	name="tag" object="{tagObject}" arguments="{blog: blog}" id="cat-data">
+
+		<div class="form-group">
+		 	<label for="cat-title"><f:translate key="label.name"/></label>
+			<f:form.textfield property="title" id="cat-title" class='form-control' placeholder='eg: Hello World'/>
+			<small class="form-text text-muted"><f:translate key="label.nameHelpText"/></small>
+		</div>
+
+		<div class="form-group">
+		 	<label for="cat-slug"><f:translate key="label.slug"/></label>
+			<f:form.textfield property="slug" id="cat-slug" class='form-control' placeholder='eg: hello_world'/>
+			<small class="form-text text-muted"><f:translate key="label.tagSlugHelpText"/></small>
+		</div>
+
+		<div class="form-group">
+		 	<label class="" for="cat-description"><f:translate key="label.description"/></label>
+			<f:form.textarea property='description' id="cat-description" class='form-control' cols="10" rows="5"/>
+			<small class="form-text text-muted"><f:translate key="label.tagdescriptionHelpText"/></small>
+		</div>
+		<f:if condition="{tagObject.uid}">
+			<f:link.action action="delete" class="btn panel-label text-danger pull-left" arguments="{delete: '{tagObject.uid}'}"><f:translate key="label.delTag"/></f:link.action>
+		</f:if>
+		<button type="submit" class="btn btn-primary pull-right"><f:translate key="label.saveTag"/></button>
+	</f:form>
+</div>

@@ -1,0 +1,10 @@
+<f:layout name="Default"/>
+<f:section name="content">
+<h1 class="pull-left page-heading"><f:translate key="label.addNewPost"/></h1>
+<f:link.action action="list" controller="Post" class='btn btn-primary pull-right'><f:translate key="label.backToList"/></f:link.action>
+<div class="col-sm-12">
+	<div class="row">
+		<f:render partial='Post/Form' arguments="{_all}"/>
+	</div>
+</div>
+</f:section>

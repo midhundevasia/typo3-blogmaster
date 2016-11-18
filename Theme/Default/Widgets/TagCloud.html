@@ -1,0 +1,16 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<aside class="widget widget-tag-cloud">
+<h2 class="widget-title">{cObject.header}</h2>
+<f:if condition="{tags}">
+	<div class="tagcloud">
+		<f:for each='{tags}' as='tag'>
+			<blog:link 
+			class="tag-cloud-item-{tag.uid}" 
+			title="{tag.frequency} topics" 
+			type="tag" 
+			params="{id:tag.uid}" 
+			style="font-size:{tag.size}pt;">{tag.title}</blog:link>
+		</f:for>
+	</div>
+</f:if>
+</aside>

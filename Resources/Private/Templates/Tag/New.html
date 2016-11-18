@@ -1,0 +1,13 @@
+<f:layout name="Default"/>
+<f:section name="content">
+<h1 class="pull-left page-heading"><f:translate key="label.tags"/></h1>
+<f:link.action action="new" controller="Tag" class='btn btn-primary pull-left'><f:translate key="label.addTag"/></f:link.action>
+<div class="col-sm-12">
+	<div class="col-sm-8">
+		<div class="row">
+			<f:link.action action="list" controller="Tag" class='btn btn-default pull-right'><f:translate key="label.backToList"/></f:link.action>
+			<f:render partial='Tag/Form' arguments="{_all}"/>
+		</div>
+	</div>
+</div>
+</f:section>

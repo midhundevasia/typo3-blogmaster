@@ -1,0 +1,49 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<article itemscope itemtype="http://schema.org/Article" class="h-entry">
+	<h1 class="post-title p-name" itemprop="name">
+		<blog:link object="{post}">{post.title}</blog:link>
+	</h1>
+	<div class="post-image">
+		<f:if condition="{post.image}">
+			<f:image image="{post.featureImage}" absolute="true"/>
+		</f:if>
+	</div>
+	<div class="post-content">
+		<div class="e-content" itemprop="articleBody">
+			{post.content->f:format.raw()}
+		</div>
+	</div>
+
+	<div class="post-meta">
+		<span class="post-comment">
+			<blog:link object="{post}" rel="bookmark" section="comments"><f:translate key="comment.comment"/> {post.commentCount}</blog:link>
+		</span>
+		<time class="post-date dt-published" datetime="{post.created}" itemprop="datePublished">
+			<f:format.date format="{settings.dateFormat}">{post.created}</f:format.date>
+		</time>
+		<span class="author vcard" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+			<f:translate key="label.postedBy"/> <blog:link class="url fn n" type="author" rel="author" itemprop="url" params="{user:'{post.author.username}'}"><span itemprop="name">{post.author.fullName}</span></blog:link>
+		</span>
+	
+		<span class="post-category">
+			<f:for each="{post.categories}" as="category"><blog:link object="{category}" rel="category tag">{category.title}</blog:link> </f:for>
+		</span>
+		<span class="post-tags">
+			<f:for each="{post.tags}" as="tag"><blog:link object="{tag}" rel="tag">{tag.title}</blog:link> </f:for>
+		</span>
+	</div>
+</article>
+
+<div id="post-navigation">
+	<f:if condition="{previousPost}">
+		<blog:link object="{previousPost}" rel="bookmark"><f:translate key="widget.pagination.previous"/></blog:link>
+	</f:if>
+	<f:if condition="{nextPost}">
+		<blog:link object="{nextPost}" rel="bookmark" class="pull-right"><f:translate key="widget.pagination.next"/></blog:link>
+	</f:if>
+</div>
+
+<div id="post-comments" class="comment-area">
+	<f:render partial="CommentList" arguments="{_all}"/>
+	<f:render partial="CommentForm" arguments="{_all}"/>
+</div>

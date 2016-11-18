@@ -1,0 +1,91 @@
+{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
+<TB:be.collapseBox title="Tags">
+<div class="form-group">
+ 	<div class="panel-label col-sm-10">
+		<f:form.textfield id="post-tags" class='form-control' value="" placeholder='eg: Apple, Orange' />
+		<div id="tag-suggestions"></div>
+	</div>
+	<div class="panel-label col-sm-2">
+		<a class="btn btn-default pull-right" href="javascript:addTags();"><f:translate key="label.add"/></a>
+	</div>
+	<div class="clear">
+		<small class="form-text text-muted"><f:translate key="label.tagHelpText"/></small><br>
+		<input type="hidden" name="__additionalData[newTags]" value="array" />
+		<div id="post-tag-list">
+			<f:for each="{tagList}" as="tag">
+				<span class="btn btn-default tag-item-{tag.uid}">
+				<a href="javascript:removeTag({tag.uid})"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-close.svg"></a>
+				<f:form.checkbox property="tags" value="{tag.uid}" class="hide"/>{tag.title}</span>
+			</f:for>
+		</div>
+		<div><br>
+			<a href="javascript:;" class="pull-left" onclick="javascript:mostUsedTags();"><f:translate key="label.tagBtnChooseText"/></a>
+			<a href="javascript:;" class="pull-right display-none" id="tag-mostused-clear" onclick="javascript:clearMostUsed()"> x <f:translate key="label.clear"/></a>
+			<div class="clear"></div>
+			<div id="tag-mostused"></div>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+	var postId = '{postObject.uid}';
+	function removeTag(currentTag) {
+		TYPO3.jQuery('.tag-item-' + currentTag).find('input').attr('checked', false).parent().hide();
+	}
+
+	function clearMostUsed() {
+		TYPO3.jQuery('#tag-mostused').html('');
+		TYPO3.jQuery('#tag-mostused-clear').toggle();
+	}
+
+	function mostUsedTags() {
+		TYPO3.jQuery.ajax({
+			url: "<f:uri.action action='ajax' controller='Tag' arguments='{postId: \'{postObject.uid}\'}'/>",
+			data: {action: 'mostUsed'}
+		}).done(function(data) {
+			TYPO3.jQuery('#tag-mostused-clear').toggle();
+			TYPO3.jQuery('#tag-mostused').html('');
+			for (var i = data.length - 1; i >= 0; i--) {
+				TYPO3.jQuery('#tag-mostused').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-add.svg"></a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+			}
+		});
+	}
+
+	TYPO3.jQuery('document').ready(function() {
+		TYPO3.jQuery('#post-tags').keyup(function() {
+			var key = TYPO3.jQuery(this).val();
+			var tags = TYPO3.jQuery('#post-tags').val();
+			if (key.length > 2) {
+				TYPO3.jQuery.ajax({
+					url: "<f:uri.action action='ajax' controller='Tag' arguments='{postId: \'{postObject.uid}\'}'/>",
+					data: {action: 'suggest', postId: postId, 'tags': tags}
+				}).done(function(data) {
+					TYPO3.jQuery('#tag-suggestions').html('');
+					for (var i = data.length - 1; i >= 0; i--) {
+						TYPO3.jQuery('#tag-suggestions').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-add.svg"></a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+					}
+				});
+			}
+		});
+	});
+
+	function addTagFromSuggestion(currentTag) {
+		TYPO3.jQuery('#post-tag-list').append(TYPO3.jQuery('.tag-item-' + currentTag));
+	}
+
+	function addTags() {
+		var tags = TYPO3.jQuery('#post-tags').val();
+		TYPO3.jQuery.ajax({
+			url: "<f:uri.action action='ajax' controller='Tag' arguments='{postId: \'{postObject.uid}\'}'/>",
+			data: {action: 'add', postId: postId, 'tags': tags}
+		}).done(function(data) {
+			TYPO3.jQuery('#post-tag-list').html('');
+			TYPO3.jQuery('#post-tags').val('');
+			for (var i = data.length - 1; i >= 0; i--) {
+				TYPO3.jQuery('#post-tag-list').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:removeTag(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-close.svg"></a><input name="tags" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+			}
+		});
+	}
+	
+</script>
+</TB:be.collapseBox>

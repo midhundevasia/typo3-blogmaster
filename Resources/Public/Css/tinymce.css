@@ -1,0 +1,11 @@
+#tinymce {
+	font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+    font-size: 15px;
+    line-height: 1;
+    color: #333;
+    margin: 0 10px;
+    max-width: 100%;
+    -webkit-font-smoothing: antialiased !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}

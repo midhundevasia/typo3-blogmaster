@@ -1,0 +1,28 @@
+<f:be.container
+		includeCssFiles="{0: '{f:uri.resource(path:\'Css/Backend.css\')}'}"
+		enableClickMenu="false"
+		loadExtJs="false"
+		loadExtJsTheme="false"
+		enableExtJsDebug="false"
+		loadJQuery="true"
+		jQueryNamespace="defaultNoConflict"
+		pageTitle="Blog">
+
+	<div class="module">
+		<div class="module-docheader">
+			<div class="module-docheader-bar module-docheader-bar-buttons">
+				<div class="module-docheader-bar-column-left">
+					<f:be.pagePath /> > <f:translate key="project.shortDescription"/>
+				</div>
+				<div class="module-docheader-bar-column-right">
+					<f:be.buttons.shortcut />
+				</div>
+			</div>
+		</div>
+		<div class="module-body blogmaster-backend">
+			<f:flashMessages />
+			<f:render section="content" />
+			<div class="clear"></div><hr/>
+		</div>
+	</div>
+</f:be.container>

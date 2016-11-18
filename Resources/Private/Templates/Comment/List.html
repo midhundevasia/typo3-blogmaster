@@ -1,0 +1,72 @@
+<f:layout name="Default"/>
+<f:section name="content">
+<h1 class="pull-left page-heading"><f:translate key="label.comments"/></h1>
+<f:form class="form-inline" id="comment-list-form" action="list" method="POST"> 
+<div class="panel panel-space clear">
+<div class="panel-heading">
+	<div class="row">
+		<div class="display-inline-block">
+			<f:form.select name="bulk-action" class="form-control"
+			options="{-1: 'Bulk Actions', pending: 'Unapprove', publish: 'Approve', spam: 'Move to Spam', trash: 'Mark as Trash'}"/>
+			<input type="submit" id="doaction" class="btn btn-default" value="Apply">
+		</div>
+		<div class="display-inline-block">
+			<f:form.select name="filter-by-type" class="form-control" value="{filter-by-type}"
+			options="{-1: 'All Comment Types', comment: 'Comment', ping: 'Ping'}"/>
+			<input type="submit" name="filter_action" id="comment-query-submit" class="btn btn-default" value="Filter">
+		</div>
+		<div class="display-inline-block">
+			<f:form.select name="filter-by-status" class="form-control" value="{filter-by-status}"
+			options="{-1: 'All', pending: 'Pending', publish: 'Approved', spam: 'Spam', trash: 'Trashed'}"/>
+			<input type="submit" name="filter_action" id="comment-query-submit" class="btn btn-default" value="Filter">
+		</div>
+		<div class="display-inline-block pull-right">
+			<f:form.textfield name="search" class="form-control" value="{search}" id="search-filter" placeholder="Eg: blog, travel"/>
+			<input type="submit" name="filter_action" class="btn btn-default" value="Search" >
+			<f:if condition="{search}">
+			<input type="button" name="filter_action" class="btn btn-default" value="Clear" onclick="javascript:searchClear();">
+			</f:if>
+		</div>
+	</div>
+</div>
+<div data-state="expanded">
+<f:be.widget.paginate objects="{comments}" as="pagedPosts" configuration="{itemsPerPage: 30, insertBelow: 1, recordsLabel: 'Showing Posts'}">
+	<div class="table-fit">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th width="1%"><f:form.checkbox value="" id="check-all"/></th>
+					<th width="15%"><f:translate key="label.authorName"/></th>
+					<th width="30%"><f:translate key="label.comment"/></th>
+					<th width="15%"><f:translate key="label.inResponseTo"/></th>
+					<th width="15%"><f:translate key="label.submittedOn"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<f:for each='{pagedPosts}' as='comment'>
+					<tr class="bgColor4">
+						<td><f:form.checkbox value="{comment.uid}" name="items[]" class="item"/></td>
+						<td><f:link.action action='edit' arguments="{id: comment.uid}">{comment.authorName}</f:link.action></td>
+						<td><f:format.crop maxCharacters="70">{comment.content}</f:format.crop></td>
+						<td><f:link.action action='edit' controller="Post" arguments="{id: comment.post}">{comment.post}</f:link.action></td>
+						<td><f:format.date format="d.m.Y - H:i:s">{comment.created}</f:format.date></td>
+					</tr>
+				</f:for>
+			</tbody>
+		</table>
+	</div>
+</f:be.widget.paginate>
+</div>
+</f:form>
+<script type="text/javascript">
+function searchClear() {
+	TYPO3.jQuery('#search-filter').val('');
+	TYPO3.jQuery("#comment-list-form").submit();
+};
+TYPO3.jQuery(document).ready(function() {
+	TYPO3.jQuery('#check-all').click(function() {
+		TYPO3.jQuery('input:checkbox.item').not(this).prop('checked', this.checked);
+	});
+});
+</script>
+</f:section>

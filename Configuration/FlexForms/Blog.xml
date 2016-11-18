@@ -1,0 +1,165 @@
+<T3DataStructure>
+<meta>
+	<langDisable>1</langDisable>
+</meta>
+<sheets>
+	<sDEF>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.tabOne</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+				<whaToDisplay>
+					<TCEforms>
+						<onChange>reload</onChange>
+						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.general.whaToDisplay</label>
+						<config>
+							<type>select</type>
+							<renderType>selectSingle</renderType>
+							<items type="array">
+								<numIndex index="20000">
+									<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.displays</numIndex>
+									<numIndex index="1">--div--</numIndex>
+								</numIndex>
+									<numIndex index='0' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.none</numIndex>
+										<numIndex index='1'></numIndex>
+									</numIndex>
+									<numIndex index='1' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.postList</numIndex>
+										<numIndex index='1'>Home</numIndex>
+									</numIndex>
+									<numIndex index='2' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.latest</numIndex>
+										<numIndex index='1'>Latest</numIndex>
+									</numIndex>
+									<numIndex index='3' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.singlePage</numIndex>
+										<numIndex index='1'>Single</numIndex>
+									</numIndex>
+									<numIndex index='4' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.categoryView</numIndex>
+										<numIndex index='1'>Category</numIndex>
+									</numIndex>
+									<numIndex index='5' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.tagView</numIndex>
+										<numIndex index='1'>Tag</numIndex>
+									</numIndex>
+									<numIndex index='6' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.archiveView</numIndex>
+										<numIndex index='1'>Archive</numIndex>
+									</numIndex>
+									<numIndex index='7' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.searchResultView</numIndex>
+										<numIndex index='1'>SearchResult</numIndex>
+									</numIndex>
+									<numIndex index='7' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.authorPageView</numIndex>
+										<numIndex index='1'>AuthorPage</numIndex>
+									</numIndex>
+
+								<numIndex index="10000">
+									<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.widgets</numIndex>
+									<numIndex index="1">--div--</numIndex>
+								</numIndex>
+
+									<numIndex index='100' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.tagCloud</numIndex>
+										<numIndex index='1'>Widgets/TagCloud</numIndex>
+									</numIndex>
+									<numIndex index='101' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.archives</numIndex>
+										<numIndex index='1'>Widgets/Archives</numIndex>
+									</numIndex>
+									<numIndex index='102' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.categories</numIndex>
+										<numIndex index='1'>Widgets/Categories</numIndex>
+									</numIndex>
+									<numIndex index='103' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.recentComments</numIndex>
+										<numIndex index='1'>Widgets/RecentComments</numIndex>
+									</numIndex>
+									<numIndex index='104' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.recentPosts</numIndex>
+										<numIndex index='1'>Widgets/RecentPosts</numIndex>
+									</numIndex>
+									<numIndex index='105' type="array">
+										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.search</numIndex>
+										<numIndex index='1'>Widgets/SearchForm</numIndex>
+									</numIndex>
+
+							</items>
+							<itemsProcFunc>Tutorboy\Blogmaster\Tca\FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+							<maxItems>1</maxItems>
+							<size>1</size>
+						</config>
+					</TCEforms>
+				</whaToDisplay>
+			</el>
+		</ROOT>
+	</sDEF>
+	<sMess>
+		<ROOT>
+			<TCEforms>
+				<sheetTitle>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.tabTwo</sheetTitle>
+			</TCEforms>
+			<type>array</type>
+			<el>
+				<settings.maxItemPerPage>
+					<TCEforms>
+						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.maxItemPerPage</label>
+						<config>
+							<type>input</type>
+							<size>5</size>
+							<eval>num</eval>
+						</config>
+					</TCEforms>
+				</settings.maxItemPerPage>
+				<!-- Hide pagination -->
+				<settings.hidePagination>
+					<TCEforms>
+						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.hidePagination</label>
+						<config>
+							<type>check</type>
+						</config>
+					</TCEforms>
+				</settings.hidePagination>
+				<!-- Template Layout -->
+				<settings.paginationType>
+					<TCEforms>
+						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.paginationType</label>
+						<config>
+							<type>select</type>
+							<itemsProcFunc>GeorgRinger\News\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+							<renderType>selectSingle</renderType>
+							<items>
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>
+							</items>
+						</config>
+					</TCEforms>
+				</settings.paginationType>
+				<settings.dateFormatPreConfigured>
+					<TCEforms>
+						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.paginationType</label>
+						<config>
+							<type>select</type>
+							<itemsProcFunc>GeorgRinger\News\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+							<renderType>selectSingle</renderType>
+							<items>
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1"></numIndex>
+								</numIndex>
+							</items>
+						</config>
+					</TCEforms>
+				</settings.dateFormatPreConfigured>
+			</el>
+		</ROOT>
+	</sMess>
+</sheets>
+</T3DataStructure>

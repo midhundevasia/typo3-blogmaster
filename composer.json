@@ -1,0 +1,45 @@
+{
+	"name": "midhundevasia/blogmaster",
+	"type": "typo3-cms-extension",
+	"description": "A Blog system for TYPO3 CMS",
+	"homepage": "https://github.com/midhundevasia/typo3-blogmaster/",
+	"version" : "1.0.0",
+	"license": ["GPL-3.0+"],
+	"authors": [
+		{
+		  "name": "Midhun Devasia",
+		  "email": "hello@midhundevasia.com",
+		  "homepage": "http://midhundevasia.com/"
+		}
+	],
+	"keywords": [
+		"TYPO3", "CMS", "Blog", "blogmaster", "blog", "article"
+	],
+	"require": {
+		"php" : ">=5.5.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.8.0",
+		"mikey179/vfsStream": "1.6.0",
+		"typo3-ci/typo3cms": "^6.2"
+	},
+	"replace": {
+		"blogmaster": "self.version",
+		"typo3-ter/blogmaster": "self.version"
+	},
+	"config": {
+		"vendor-dir": "Build/vendor",
+		"bin-dir": "Build/bin"
+	},
+	"autoload": {
+		"psr-4": {
+			"Tutorboy\\Blogmaster\\": "Classes/"
+		},
+		"classmap": ["Resources/PHP/"]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tutorboy\\Blogmaster\\Tests\\": "Tests/"
+		}
+	}
+}

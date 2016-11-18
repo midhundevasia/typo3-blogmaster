@@ -1,0 +1,59 @@
+<f:form class="form-inline" action="list" method="POST" id="cat-list-form"> 
+<h3 class="page-heading"><f:translate key="label.allCats"/></h3>
+<div class="panel-heading">
+	<div class="row">
+		<div class="display-inline-block">
+			<f:form.select name="bulk-action" class="form-control"
+			options="{-1: 'Bulk Actions', delete: 'Delete'}"/>
+			<input type="submit" id="doaction" class="btn btn-default" value="Apply">
+		</div>
+		<div class="display-inline-block pull-right">
+			<f:form.textfield name="search" class="form-control" value="{search}" id="search-filter" placeholder="Eg: blog, travel"/>
+			<input type="submit" name="filter_action" class="btn btn-default" value="Search" >
+			<f:if condition="{search}">
+			<input type="button" name="filter_action" class="btn btn-default" value="Clear" onclick="javascript:searchClear();">
+			</f:if>
+		</div>
+	</div>
+</div>
+<div data-state="expanded">
+<f:be.widget.paginate objects="{cats}" as="data" configuration="{itemsPerPage: 30, insertBelow: 1, recordsLabel: 'Showing Categories'}">
+	<div class="table-fit">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th width="1%"><f:form.checkbox value="" id="check-all"/></th>
+					<th width="30%"><f:translate key="label.name"/></th>
+					<th width="10%"><f:translate key="label.slug"/></th>
+					<th width="25%"><f:translate key="label.description"/></th>
+					<th width="15%"><f:translate key="label.count"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<f:for each='{data}' as='item'>
+					<tr class="bgColor4">
+						<td><f:form.checkbox value="{item.uid}" name="items[]" class="item"/></td>
+						<td><f:link.action controller='Category' action='new' arguments="{id: item.uid}">{item.title}</f:link.action></td>
+						<td>{item.slug}</td>
+						<td>{item.description}</td>
+						<td>{item.count}</td>
+					</tr>
+				</f:for>
+				
+			</tbody>
+		</table>
+	</div>
+</f:be.widget.paginate>
+</f:form>
+<script type="text/javascript">
+function searchClear() {
+	TYPO3.jQuery('#search-filter').val('');
+	TYPO3.jQuery("#cat-list-form").submit();
+
+};
+TYPO3.jQuery(document).ready(function() {
+	TYPO3.jQuery('#check-all').click(function() {
+		TYPO3.jQuery('input:checkbox.item').not(this).prop('checked', this.checked);
+	});
+});
+</script>

@@ -1,0 +1,7 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<f:if condition="{cObject.header}">{cObject.header}</f:if>
+<blog:widget.paginate objects="{data}" as="posts" configuration="{itemsPerPage: '{settings.pagination.itemsPerPage}', insertAbove: '{settings.pagination.insertAbove}', insertBelow: '{settings.pagination.insertBelow}' }">
+<f:for each='{posts}' as='post'>
+<f:render partial="Content" arguments="{_all}"/>
+</f:for>
+</blog:widget.paginate>

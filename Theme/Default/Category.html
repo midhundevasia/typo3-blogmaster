@@ -1,0 +1,12 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<h2><f:translate key="heading.categoryView"/>: {categoryObject.title}</h2>
+<f:if condition="{categoryObject.description}">
+	<div class="taxonomy-description">
+		<p>{categoryObject.description}</p>
+	</div>
+</f:if>
+<blog:widget.paginate objects="{data}" as="posts" configuration="{itemsPerPage: '{settings.pagination.itemsPerPage}', insertAbove: '{settings.pagination.insertAbove}', insertBelow: '{settings.pagination.insertBelow}' }">
+<f:for each='{posts}' as='post'>
+<f:render partial="Content" arguments="{_all}"/>
+</f:for>
+</blog:widget.paginate>

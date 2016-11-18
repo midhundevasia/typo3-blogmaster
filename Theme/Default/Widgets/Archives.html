@@ -1,0 +1,13 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<aside class="widget widget-archive-list">
+	<h2 class="widget-title">{cObject.header}</h2>
+	<f:if condition="{archiveList}">
+	<ul class="archiveList">
+		<f:for each='{archiveList}' as='date'>
+			<li>
+			<blog:link class="archive-list-item" title="{date.TOTAL} topics" type="archive" params="{year:date.year, month:date.month}">{date.monthName} {date.year} ({date.TOTAL})</blog:link>
+			</li>
+		</f:for>
+	</ul>
+	</f:if>
+</aside>

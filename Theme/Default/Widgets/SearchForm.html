@@ -1,0 +1,7 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<aside class="widget widget-search-form">
+	<f:if condition="{cObject.header}"><h2 class="widget-title">{cObject.header}</h2></f:if>
+	<form action="<f:uri.action pageUid='{settings.searchResultPageId}' absolute='true'/>">
+	<input name="tx_blogmaster_blog[search]" placeholder="search..."/>
+	</form>
+</aside>

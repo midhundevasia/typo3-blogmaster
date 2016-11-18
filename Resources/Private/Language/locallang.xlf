@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-10-02T12:00:00Z" product-name="blogmaster">
+		<header/>
+		<body>
+			<trans-unit id="project.shortDescription">
+				<source>Blogmaster : A Blog System For TYPO3 CMS</source>
+			</trans-unit>
+				<trans-unit id="label.editCategory">
+					<source>Edit Category</source>
+				</trans-unit>
+				<trans-unit id="label.addNewCategory">
+					<source>Add New Category</source>
+				</trans-unit>
+				<trans-unit id="label.name">
+					<source>Name</source>
+				</trans-unit>
+				<trans-unit id="label.nameHelpText">
+					<source>The name is how it appears on your site.</source>
+				</trans-unit>
+				<trans-unit id="label.slug">
+					<source>Slug</source>
+				</trans-unit>
+				<trans-unit id="label.slugHelpText">
+					<source>The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</source>
+				</trans-unit>
+				<trans-unit id="label.parent">
+					<source>Parent</source>
+				</trans-unit>
+				<trans-unit id="label.catparentHelpText">
+					<source>Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.</source>
+				</trans-unit>
+				<trans-unit id="label.description">
+					<source>Description</source>
+				</trans-unit>
+				<trans-unit id="label.descriptionHelp">
+					<source>The description is not prominent by default; however, some themes may show it.</source>
+				</trans-unit>
+				<trans-unit id="label.delCat">
+					<source>Delete Category</source>
+				</trans-unit>
+				<trans-unit id="label.saveCat">
+					<source>Save Category</source>
+				</trans-unit>
+				<trans-unit id="label.allCats">
+					<source>All Categories</source>
+				</trans-unit>
+				<trans-unit id="label.count">
+					<source>Count</source>
+				</trans-unit>
+				<trans-unit id="label.authorName">
+					<source>Author Name</source>
+				</trans-unit>
+				<trans-unit id="label.authorEmail">
+					<source>Author Email</source>
+				</trans-unit>
+				<trans-unit id="label.authorUrl">
+					<source>Author Url</source>
+				</trans-unit>
+				<trans-unit id="label.content">
+					<source>Content</source>
+				</trans-unit>
+				<trans-unit id="label.updateComment">
+					<source>Update Comment</source>
+				</trans-unit>
+				<trans-unit id="label.addComment">
+					<source>Add Comment</source>
+				</trans-unit>
+				<trans-unit id="label.allowComments">
+					<source>Allow Comments</source>
+				</trans-unit>
+				<trans-unit id="label.excerptHelpText">
+					<source>Excerpts are optional hand-crafted summaries of your content that can be used in your theme.</source>
+				</trans-unit>
+				<trans-unit id="label.addImage">
+					<source>Add Image</source>
+				</trans-unit>
+				<trans-unit id="label.delImage">
+					<source>Delete Image</source>
+				</trans-unit>
+				<trans-unit id="label.saveAsDraft">
+					<source>Save As Draft</source>
+				</trans-unit>
+				<trans-unit id="label.saveAsPending">
+					<source>Save As Pending</source>
+				</trans-unit>
+				<trans-unit id="label.edit">
+					<source>Edit</source>
+				</trans-unit>
+				<trans-unit id="label.status">
+					<source>Status</source>
+				</trans-unit>
+				<trans-unit id="label.draft">
+					<source>Draft</source>
+				</trans-unit>
+				<trans-unit id="label.ok">
+					<source>OK</source>
+				</trans-unit>
+				<trans-unit id="label.cancel">
+					<source>Cancel</source>
+				</trans-unit>
+				<trans-unit id="label.moveToTrash">
+					<source>Move to Trash</source>
+				</trans-unit>
+				<trans-unit id="label.publish">
+					<source>Publish</source>
+				</trans-unit>
+				<trans-unit id="label.add">
+					<source>Add</source>
+				</trans-unit>
+				<trans-unit id="label.clear">
+					<source>Clear</source>
+				</trans-unit>
+				<trans-unit id="label.tagHelpText">
+					<source>Separate tags with commas.</source>
+				</trans-unit>
+				<trans-unit id="label.tagBtnChooseText">
+					<source>Choose from the most used tags.</source>
+				</trans-unit>
+				<trans-unit id="label.postTitleHelp">
+					<source>Post Title</source>
+				</trans-unit>
+				<trans-unit id="label.postSlugHelp">
+					<source>Post Slug</source>
+				</trans-unit>
+				<trans-unit id="label.editTag">
+					<source>Edit Tag</source>
+				</trans-unit>
+				<trans-unit id="label.addTag">
+					<source>Add New Tag</source>
+				</trans-unit>
+				<trans-unit id="label.tagSlugHelpText">
+					<source>The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</source>
+				</trans-unit>
+				<trans-unit id="label.tagdescriptionHelpText">
+					<source>The description is not prominent by default; however, some themes may show it.</source>
+				</trans-unit>
+				<trans-unit id="label.delTag">
+					<source>Delete Tag</source>
+				</trans-unit>
+				<trans-unit id="label.saveTag">
+					<source>Save Tag</source>
+				</trans-unit>
+				<trans-unit id="label.allTags">
+					<source>All Tags</source>
+				</trans-unit>
+				<trans-unit id="label.categories">
+					<source>Categories</source>
+				</trans-unit>
+				<trans-unit id="label.backToList">
+					<source>Back To List</source>
+				</trans-unit>
+				<trans-unit id="label.editComment">
+					<source>Edit Comment</source>
+				</trans-unit>
+				<trans-unit id="label.comments">
+					<source>Comments</source>
+				</trans-unit>
+				<trans-unit id="label.comment">
+					<source>Comment</source>
+				</trans-unit>
+				<trans-unit id="label.inResponseTo">
+					<source>In Response To</source>
+				</trans-unit>
+				<trans-unit id="label.submittedOn">
+					<source>Submitted On</source>
+				</trans-unit>
+				<trans-unit id="label.editPost">
+					<source>Edit Post</source>
+				</trans-unit>
+				<trans-unit id="label.newPost">
+					<source>New Post</source>
+				</trans-unit>
+				<trans-unit id="label.addNewPost">
+					<source>Add New Post</source>
+				</trans-unit>
+				<trans-unit id="label.author">
+					<source>Author</source>
+				</trans-unit>
+				<trans-unit id="label.date">
+					<source>Date</source>
+				</trans-unit>
+				<trans-unit id="label.tags">
+					<source>Tags</source>
+				</trans-unit>
+				<trans-unit id="label.add">
+					<source>Add</source>
+				</trans-unit>
+				<trans-unit id="label.cancel">
+					<source>Cancel</source>
+				</trans-unit>
+				<trans-unit id="label.noTitle">
+					<source>[No Title]</source>
+				</trans-unit>
+				<trans-unit id="label.title">
+					<source>Title</source>
+				</trans-unit>
+				<trans-unit id="label.postedBy">
+					<source>Posted By</source>
+				</trans-unit>
+				<trans-unit id="label.tagged">
+					<source>Tagged</source>
+				</trans-unit>
+				
+
+			<trans-unit id="comment.leaveAReply">
+				<source>Leave a Reply</source>
+			</trans-unit>
+			<trans-unit id="comment.comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="comment.comments">
+				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="comment.comments_closed">
+				<source>Comment closed</source>
+			</trans-unit>
+			<trans-unit id="comment.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="comment.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="comment.url">
+				<source>Website</source>
+			</trans-unit>
+			<trans-unit id="comment.submit">
+				<source>Post Comment</source>
+			</trans-unit>
+
+			<trans-unit id="heading.searchResult">
+				<source>Search Result</source>
+			</trans-unit>
+			<trans-unit id="heading.tagView">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="heading.categoryView">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="heading.archiveView">
+				<source>Archive</source>
+			</trans-unit>
+			<trans-unit id="heading.authorView">
+				<source>Author</source>
+			</trans-unit>
+
+			<trans-unit id="widget.pagination.previous">
+				<source>Previous</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.next">
+				<source>Next</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.first">
+				<source>First</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.last">
+				<source>Last</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.records">
+				<source>Records</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.page">
+				<source>Page</source>
+			</trans-unit>
+			<trans-unit id="widget.pagination.refresh">
+				<source>Refresh</source>
+			</trans-unit>
+			<trans-unit id="viewhelper.format.bytes.units">
+				<source>B,KB,MB,GB,TB,PB,EB,ZB,YB</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

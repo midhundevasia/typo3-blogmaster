@@ -1,0 +1,13 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<aside class="widget widget-recent-post-list">
+	<h2 class="widget-title">{cObject.header}</h2>
+	<f:if condition="{postList}">
+	<ul class="recent-post-list">
+		<f:for each='{postList}' as='post'>
+			<li>
+				<blog:link class="post-list-item" title="{post.title}" object="{post}">{post.title}</blog:link>
+			</li>
+		</f:for>
+	</ul>
+	</f:if>
+</aside>
