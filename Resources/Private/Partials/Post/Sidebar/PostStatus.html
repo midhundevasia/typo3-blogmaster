@@ -2,7 +2,7 @@
 <TB:be.collapseBox title="Publish">
 	<div>
 		<f:switch expression="{postObject.status}">
-			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/>Save As Draft</button></f:case>
+			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button></f:case>
 			<f:case value="draft">
 				<button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/>/button>
 				<button class="btn btn-default display-none" id="btn-pending" type='button' onclick="javascript:saveAsPending();"><f:translate key="label.saveAsPending"/></button>

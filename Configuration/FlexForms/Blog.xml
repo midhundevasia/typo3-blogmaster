@@ -88,7 +88,6 @@
 										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.search</numIndex>
 										<numIndex index='1'>Widgets/SearchForm</numIndex>
 									</numIndex>
-
 							</items>
 							<itemsProcFunc>Tutorboy\Blogmaster\Tca\FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
 							<maxItems>1</maxItems>
@@ -99,67 +98,5 @@
 			</el>
 		</ROOT>
 	</sDEF>
-	<sMess>
-		<ROOT>
-			<TCEforms>
-				<sheetTitle>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.tabTwo</sheetTitle>
-			</TCEforms>
-			<type>array</type>
-			<el>
-				<settings.maxItemPerPage>
-					<TCEforms>
-						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.maxItemPerPage</label>
-						<config>
-							<type>input</type>
-							<size>5</size>
-							<eval>num</eval>
-						</config>
-					</TCEforms>
-				</settings.maxItemPerPage>
-				<!-- Hide pagination -->
-				<settings.hidePagination>
-					<TCEforms>
-						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.hidePagination</label>
-						<config>
-							<type>check</type>
-						</config>
-					</TCEforms>
-				</settings.hidePagination>
-				<!-- Template Layout -->
-				<settings.paginationType>
-					<TCEforms>
-						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.paginationType</label>
-						<config>
-							<type>select</type>
-							<itemsProcFunc>GeorgRinger\News\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
-							<renderType>selectSingle</renderType>
-							<items>
-								<numIndex index="0" type="array">
-									<numIndex index="0"></numIndex>
-									<numIndex index="1"></numIndex>
-								</numIndex>
-							</items>
-						</config>
-					</TCEforms>
-				</settings.paginationType>
-				<settings.dateFormatPreConfigured>
-					<TCEforms>
-						<label>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.settings.paginationType</label>
-						<config>
-							<type>select</type>
-							<itemsProcFunc>GeorgRinger\News\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
-							<renderType>selectSingle</renderType>
-							<items>
-								<numIndex index="0" type="array">
-									<numIndex index="0"></numIndex>
-									<numIndex index="1"></numIndex>
-								</numIndex>
-							</items>
-						</config>
-					</TCEforms>
-				</settings.dateFormatPreConfigured>
-			</el>
-		</ROOT>
-	</sMess>
 </sheets>
 </T3DataStructure>

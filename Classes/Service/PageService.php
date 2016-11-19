@@ -16,49 +16,137 @@ namespace Tutorboy\Blogmaster\Service;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Page\PageRenderer;
 
 /**
- * Page services
+ * Page services class for set all the page content tags values like title, meta, etc.
  *
  * @package 	Blogmaster
- * @subpackage 	Hooks
+ * @subpackage 	Service
  * @copyright 	(c) 2016 Midhun Devasia, Tutorboy.org
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
 class PageService  implements \TYPO3\CMS\Core\SingletonInterface {
 
-	private $pageRenderer;
-
 	/**
-	 * Construct
+	 * Is blog extension
+	 * @var bool
 	 */
-	public function __construct() {
-		$this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-	}
+	public $isBlog = FALSE;
 
 	/**
-	 * Set page title
-	 * @param string $content Content
-	 * @param string $ref     Ref
-	 * @return string
+	 * Page title
+	 * @var string
 	 */
-	public static function setPageTitle($content, $ref) {
-		$GLOBALS['TSFE']->altPageTitle = $content;
-		$GLOBALS['TSFE']->indexedDocTitle = $content;
-		return $content;
-	}
+	private $title = '';
 
 	/**
-	 * Add page meta
+	 * Page description
+	 * @var string
+	 */
+	private $description = '';
+
+	/**
+	 * Page author
+	 * @var string
+	 */
+	private $author = '';
+
+	/**
+	 * Keywords
+	 * @var string
+	 */
+	private $keywords = '';
+
+	/**
+	 * View type eg: single, list, home, archive, etc.
+	 * @var string
+	 */
+	private $viewType = 'home';
+
+	/**
+	 * Setter for page title
+	 * @param string $title Page title
 	 * @return void
 	 */
-	public function addMetaTag() {
-		//$GLOBALS['TSFE']->altPageTitle = $content;
-		//$GLOBALS['TSFE']->indexedDocTitle = $content;
-		// $this->pageRenderer->addMetaTag('<title>asdd</title>');
-		// $this->pageRenderer->addHeaderData('
-		// 	<title>From service</title>
-		// 	');
+	public function setTitle($title = '') {
+		$this->title = $title;
+	}
+
+	/**
+	 * Getter for page title
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Getter for view type
+	 * @return string
+	 */
+	public function getViewType() {
+		return $this->viewType;
+	}
+
+	/**
+	 * Setter for page view type
+	 * @param string $viewType View type
+	 * @return void
+	 */
+	public function setViewType($viewType = 'list') {
+		$this->viewType = $viewType;
+	}
+
+	/**
+	 * Setter for description
+	 * @param string $description Description
+	 * @return void
+	 */
+	public function setDescription($description = '') {
+		$this->description = substr(strip_tags($description), 0, 154);
+	}
+
+	/**
+	 * Getter for Description
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * Setter for keyword
+	 * @param array $keywords Array of Keyword
+	 * @return void
+	 */
+	public function setKeywords(array $keywords) {
+		$this->keywords = $keywords;
+	}
+
+	/**
+	 * Getter for keyword
+	 * @return string
+	 */
+	public function getKeywords() {
+		if (is_array($this->keywords)) {
+			return implode(',', $this->keywords);
+		}
+	}
+
+	/**
+	 * Setter for author
+	 * @param string $authorName Author name
+	 * @return void
+	 */
+	public function setAuthor($authorName) {
+		$this->author = $authorName;
+	}
+
+	/**
+	 * Get author information
+	 * @return string
+	 */
+	public function getAuthor() {
+		return $this->author;
 	}
 }

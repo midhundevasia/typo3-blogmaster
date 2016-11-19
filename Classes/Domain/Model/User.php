@@ -64,6 +64,23 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Return the name for Display
+	 * @return string
+	 */
+	public function getDisplayName() {
+		if ($this->firstname) {
+			$name = $this->firstname;
+		}
+		if ($this->lastname) {
+			$name = $this->firstname . ' ' . $this->firstname;
+		}
+		if (empty($name)) {
+			$name = $this->username;
+		}
+		return $name;
+	}
+
+	/**
 	 * Sets this persons's firstname
 	 * @param string $firstname The person's firstname
 	 * @return void

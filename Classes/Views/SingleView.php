@@ -47,9 +47,15 @@ class SingleView extends AbstractView {
 				if (($prevPost = $postRepository->findPrevious($data))) {
 					$this->view->assign('previousPost', $prevPost);
 				}
-
-				$GLOBALS['TSFE']->page['title'] = $data->getTitle();
-
+				$this->pageService->setTitle($data->getTitle());
+				$this->pageService->setDescription($data->getContent());
+				$postTags = $data->getTags();
+				foreach ($postTags as $tag) {
+					$tags[] = $tag->getTitle();
+				}
+				$this->pageService->setKeywords($tags);
+				$this->pageService->setAuthor($data->getAuthor()->getDisplayName());
+				$this->pageService->setViewType('single');
 				$this->view->assign('post', $data);
 				$this->view->assign('comments', $comments);
 			} else {

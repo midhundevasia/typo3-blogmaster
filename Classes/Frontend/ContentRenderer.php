@@ -42,7 +42,7 @@ class ContentRenderer {
 		$this->configuration = $configuration;
 		if (is_array($configuration['pi_flexform']) && $configuration['pi_flexform']['whaToDisplay']) {
 			$pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
-			$pageService->addMetaTag();
+			$pageService->isBlog = TRUE;
 			$viewClassName = 'ViewType/' . ucfirst($configuration['pi_flexform']['whaToDisplay']);
 			if (HookService::hasHook($viewClassName) && ($className = HookService::getAll($viewClassName))) {
 				return $this->renderView($className[0]);

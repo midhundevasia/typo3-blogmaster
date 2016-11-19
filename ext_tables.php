@@ -23,6 +23,9 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['blogmaster_b
 	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:blogmaster/Configuration/TSConfig/ContentElementWizard.ts">'
 );
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem'][$_EXTKEY]
+	= \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Hooks/PageLayoutView.php:Tutorboy\Blogmaster\Hooks\PageLayoutView';
+
 /**
 * Register icons
 */

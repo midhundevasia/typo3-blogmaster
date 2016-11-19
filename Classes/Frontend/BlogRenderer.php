@@ -19,7 +19,7 @@ use Tutorboy\Blogmaster\Service\HookService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Blog renderer controller
+ * Renderer class for blog views
  *
  * @package 	Blogmaster
  * @subpackage 	Blog
@@ -28,17 +28,41 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BlogRenderer {
 
-	protected $title = NULL;
-
+	/**
+	 * Page title tag
+	 * @var string
+	 */
 	protected $titleTag = '<title itemprop="name">|</title>';
 
+	/**
+	 * HTML tag for blog
+	 * @var string
+	 */
 	protected $htmlTag = '';
 
-	public $viewType = 'list';
+	/**
+	 * Page service
+	 * @var \Tutorboy\Blogmaster\Service\PageService
+	 */
+	private $pageService;
+
+	/**
+	 * Settings service
+	 * @var \Tutorboy\Blogmaster\Service\SettingsService
+	 */
+	private $settingsService;
+
+	/**
+	 * Construct
+	 */
+	public function __construct() {
+		$this->pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
+		$this->settingsService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class);
+	}
 
 	/**
 	 * Get Title tag
-	 * @return [type] [description]
+	 * @return string
 	 */
 	public function getTitleTag() {
 		return $this->titleTag;
@@ -50,7 +74,7 @@ class BlogRenderer {
 	 */
 	public function getHtmlTag() {
 		// @todo lang="en-US"
-		switch ($this->viewType) {
+		switch ($this->pageService->getViewType()) {
 			case 'list':
 				$this->htmlTag = '<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en-US" prefix="og: http://ogp.me/ns#">';
 				break;
@@ -60,5 +84,81 @@ class BlogRenderer {
 			default:
 		}
 		return $this->htmlTag;
+	}
+
+	/**
+	 * Generate page meta tags
+	 * @param  array $params Page params
+	 * @return void
+	 */
+	public function generateMetaTags(array &$params) {
+		// @todo lang="en-US"
+		$params['htmlTag'] = $this->getHtmlTag();
+		$params['titleTag'] = $this->getTitleTag();
+		$params['metaTags'] = $this->getMetaTags($params['metaTags']);
+		$params['inlineComments'][] = $this->appendInlineComment();
+		$params['title'] = $this->pageService->getTitle();
+	}
+
+	/**
+	 * Get meta tags
+	 * @param  array $metaTags Current meta tags
+	 * @return array
+	 */
+	public function getMetaTags(array $metaTags) {
+		$this->metaTags = $metaTags;
+
+		if ($this->getDescription()) {
+			$this->metaTags[] = '<meta name="description" content="' . $this->getDescription() . '">';
+		}
+
+		if ($this->getKeywords()) {
+			$this->metaTags[] = '<meta name="keywords" content="' . $this->getKeywords() . '">';
+		}
+
+		if ($this->pageService->getAuthor()) {
+			$this->metaTags[] = '<meta name="author" content="' . $this->pageService->getAuthor() . '">';
+		}
+
+		return $this->metaTags;
+	}
+
+	/**
+	 * Get page description based on view
+	 * @return string
+	 */
+	public function getDescription() {
+
+		if ($this->pageService->getViewType() == 'single') {
+			return $this->pageService->getDescription();
+		} elseif ($this->pageService->getViewType() == 'home') {
+			$settings = $this->settingsService->getSettings();
+			if (isset($settings['meta']['description'])) {
+				return $settings['meta']['description'];
+			}
+		}
+	}
+
+	/**
+	 * Get page keywords
+	 * @return string
+	 */
+	public function getKeywords() {
+		if ($this->pageService->getViewType() == 'single') {
+			return $this->pageService->getKeywords();
+		} elseif ($this->pageService->getViewType() == 'home') {
+			$settings = $this->settingsService->getSettings();
+			if (isset($settings['meta']['keywords'])) {
+				return $settings['meta']['keywords'];
+			}
+		}
+	}
+
+	/**
+	 * Add credit info in the inline comment
+	 * @return string
+	 */
+	public function appendInlineComment() {
+		return '	Powered By EXT:Blogmaster' . LF;
 	}
 }

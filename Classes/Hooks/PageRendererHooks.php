@@ -34,10 +34,11 @@ class PageRendererHooks {
 	 * @return void
 	 */
 	public static function renderPostProcess(array &$params, &$ref) {
-		$blogRenderer = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Frontend\BlogRenderer::class);
-
-		// @todo lang="en-US"
-		$params['htmlTag'] = $blogRenderer->getHtmlTag();
-		$params['titleTag'] = $blogRenderer->getTitleTag();
+		$pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
+		// Apply render properties only if the view from Blogmaster
+		if ($pageService->isBlog === TRUE) {
+			$blogRenderer = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Frontend\BlogRenderer::class);
+			$blogRenderer->generateMetaTags($params);
+		}
 	}
 }

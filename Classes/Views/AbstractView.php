@@ -32,7 +32,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractView {
 
-
 	/**
 	 * View Object
 	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
@@ -64,6 +63,12 @@ abstract class AbstractView {
 	public $controllerContext;
 
 	/**
+	 * Page service
+	 * @var \Tutorboy\Blogmaster\Service\PageService
+	 */
+	public $pageService;
+
+	/**
 	 * Main function of a view class
 	 * @return void
 	 */
@@ -74,12 +79,13 @@ abstract class AbstractView {
 	 * @return void
 	 */
 	public function initialize() {
+		$this->pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
 		$this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface::class);
+		$this->settings = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class)->getSettings();
 		$this->view = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
 		$this->view->setControllerContext($this->controllerContext);
 		$this->view->getRequest()->setControllerExtensionName('Blogmaster');
-		$this->settings = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class)->getSettings();
 		$this->view->assign('settings', $this->settings);
 		$this->view->assign('cObject', $this->configuration['contentObject']);
 	}

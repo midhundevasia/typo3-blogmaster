@@ -18,3 +18,7 @@
 tt_content.stdWrap.innerWrap >
 lib.stdheader >
 tt_content.list.10 >
+
+module.tx_blogmaster {
+	settings < plugin.tx_blogmaster.settings
+}

@@ -19,7 +19,7 @@ namespace Tutorboy\Blogmaster\Service;
  * Settings services
  *
  * @package 	Blogmaster
- * @subpackage 	Hooks
+ * @subpackage 	Service
  * @copyright 	(c) 2016 Midhun Devasia, Tutorboy.org
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
