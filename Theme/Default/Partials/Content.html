@@ -6,7 +6,7 @@
 			<f:image image="{post.featureImage}" absolute="true"/>
 		</f:if>
 	</div>
-	<div class="p-summary"><f:format.raw>{post.content}</f:format.raw></div>
+	<div class="p-summary"><f:format.raw><blog:render object="{post}" field="content"/></f:format.raw></div>
 	
 	<div class="post-meta">
 		<span class="post-comment">

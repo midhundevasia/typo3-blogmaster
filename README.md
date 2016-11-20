@@ -39,5 +39,8 @@ I would like to spend my time here, if this extension realy helps, you are welco
 give some support
 [![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png)](https://www.paypal.me/midhundevasia/)
 
+## ChangeLog
+[ChangeLog](https://github.com/midhundevasia/typo3-blogmaster/wiki/ChangeLog)
+
 ## License
 Blogmaster is licensed under GNU General Public License (GPLv3) - see the `LICENSE` file for details.

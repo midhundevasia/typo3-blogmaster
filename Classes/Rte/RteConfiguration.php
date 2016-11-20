@@ -45,6 +45,7 @@ class RteConfiguration {
 				height: 100,
 				menubar: false,
 				image_advtab: true,
+				pagebreak_separator: "<!-- more -->",
 				autoresize_bottom_margin: 5,
 				autoresize_overflow_padding: 5,
 				content_css: "' . $path . 'Resources/Public/Css/tinymce.css",
