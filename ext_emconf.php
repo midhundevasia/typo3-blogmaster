@@ -15,7 +15,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Blog system for TYPO3 CMS',
 	'description' => 'A blog system for TYPO3 CMS. Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets',
-	'category' => 'module',
+	'category' => 'plugin',
 	'author' => 'Midhun Devasia',
 	'author_email' => 'hello@midhundevasia.com',
 	'state' => 'stable',
