@@ -39,6 +39,9 @@ I would like to spend my time here, if this extension realy helps, you are welco
 give some support
 [![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png)](https://www.paypal.me/midhundevasia/)
 
+## TODO List
+[ChangeLog](https://github.com/midhundevasia/typo3-blogmaster/wiki/To-Do-list)
+
 ## ChangeLog
 [ChangeLog](https://github.com/midhundevasia/typo3-blogmaster/wiki/ChangeLog)
 

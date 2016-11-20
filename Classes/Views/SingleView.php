@@ -50,6 +50,7 @@ class SingleView extends AbstractView {
 				$this->pageService->setTitle($data->getTitle());
 				$this->pageService->setDescription($data->getContent());
 				$postTags = $data->getTags();
+				$tags = [];
 				foreach ($postTags as $tag) {
 					$tags[] = $tag->getTitle();
 				}
