@@ -19,8 +19,8 @@
 		"TYPO3", "CMS", "Blog", "blogmaster", "blog", "article"
 	],
 	"require": {
-		"php" : ">=5.5.0",
-		"typo3/cms-core": ">=7.6.0 <9.0.0"
+		"php" : ">=5.5",
+		"typo3/cms": "^7.6 || ^8.4"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.8.0",
@@ -33,7 +33,10 @@
 	},
 	"config": {
 		"vendor-dir": "Build/vendor",
-		"bin-dir": "Build/bin"
+		"bin-dir": "Build/bin",
+		"preferred-install" : {
+			"typo3/cms": "source"
+		}
 	},
 	"autoload": {
 		"psr-4": {
@@ -46,6 +49,16 @@
 		}
 	},
 	"scripts" : {
-		"post-update-cmd" : "sh ./Build/setup.sh"
+		"post-update-cmd" : "sh ./Build/setup.sh",
+		"post-autoload-dump": [
+            "mkdir -p ./Build/Web/typo3conf/ext/",
+            "[ -L ./Build/Web/typo3conf/ext/blogmaster ] || ln -snvf ../../../../. ./Build/Web/typo3conf/ext/blogmaster"
+        ]
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": "./Build/Web"
+		}
 	}
 }
