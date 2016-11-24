@@ -35,17 +35,28 @@ class ArchiveView extends AbstractView {
 	 */
 	public function process() {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
-		$config['year'] = $this->request['year'] ? $this->request['year'] : '';
-		$config['month'] = $this->request['month'] ? $this->request['month'] : '';
-		$config['day'] = $this->request['day'] ? $this->request['day'] : '';
+		if (isset($this->request['year'])) {
+			$config['year'] = $this->request['year'];
+			$prefix = 'Year: ';
+		}
+		if (isset($this->request['month'])) {
+			$config['month'] = $this->request['month'];
+			$prefix = 'Month: ';
+		}
+		if (isset($this->request['day'])) {
+			$config['day'] = $this->request['day'];
+			$prefix = 'Day: ';
+		}
 		$data = $postRepository->findAllByYearMonthDay($config['year'], $config['month'], $config['day']);
 
 		$archiveInfo[] = $config['year'];
-		$archiveInfo[] = $config['month'] ? $config['month'] : '';
+		$archiveInfo[] = $config['month'] ? strftime('%B', strtotime('1900-' . $config['month'] . '-22')) : '';
 		$archiveInfo[] = $config['day'] ? $config['day'] : '';
+		$heading = $prefix . implode(' ', $archiveInfo);
 
 		$this->pageService->setViewType('list');
-		$this->view->assign('archiveInfo', implode(' ', $archiveInfo));
+		$this->pageService->setTitle($heading);
+		$this->view->assign('archiveInfo', $heading);
 		$this->view->assign('data', $data);
 	}
 }

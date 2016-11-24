@@ -40,6 +40,7 @@ class SearchResultView extends AbstractView {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$data = $postRepository->search($searchString);
 		$this->pageService->setViewType('list');
+		$this->pageService->setTitle('Search Results for "' . $searchString . '"');
 		$this->view->assign('data', $data);
 	}
 }

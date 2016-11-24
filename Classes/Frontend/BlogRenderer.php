@@ -107,6 +107,7 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 		$params['inlineComments'][] = $this->appendInlineComment();
 		$params['title'] = $this->getPageTitle();
 		$this->getHeaderData();
+		$this->setlocale();
 	}
 
 	/**
@@ -182,10 +183,10 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 				$feedTag,
 				$this->settingsService->getSettings('blogTitle') . ' &raquo; Feed',
 				$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
-			// $this->params['headerData'][] = sprintf(
-			// 	$feedTag,
-			// 	$this->settingsService->getSettings('blogTitle') . ' &raquo; Comments Feed',
-			// 	$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'comments/feed/');
+			$this->params['headerData'][] = sprintf(
+				$feedTag,
+				$this->settingsService->getSettings('blogTitle') . ' &raquo; Comments Feed',
+				$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'comments/feed/');
 			// $this->params['headerData'][] = sprintf(
 			// 	$feedTag,
 			// 	$this->settingsService->getSettings('blogTitle') . ' &raquo; ' . $this->pageService->getTitle() . ' Comments Feed',
@@ -229,6 +230,15 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	public function appendInlineComment() {
 		return '	Powered By EXT:Blogmaster' . LF;
+	}
+
+	/**
+	 * Setlocale
+	 * @return void
+	 */
+	private function setlocale() {
+		$locale = $this->settingsService->getSettings('locale') ? $this->settingsService->getSettings('locale') : 'en_US';
+		setlocale(LC_TIME, $locale);
 	}
 
 	/**

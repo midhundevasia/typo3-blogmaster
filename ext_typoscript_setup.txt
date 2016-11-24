@@ -52,4 +52,6 @@ plugin.tx_blogmaster.settings {
    blogTagline = 
    titleSeparator = |
    enableFeeds = 1
+
+   locale = en_US
 }

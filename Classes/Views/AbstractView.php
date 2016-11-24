@@ -88,6 +88,8 @@ abstract class AbstractView {
 		$this->view->getRequest()->setControllerExtensionName('Blogmaster');
 		$this->view->assign('settings', $this->settings);
 		$this->view->assign('cObject', $this->configuration['contentObject']);
+		$locale = $this->settings['locale'] ? $this->settings['locale'] : 'en-us';
+		setlocale(LC_TIME, $locale);
 	}
 
 	/**
