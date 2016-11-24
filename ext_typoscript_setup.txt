@@ -60,3 +60,7 @@ plugin.tx_blogmaster.settings {
 		dateFormat = F j, Y, g:i a
 	}
 }
+
+module.tx_blogmaster {
+	settings < plugin.tx_blogmaster.settings
+}

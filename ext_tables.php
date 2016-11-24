@@ -60,6 +60,16 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\
 		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-view-list-expand.svg']
 	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-close',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-close.svg']
+	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-plus',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-plus.svg']
+	);
 
 if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 

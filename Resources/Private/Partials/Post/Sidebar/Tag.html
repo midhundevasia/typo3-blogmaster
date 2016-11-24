@@ -14,7 +14,9 @@
 		<div id="post-tag-list">
 			<f:for each="{tagList}" as="tag">
 				<span class="btn btn-default tag-item-{tag.uid}">
-				<a href="javascript:removeTag({tag.uid})"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-close.svg"></a>
+				<a href="javascript:removeTag({tag.uid})">
+					<f:be.buttons.icon icon="ext-blogmaster-close"/>
+				</a>
 				<f:form.checkbox property="tags" value="{tag.uid}" class="hide"/>{tag.title}</span>
 			</f:for>
 		</div>
@@ -28,6 +30,8 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var closeIcon = '<TB:format.removeNl><f:be.buttons.icon icon="ext-blogmaster-close"/></TB:format.removeNl>';
+	var plusIcon = '<TB:format.removeNl><f:be.buttons.icon icon="ext-blogmaster-plus"/></TB:format.removeNl>';
 	var postId = '{postObject.uid}';
 	function removeTag(currentTag) {
 		TYPO3.jQuery('.tag-item-' + currentTag).find('input').attr('checked', false).parent().hide();
@@ -46,7 +50,7 @@
 			TYPO3.jQuery('#tag-mostused-clear').toggle();
 			TYPO3.jQuery('#tag-mostused').html('');
 			for (var i = data.length - 1; i >= 0; i--) {
-				TYPO3.jQuery('#tag-mostused').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-add.svg"></a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+				TYPO3.jQuery('#tag-mostused').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')">' + plusIcon + '</a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
 			}
 		});
 	}
@@ -62,7 +66,7 @@
 				}).done(function(data) {
 					TYPO3.jQuery('#tag-suggestions').html('');
 					for (var i = data.length - 1; i >= 0; i--) {
-						TYPO3.jQuery('#tag-suggestions').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-add.svg"></a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+						TYPO3.jQuery('#tag-suggestions').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:addTagFromSuggestion(' + data[i].uid + ')">' + plusIcon + '</a><input name="__additionalData[newTags][]" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
 					}
 				});
 			}
@@ -82,7 +86,7 @@
 			TYPO3.jQuery('#post-tag-list').html('');
 			TYPO3.jQuery('#post-tags').val('');
 			for (var i = data.length - 1; i >= 0; i--) {
-				TYPO3.jQuery('#post-tag-list').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:removeTag(' + data[i].uid + ')"><img width="16" src="/typo3/sysext/core/Resources/Public/Icons/T3Icons/actions/actions-close.svg"></a><input name="tags" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
+				TYPO3.jQuery('#post-tag-list').append('<span class="btn btn-default tag-item-' + data[i].uid + '"><a href="javascript:removeTag(' + data[i].uid + ')">' + closeIcon + '</a><input name="tags" value="' + data[i].uid + '" class="hide"/>' + data[i].name + '</span>');
 			}
 		});
 	}
