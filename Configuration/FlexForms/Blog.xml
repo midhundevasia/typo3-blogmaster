@@ -54,7 +54,7 @@
 										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.searchResultView</numIndex>
 										<numIndex index='1'>SearchResult</numIndex>
 									</numIndex>
-									<numIndex index='7' type="array">
+									<numIndex index='8' type="array">
 										<numIndex index='0'>LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:flexform.blog.displayType.authorPageView</numIndex>
 										<numIndex index='1'>AuthorPage</numIndex>
 									</numIndex>
