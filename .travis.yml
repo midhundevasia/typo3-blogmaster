@@ -60,8 +60,3 @@ script:
     export typo3DatabaseHost="localhost";
     export typo3DatabaseUsername="root";
     export typo3DatabasePassword="";
-  - >
-    ls -la;
-    echo;
-    ls -la Build/;
-    echo;
