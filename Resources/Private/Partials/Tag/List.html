@@ -1,5 +1,4 @@
 <f:form class="form-inline" action="list" method="POST" id="cat-list-form"> 
-<h3 class="page-heading"><f:translate key="label.allTags"/></h3>
 <div class="panel-heading">
 	<div class="row">
 		<div class="display-inline-block">
@@ -35,7 +34,7 @@
 						<td><f:form.checkbox value="{item.uid}" name="items[]" class="item"/></td>
 						<td><f:link.action controller='Tag' action='new' arguments="{id: item.uid}">{item.title}</f:link.action></td>
 						<td>{item.slug}</td>
-						<td>{item.description}</td>
+						<td><f:format.crop maxCharacters="70">{item.description}</f:format.crop></td>
 						<td>{item.count}</td>
 					</tr>
 				</f:for>

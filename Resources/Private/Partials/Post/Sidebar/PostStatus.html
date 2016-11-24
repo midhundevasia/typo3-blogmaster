@@ -1,5 +1,5 @@
 {namespace TB=Tutorboy\Blogmaster\ViewHelpers}
-<TB:be.collapseBox title="Publish">
+<TB:widget.box title="Publish">
 	<div>
 		<f:switch expression="{postObject.status}">
 			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button></f:case>
@@ -49,4 +49,4 @@
 			</f:else>
 		</f:if>
 	</div>
-</TB:be.collapseBox>
+</TB:widget.box>

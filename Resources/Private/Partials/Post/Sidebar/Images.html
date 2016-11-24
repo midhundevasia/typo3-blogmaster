@@ -1,5 +1,5 @@
 {namespace blog=Tutorboy\Blogmaster\ViewHelpers}
-<blog:be.collapseBox title="Image">
+<blog:widget.box title="Image">
 <a class="btn btn-default" onclick="Blogmaster.openFileBrowser('file', '||||feature-image|Blogmaster.fileFn.checkUniqueElement||Blogmaster.fileFn.importElement'); return false;" ><f:translate key="label.addImage"/></a>
 <div id="imageContainer">
 	<f:form.hidden property="image" id="feature-image"/>
@@ -14,4 +14,4 @@
 	height: auto;
 }
 </style>
-</blog:be.collapseBox>
+</blog:widget.box>

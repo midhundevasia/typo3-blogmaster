@@ -20,38 +20,43 @@ config.tx_extbase {
 # loading default settings
 plugin.tx_blogmaster.settings {
 
-    blogRootPageId = 
-    singlePageId = 
-    categoryPageId = 
-    tagPageId = 
-    archivePageId = 
-    searchResultPageId = 
-    authorPageId = 
-    dateFormat = F j, Y, g:i a
+	blogRootPageId = 
+	singlePageId = 
+	categoryPageId = 
+	tagPageId = 
+	archivePageId = 
+	searchResultPageId = 
+	authorPageId = 
+	dateFormat = F j, Y, g:i a
 
-    comments.active = 1
+	comments.active = 1
 
-    # You can load new templates from other extensions
-    customTheme {
-        ExtensionName = blogmaster
-        ThemeName = Default
-    }
+	# You can load new templates from other extensions
+	customTheme {
+		ExtensionName = blogmaster
+		ThemeName = Default
+	}
 
-    pagination {
-        insertBelow = 1
-        insertAbove = 0
-        itemsPerPage = 10
-    }
+	pagination {
+		insertBelow = 1
+		insertAbove = 0
+		itemsPerPage = 10
+	}
 
-    meta {
-       description = 
-       keywords = 
-    }
+	meta {
+		description = 
+		keywords = 
+	}
 
-   blogTitle = 
-   blogTagline = 
-   titleSeparator = |
-   enableFeeds = 1
+	blogTitle = 
+	blogTagline = 
+	titleSeparator = |
+	enableFeeds = 1
 
-   locale = en_US
+	locale = en_US
+
+	# Backend settings
+	backend {
+		dateFormat = F j, Y, g:i a
+	}
 }

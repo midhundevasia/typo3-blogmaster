@@ -50,6 +50,16 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\
 		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 		['source' => 'EXT:blogmaster/Resources/Public/Icons/help.svg']
 	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-collapse',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-view-list-collapse.svg']
+	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-expand',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-view-list-expand.svg']
+	);
 
 if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 
