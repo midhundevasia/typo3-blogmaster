@@ -62,6 +62,7 @@ class RteConfiguration {
 				toolbar3: "",
 				toolbar_items_size: "small",
 			});
+			tinymce.suffix = ".min";
 		});
 		';
 
