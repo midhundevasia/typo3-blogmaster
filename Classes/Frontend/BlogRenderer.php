@@ -140,20 +140,23 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 		switch ($this->pageService->getViewType()) {
 			case 'home':
 				if ($this->settingsService->getSettings('blogTitle')) {
-					$title = $this->settingsService->getSettings('blogTitle');
+					$title = $this->settingsService->getSettings('blogTitle') . ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTagline');
 				}
 				break;
 			case 'single':
 				if (!empty($this->pageService->getTitle())) {
-					$title = $this->pageService->getTitle();
+					$title = $this->pageService->getTitle() . ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTitle');
+				}
+				break;
+			case 'list':
+				if ($this->pageService->getTitle()) {
+					$title = $this->pageService->getTitle() . ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTitle');
 				}
 				break;
 			default:
 		}
 
-		if (isset($title)) {
-			$title .= ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTitle');
-		} else {
+		if (!isset($title)) {
 			$title = ($GLOBALS['TSFE']->page['title'] ? $GLOBALS['TSFE']->page['title'] : $GLOBALS['TSFE']->altPageTitle);
 		}
 

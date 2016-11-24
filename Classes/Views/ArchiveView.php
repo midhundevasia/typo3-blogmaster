@@ -44,6 +44,7 @@ class ArchiveView extends AbstractView {
 		$archiveInfo[] = $config['month'] ? $config['month'] : '';
 		$archiveInfo[] = $config['day'] ? $config['day'] : '';
 
+		$this->pageService->setViewType('list');
 		$this->view->assign('archiveInfo', implode(' ', $archiveInfo));
 		$this->view->assign('data', $data);
 	}

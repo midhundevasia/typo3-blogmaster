@@ -36,6 +36,7 @@ class TagView extends AbstractView {
 	public function process() {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$tagRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\TagRepository::class);
+		$this->pageService->setViewType('list');
 		$tagId = $this->request['tag'];
 		$data = $postRepository->findAllByTag($tagId);
 		$tagObject = $tagRepository->findOneByUid($tagId);

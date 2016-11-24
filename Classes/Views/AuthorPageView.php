@@ -36,13 +36,13 @@ class AuthorPageView extends AbstractView {
 	public function process() {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$userRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\UserRepository::class);
+		$this->pageService->setViewType('list');
 
 		if (is_int($this->request['author'])) {
 			$userData = $userRepository->findOneByUid($this->request['author']);
 		} else {
 			$userData = $userRepository->findOneByUsername($this->request['author']);
 		}
-
 		$data = $postRepository->findByCruserId($userData->getUid());
 		$this->view->assign('data', $data);
 		$this->view->assign('userData', $userData);
