@@ -178,7 +178,7 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	public function setAuthorEmail($mail) {
-		echo $this->authorEmail = $mail;
+		$this->authorEmail = $mail;
 	}
 
 	/**
