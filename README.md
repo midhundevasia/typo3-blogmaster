@@ -4,6 +4,7 @@ A simple extension to create blog in TYPO3. The extension is available on [TER](
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/midhundevasia/typo3-blogmaster.svg?style=flat-square)](https://packagist.org/packages/midhundevasia/typo3-blogmaster)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.5-8892BF.svg?style=flat-square)](https://php.net/)
+[![Build Status](https://travis-ci.org/midhundevasia/typo3-blogmaster.svg?branch=master)](https://travis-ci.org/midhundevasia/typo3-blogmaster)
 
 The extension includes the following features:
 * Post Listing
