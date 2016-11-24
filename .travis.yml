@@ -7,18 +7,18 @@ php:
 
 env:
   - TYPO3_VERSION="^7.6.0"
-  - TYPO3_VERSION="^8.6.0"
+  - TYPO3_VERSION="^8.4.0"
   - TYPO3_VERSION="dev-master"
 
 matrix:
   exclude:
     - php: 5.5
-      env: TYPO3_VERSION="^7.6.0"
-    - php: 7
-      env: TYPO3_VERSION="^7.6.0"
-    - php: 7
       env: TYPO3_VERSION="^8.4.0"
-    - php: 7
+    - php: 5.6
+      env: TYPO3_VERSION="^8.4.0"
+    - php: 5.5
+      env: TYPO3_VERSION="dev-master"
+    - php: 5.6
       env: TYPO3_VERSION="dev-master"
 
 sudo: false
@@ -49,7 +49,7 @@ script:
   - >
     echo;
     echo "Running unit tests";
-    Build/bin/phpunit -c Build/UnitTests.xml
+    ./Build/bin/phpunit -c ./Build/vendor/typo3/cms/typo3/sysext/core/Build/UnitTests.xml Tests/Unit
   - >
     echo;
     echo "Running php lint";
@@ -60,4 +60,7 @@ script:
     export typo3DatabaseHost="localhost";
     export typo3DatabaseUsername="root";
     export typo3DatabasePassword="";
- 
+  - >
+    ls -la;
+    ls -la Build/;
+    ls -la Build/Web;
