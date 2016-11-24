@@ -18,6 +18,7 @@ namespace Tutorboy\Blogmaster\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
  * Post controller
@@ -93,17 +94,27 @@ class PostController extends AbstractController {
 	 * Initialize actions
 	 * @return void
 	 */
-	public function initializeAction() {
+	protected function initializeAction() {
 		$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('blogmaster');
 		//@todo setlocale(LC_ALL, 'de_DE'); for date chagnes and slug functions
 		$this->pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/JavaScript/Backend.js');
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/Library/tinymce/tinymce.min.js');
-		$rteConf = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\RTE\RteConfiguration::class)->getConfiguration();
+		$rteConf = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Rte\RteConfiguration::class)->getConfiguration();
 		$this->pageRenderer->addJsInlineCode('tinymce', $rteConf, FALSE, TRUE);
 		$this->pageRenderer->addJsInlineCode('recordBrowseUrl', '
 			var recordBrowseUrl = ' . GeneralUtility::quoteJSvalue(BackendUtility::getModuleUrl('wizard_element_browser')) . ';',
 			FALSE, TRUE);
+	}
+
+	/**
+	 * Initialize View
+	 * @param  ViewInterface $view [description]
+	 * @return void
+	 */
+	protected function initializeView(ViewInterface $view) {
+		parent::initializeView($view);
+		$this->view->assign('categoryList', $this->categoryRepository->findAllByBlog(0));
 	}
 
 	/**
@@ -211,14 +222,6 @@ class PostController extends AbstractController {
 		$catList[-1] = 'All Categories';
 		ksort($catList);
 		$this->view->assign('categories', $catList);
-	}
-
-	/**
-	 * Initialize View
-	 * @return void
-	 */
-	public function initializeView() {
-		$this->view->assign('categoryList', $this->categoryRepository->findAllByBlog(0));
 	}
 
 	/**

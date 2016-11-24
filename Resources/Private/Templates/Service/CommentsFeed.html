@@ -1,0 +1,29 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
+
+<channel>
+	<title><f:translate key="label.commentsFor"/> {settings.blogTitle}</title>
+	<atom:link href="<f:uri.page pageUid='{settings.blogRootPageId}'  absolute='true'/>comments/feed/" rel="self" type="application/rss+xml" />
+	<link><f:uri.page pageUid='{settings.blogRootPageId}' absolute="true"/></link>
+	<description>{settings.blogTagline}</description>
+	<lastBuildDate><f:format.date format="D, d M Y H:i:s \G\M\T">{data.0.modifiedGmt}</f:format.date></lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>TYPO3 Blogmaster</generator>
+	<f:for each='{data}' as="comment">
+	<item>
+		<title><f:translate key="label.commentOn"/> {comment.postObject.title} by {comment.authorName}</title>
+		<link><blog:link object="{comment.postObject}" urlOnly='true' section="comment-{comment.uid}"/></link>
+		<dc:creator><f:format.cdata>{comment.authorName}</f:format.cdata></dc:creator>
+		<pubDate><f:format.date format="D, d M Y H:i:s \G\M\T">{comment.createdGmt}</f:format.date></pubDate>
+		<guid isPermaLink="false"><blog:link object="{comment.postObject}" urlOnly='true' section="comment-{comment.uid}"/></guid>
+		<description><f:format.cdata>{comment.content}</f:format.cdata></description>
+		<content:encoded><f:format.cdata>{comment.content}</f:format.cdata></content:encoded>
+	</item>
+	</f:for>
+</channel>
+</rss>

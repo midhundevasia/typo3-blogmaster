@@ -29,9 +29,23 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class ContentRenderer {
 
-	protected $configuration = [];
+	/**
+	 * Configurations
+	 * @var array
+	 */
+	public $configuration = [];
 
+	/**
+	 * ControllerContext
+	 * @var \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext
+	 */
 	public $controllerContext;
+
+	/**
+	 * All the request variables from controller
+	 * @var array
+	 */
+	public $request = [];
 
 	/**
 	 * Render view
@@ -40,6 +54,8 @@ class ContentRenderer {
 	 */
 	public function render(array $configuration) {
 		$this->configuration = $configuration;
+		$this->request = $this->configuration['request'];
+		$this->init();
 		if (is_array($configuration['pi_flexform']) && $configuration['pi_flexform']['whaToDisplay']) {
 			$pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
 			$pageService->isBlog = TRUE;
@@ -48,6 +64,27 @@ class ContentRenderer {
 				return $this->renderView($className[0]);
 			} else {
 				return $this->renderViewType();
+			}
+		}
+	}
+
+	/**
+	 * Initialize render context
+	 * @return void
+	 */
+	private function init() {
+		$this->initServices();
+	}
+
+	/**
+	 * Services
+	 * @return void
+	 */
+	private function initServices() {
+		if (is_array($this->request['service'])) {
+			foreach ($this->request['service'] as $serviceName => $serviceValue) {
+				$blogService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\BlogService::class);
+				$blogService->doService($serviceName, [$serviceName, $serviceValue, $this->request], $this);
 			}
 		}
 	}

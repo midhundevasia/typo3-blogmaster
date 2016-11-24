@@ -30,11 +30,26 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php'][
 * Register icons
 */
 $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-$iconRegistry->registerIcon(
-	'extension-blogmaster-blog',
-	\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-	['source' => 'EXT:blogmaster/Resources/Public/Icons/Blog.svg']
-);
+	$iconRegistry->registerIcon(
+		'extension-blogmaster-blog',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/Blog.svg']
+	);
+	$iconRegistry->registerIcon(
+		'extension-blogmaster-donate',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/piggy-bank.svg']
+	);
+	$iconRegistry->registerIcon(
+		'extension-blogmaster-bugs',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/bugs.svg']
+	);
+	$iconRegistry->registerIcon(
+		'extension-blogmaster-help',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/help.svg']
+	);
 
 if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 

@@ -18,6 +18,7 @@ namespace Tutorboy\Blogmaster\ViewHelpers\Widget;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /**
  * Pagination Viewhelper
@@ -45,13 +46,24 @@ class PaginateViewHelper extends AbstractWidgetViewHelper {
 	}
 
 	/**
+	 * Initialize arguments.
+	 *
+	 * @api
+	 * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+	 * @return void
+	 */
+	public function initializeArguments() {
+		parent::initializeArguments();
+		$this->registerArgument('objects', 'mixed', 'Object', TRUE);
+		$this->registerArgument('as', 'string', 'as', TRUE);
+		$this->registerArgument('configuration', 'array', 'configuration', FALSE, ['itemsPerPage' => 10, 'insertAbove' => FALSE, 'insertBelow' => TRUE, 'maximumNumberOfLinks' => 99]);
+	}
+
+	/**
 	 * Render pagination links
-	 * @param QueryResultInterface|ObjectStorage|array $objects Query object
-	 * @param string $as Assign to another object
-	 * @param array $configuration Pagination configuration
 	 * @return string
 	 */
-	public function render($objects, $as, array $configuration = ['itemsPerPage' => 10, 'insertAbove' => FALSE, 'insertBelow' => TRUE, 'maximumNumberOfLinks' => 99]) {
+	public function render() {
 		return $this->initiateSubRequest();
 	}
 }

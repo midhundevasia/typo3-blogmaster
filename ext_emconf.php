@@ -14,19 +14,19 @@
  */
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Blog system for TYPO3 CMS',
-	'description' => 'A blog system for TYPO3 CMS. Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets',
+	'description' => 'A blog system for TYPO3 CMS. Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets, RSS Feed, Comment Feed',
 	'category' => 'plugin',
 	'author' => 'Midhun Devasia',
 	'author_email' => 'hello@midhundevasia.com',
-	'state' => 'stable',
+	'state' => 'beta',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.0.3',
+	'version' => '1.0.4',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-7.6.99',
+			'typo3' => '7.6.0-8.9.99',
 		),
 		'conflicts' => array(
 		),

@@ -178,6 +178,7 @@ class TagController extends AbstractController {
 			foreach ($tags as $tagName) {
 				$tag = new \Tutorboy\Blogmaster\Domain\Model\Tag;
 				$tag->setTitle($tagName);
+				$tag->setSlug();
 				$this->tagRepository->add($tag);
 				$this->getPersistenceManager()->persistAll();
 				if ($tag->getUid()) {

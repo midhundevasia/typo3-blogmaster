@@ -110,7 +110,7 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $type;
 
 	/**
-	 * Constructs this post
+	 * Construct
 	 * @return void
 	 */
 	public function __construct() {
@@ -178,7 +178,7 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	public function setAuthorEmail($mail) {
-		$this->authorEmail = $mail;
+		echo $this->authorEmail = $mail;
 	}
 
 	/**
@@ -331,5 +331,15 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setPost($post) {
 		$this->post = $post;
+	}
+
+	/**
+	 * Get post object
+	 * @return \Tutorboy\Blogmaster\Domain\Model\Post
+	 */
+	public function getPostObject() {
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+		$post = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
+		return $post->findOneByUid($this->getPost());
 	}
 }

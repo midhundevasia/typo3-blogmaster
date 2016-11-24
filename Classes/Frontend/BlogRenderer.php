@@ -17,6 +17,7 @@ namespace Tutorboy\Blogmaster\Frontend;
 
 use Tutorboy\Blogmaster\Service\HookService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Renderer class for blog views
@@ -26,7 +27,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @copyright 	(c) 2016 Midhun Devasia, Tutorboy.org
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
-class BlogRenderer {
+class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Page title tag
@@ -38,7 +39,7 @@ class BlogRenderer {
 	 * HTML tag for blog
 	 * @var string
 	 */
-	protected $htmlTag = '';
+	protected $htmlTag = '<html itemscope="itemscope" itemtype="%s" lang="en-US" prefix="og: http://ogp.me/ns#">';
 
 	/**
 	 * Page service
@@ -51,6 +52,12 @@ class BlogRenderer {
 	 * @var \Tutorboy\Blogmaster\Service\SettingsService
 	 */
 	private $settingsService;
+
+	/**
+	 * Pagerenderer hook params
+	 * @var array
+	 */
+	private $params = [];
 
 	/**
 	 * Construct
@@ -75,11 +82,11 @@ class BlogRenderer {
 	public function getHtmlTag() {
 		// @todo lang="en-US"
 		switch ($this->pageService->getViewType()) {
-			case 'list':
-				$this->htmlTag = '<html itemscope="itemscope" itemtype="http://schema.org/WebPage" lang="en-US" prefix="og: http://ogp.me/ns#">';
+			case 'home':
+				$this->htmlTag = sprintf($this->htmlTag, 'http://schema.org/WebPage');
 				break;
 			case 'single':
-				$this->htmlTag = '<html itemscope="itemscope" itemtype="http://schema.org/Article" lang="en-US" prefix="og: http://ogp.me/ns#">';
+				$this->htmlTag = sprintf($this->htmlTag, 'http://schema.org/Article');
 				break;
 			default:
 		}
@@ -87,17 +94,19 @@ class BlogRenderer {
 	}
 
 	/**
-	 * Generate page meta tags
+	 * Render page header
 	 * @param  array $params Page params
 	 * @return void
 	 */
-	public function generateMetaTags(array &$params) {
+	public function renderPageHeader(array &$params) {
+		$this->params = $params;
 		// @todo lang="en-US"
 		$params['htmlTag'] = $this->getHtmlTag();
 		$params['titleTag'] = $this->getTitleTag();
 		$params['metaTags'] = $this->getMetaTags($params['metaTags']);
 		$params['inlineComments'][] = $this->appendInlineComment();
-		$params['title'] = $this->pageService->getTitle();
+		$params['title'] = $this->getPageTitle();
+		$this->getHeaderData();
 	}
 
 	/**
@@ -124,11 +133,68 @@ class BlogRenderer {
 	}
 
 	/**
+	 * Prepare the page title
+	 * @return string
+	 */
+	public function getPageTitle() {
+		switch ($this->pageService->getViewType()) {
+			case 'home':
+				if ($this->settingsService->getSettings('blogTitle')) {
+					$title = $this->settingsService->getSettings('blogTitle');
+				}
+				break;
+			case 'single':
+				if (!empty($this->pageService->getTitle())) {
+					$title = $this->pageService->getTitle();
+				}
+				break;
+			default:
+		}
+
+		if (isset($title)) {
+			$title .= ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTitle');
+		} else {
+			$title = ($GLOBALS['TSFE']->page['title'] ? $GLOBALS['TSFE']->page['title'] : $GLOBALS['TSFE']->altPageTitle);
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Set additional page headers
+	 * @return void
+	 */
+	public function getHeaderData() {
+		$this->addFeedLinks();
+	}
+
+	/**
+	 * Add feed link to the blog header
+	 * @return void
+	 */
+	private function addFeedLinks() {
+		if ($this->settingsService->getSettings('enableFeeds')) {
+			$feedTag = '<link rel="alternate" type="application/rss+xml" title="%s" href="%s" />';
+			$this->params['headerData'][] = sprintf(
+				$feedTag,
+				$this->settingsService->getSettings('blogTitle') . ' &raquo; Feed',
+				$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
+			// $this->params['headerData'][] = sprintf(
+			// 	$feedTag,
+			// 	$this->settingsService->getSettings('blogTitle') . ' &raquo; Comments Feed',
+			// 	$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'comments/feed/');
+			// $this->params['headerData'][] = sprintf(
+			// 	$feedTag,
+			// 	$this->settingsService->getSettings('blogTitle') . ' &raquo; ' . $this->pageService->getTitle() . ' Comments Feed',
+			// 	$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
+		}
+	}
+
+	/**
 	 * Get page description based on view
 	 * @return string
 	 */
 	public function getDescription() {
-
 		if ($this->pageService->getViewType() == 'single') {
 			return $this->pageService->getDescription();
 		} elseif ($this->pageService->getViewType() == 'home') {
@@ -160,5 +226,19 @@ class BlogRenderer {
 	 */
 	public function appendInlineComment() {
 		return '	Powered By EXT:Blogmaster' . LF;
+	}
+
+	/**
+	 * Return the page url from page Id
+	 * @param  int $pid Page uid
+	 * @return string
+	 */
+	private function getPageUrl($pid = 1) {
+		$this->cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+		$conf['parameter'] = $pid;
+		$conf['useCacheHash'] = 1;
+		$conf['forceAbsoluteUrl'] = 1;
+		$conf['returnLast'] = 1;
+		return $url = $this->cObj->typoLink_URL($conf);
 	}
 }

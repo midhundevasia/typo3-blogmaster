@@ -44,7 +44,11 @@ class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findAllByBlog($blog = 0) {
 		$query = $this->createQuery();
-		return $query->matching($query->equals('blog', $blog))->execute();
+		if (TYPO3_MODE === 'FE') {
+			return $query->matching($query->logicalAnd($query->equals('blog', $blog), $query->equals('status', 'publish')))->execute();
+		} else {
+			return $query->matching($query->equals('blog', $blog))->execute();
+		}
 	}
 
 	/**

@@ -1,6 +1,6 @@
 mod.wizards.newContentElement.wizardItems.plugins {
 	elements {
-		powermail {
+		blogmaster {
 			iconIdentifier = extension-blogmaster-blog
 			title = LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:blog.pluginWizardTitle
 			description = LLL:EXT:blogmaster/Resources/Private/Language/locallang_mod.xlf:blog.pluginWizardDescription

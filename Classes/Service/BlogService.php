@@ -18,50 +18,14 @@ namespace Tutorboy\Blogmaster\Service;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Action Service
+ * Blog Service
  *
  * @package 	Blogmaster
- * @subpackage 	Hooks
+ * @subpackage 	Service
  * @copyright 	(c) 2016 Midhun Devasia, Tutorboy.org
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
-class ActionService  implements \TYPO3\CMS\Core\SingletonInterface {
-
-	/**
-	 * Register action hooks
-	 * @param string $hookName Hookname
-	 * @param string $function Class name
-	 * @return void
-	 */
-	public static function addAction($hookName, $function) {
-		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$hookName][] = $function;
-	}
-
-	/**
-	 * Check if action hook exist
-	 * @param  string  $hookName Hookname
-	 * @return bool
-	 */
-	public static function hasAction($hookName) {
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$hookName])) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Get all action hooks
-	 * @param  string $hookName Hookname
-	 * @return array|NULL
-	 */
-	public static function getAll($hookName) {
-		if (self::hasAction($hookName)) {
-			return $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$hookName];
-		} else {
-			return NULL;
-		}
-	}
+class BlogService  implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Appy filter
@@ -70,13 +34,49 @@ class ActionService  implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param  object $ref     	Reference object
 	 * @return array
 	 */
-	public static function doAction($hookName, array $params, $ref) {
-		$hooks = \Tutorboy\Blogmaster\Service\HookService::getAll($hookName);
+	public static function doService($hookName, array $params, $ref) {
+		$hooks = self::getAll($hookName);
 		if (is_array($hooks)) {
 			foreach ($hooks as $funcRef) {
 				\TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $ref);
 			}
 			return $params;
+		}
+	}
+
+	/**
+	 * Register Service hooks
+	 * @param string $hookName Hookname
+	 * @param string $function Class name
+	 * @return void
+	 */
+	public static function addService($hookName, $function) {
+		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Blogmaster/Service'][$hookName][] = $function;
+	}
+
+	/**
+	 * Check if Service hook exist
+	 * @param  string  $hookName Hookname
+	 * @return bool
+	 */
+	public static function hasService($hookName) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Blogmaster/Service'][$hookName])) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Get all Service hooks
+	 * @param  string $hookName Hookname
+	 * @return array|NULL
+	 */
+	public static function getAll($hookName) {
+		if (self::hasService($hookName)) {
+			return $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Blogmaster/Service'][$hookName];
+		} else {
+			return NULL;
 		}
 	}
 }

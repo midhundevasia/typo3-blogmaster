@@ -119,6 +119,9 @@ abstract class AbstractView {
 		}
 
 		$this->view->setTemplatePathAndFileName(GeneralUtility::getFileAbsFileName('EXT:' . $themeExtensionName . '/Theme/' . $themeName . '/' . $templateName . '.html'));
+		$this->view->setPartialRootPaths([GeneralUtility::getFileAbsFileName('EXT:' . $themeExtensionName . '/Theme/' . $themeName .  '/Partials/')]);
+		$this->view->setLayoutRootPaths([GeneralUtility::getFileAbsFileName('EXT:' . $themeExtensionName . '/Theme/' . $themeName . '/Layouts/')]);
+
 		return $this->view->render();
 	}
 

@@ -179,9 +179,9 @@ class Category extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param string $slug Category slug
 	 * @return void
 	 */
-	public function setSlug($slug) {
+	public function setSlug($slug = '') {
 		if (empty($slug)) {
-			$slug = $this->title;
+			$slug = $this->getTitle();
 		}
 		$this->slug = \Tutorboy\Blogmaster\Utility\BlogUtility::slugify($slug);
 	}

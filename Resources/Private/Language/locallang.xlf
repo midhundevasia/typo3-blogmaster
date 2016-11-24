@@ -201,7 +201,24 @@
 				<trans-unit id="label.tagged">
 					<source>Tagged</source>
 				</trans-unit>
-				
+				<trans-unit id="label.refresh">
+					<source>Refresh</source>
+				</trans-unit>
+				<trans-unit id="label.support">
+					<source>Support</source>
+				</trans-unit>
+				<trans-unit id="label.bugs">
+					<source>Bugs</source>
+				</trans-unit>
+				<trans-unit id="label.documentation">
+					<source>Documentation</source>
+				</trans-unit>
+				<trans-unit id="label.commentsFor">
+					<source>Comments for</source>
+				</trans-unit>
+				<trans-unit id="label.commentOn">
+					<source>Comment on</source>
+				</trans-unit>
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>

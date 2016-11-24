@@ -145,6 +145,7 @@ class CategoryController extends AbstractController {
 				if (NULL !== (GeneralUtility::_GP('name'))) {
 					$category = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Model\Category::class);
 					$category->setTitle(GeneralUtility::_GP('name'));
+					$category->setSlug();
 					$category->setParent(GeneralUtility::_GP('parent'));
 					$this->categoryRepository->add($category);
 					$this->getPersistenceManager()->persistAll();

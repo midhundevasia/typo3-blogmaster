@@ -1,0 +1,2 @@
+cp ./Build/resources/typo3-ci/FileCommentSniff.php ./Build/vendor/typo3-ci/typo3sniffpool/Sniffs/Commenting/FileCommentSniff.php
+cp ./Build/resources/typo3-ci/ruleset.xml ./Build/vendor/typo3-ci/ruleset.xml

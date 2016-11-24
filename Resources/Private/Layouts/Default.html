@@ -6,8 +6,7 @@
 		enableExtJsDebug="false"
 		loadJQuery="true"
 		jQueryNamespace="defaultNoConflict"
-		pageTitle="Blog">
-
+		pageTitle="Blog: Powered by Blogmaster">
 	<div class="module">
 		<div class="module-docheader">
 			<div class="module-docheader-bar module-docheader-bar-buttons">
@@ -15,7 +14,11 @@
 					<f:be.pagePath /> > <f:translate key="project.shortDescription"/>
 				</div>
 				<div class="module-docheader-bar-column-right">
+					<f:be.buttons.icon uri="javascript:window.location.reload(true);" icon="actions-refresh" title="<f:translate key='label.refresh'/>" />
 					<f:be.buttons.shortcut />
+					<a href="https://github.com/midhundevasia/typo3-blogmaster/wiki" target="_blank"  title="<f:translate key='label.documentation'/>"><f:be.buttons.icon icon="extension-blogmaster-help"/></a>
+					<a href="https://github.com/midhundevasia/typo3-blogmaster/issues" target="_blank"  title="<f:translate key='label.bugs'/>"><f:be.buttons.icon icon="extension-blogmaster-bugs"/></a>
+					<a href="http://midhundevasia.com/donate/" target="_blank"  title="<f:translate key='label.support'/>"><f:be.buttons.icon icon="extension-blogmaster-donate"/></a>
 				</div>
 			</div>
 		</div>

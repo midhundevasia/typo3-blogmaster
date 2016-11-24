@@ -16,3 +16,40 @@ config.tx_extbase {
 		}
 	}
 }
+
+# loading default settings
+plugin.tx_blogmaster.settings {
+
+    blogRootPageId = 
+    singlePageId = 
+    categoryPageId = 
+    tagPageId = 
+    archivePageId = 
+    searchResultPageId = 
+    authorPageId = 
+    dateFormat = F j, Y, g:i a
+
+    comments.active = 1
+
+    # You can load new templates from other extensions
+    customTheme {
+        ExtensionName = blogmaster
+        ThemeName = Default
+    }
+
+    pagination {
+        insertBelow = 1
+        insertAbove = 0
+        itemsPerPage = 10
+    }
+
+    meta {
+       description = 
+       keywords = 
+    }
+
+   blogTitle = 
+   blogTagline = 
+   titleSeparator = |
+   enableFeeds = 1
+}

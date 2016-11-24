@@ -150,7 +150,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param string $slug Tag slug
 	 * @return void
 	 */
-	public function setSlug($slug) {
+	public function setSlug($slug = '') {
 		if (empty($slug)) {
 			$slug = $this->title;
 		}

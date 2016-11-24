@@ -1,5 +1,5 @@
 <?php
-namespace Tutorboy\Blogmaster\RTE;
+namespace Tutorboy\Blogmaster\Rte;
 
 /*
  * This file is part of the Blogmaster project.

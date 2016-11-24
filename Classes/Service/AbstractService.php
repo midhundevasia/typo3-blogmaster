@@ -1,5 +1,5 @@
 <?php
-namespace Tutorboy\Blogmaster\Hooks;
+namespace Tutorboy\Blogmaster\Service;
 
 /*
  * This file is part of the Blogmaster project.
@@ -18,27 +18,29 @@ namespace Tutorboy\Blogmaster\Hooks;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * RealUrl Hooks
+ * Abstract Service
  *
  * @package 	Blogmaster
- * @subpackage 	Blog
+ * @subpackage 	Hooks
  * @copyright 	(c) 2016 Midhun Devasia, Tutorboy.org
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
-class PageRendererHooks {
+class AbstractService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
-	 * Render
-	 * @param  array $params Params
-	 * @param  object $ref   Reference
+	 * View Instances
+	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
+	 */
+	protected $view;
+
+	/**
+	 * Setup abstract service
+	 * @param  object $pObject Parent Object
 	 * @return void
 	 */
-	public static function renderPostProcess(array &$params, &$ref) {
-		$pageService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\PageService::class);
-		// Apply render properties only if the view from Blogmaster
-		if ($pageService->isBlog === TRUE) {
-			$blogRenderer = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Frontend\BlogRenderer::class);
-			$blogRenderer->renderPageHeader($params);
-		}
+	public function setup($pObject) {
+		$this->view = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
+		$this->view->setControllerContext($pObject->controllerContext);
+		$this->view->getRequest()->setControllerExtensionName('Blogmaster');
 	}
 }

@@ -68,6 +68,7 @@ class LinkViewHelper extends AbstractTagBasedViewHelper {
 		$this->registerArgument('section', 'string', 'section', FALSE);
 		$this->registerArgument('type', 'string', 'Type', FALSE);
 		$this->registerArgument('params', 'array', 'Additional Params', FALSE);
+		$this->registerArgument('urlOnly', 'string', 'Additional Params', FALSE);
 		$this->registerTagAttribute('rel', 'string', 'rel', FALSE);
 		$this->registerTagAttribute('itemprop', 'string', 'rel', FALSE);
 	}
@@ -102,6 +103,10 @@ class LinkViewHelper extends AbstractTagBasedViewHelper {
 			$section = '#' . $this->arguments['section'];
 		}
 		$url = $this->cObj->typoLink_URL($conf) . $section;
+
+		if ($this->arguments['urlOnly'] == TRUE) {
+			return $url;
+		}
 
 		$this->tag->addAttribute('href', $url);
 		if (empty($content)) {

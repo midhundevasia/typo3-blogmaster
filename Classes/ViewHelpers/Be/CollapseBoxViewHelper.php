@@ -29,6 +29,18 @@ use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 class CollapseBoxViewHelper extends AbstractViewHelper {
 
 	/**
+	 * EscapeOutput
+	 * @var bool
+	 */
+	protected $escapeOutput = FALSE;
+
+	/**
+	 * EscapeChildren
+	 * @var bool
+	 */
+	protected $escapeChildren = FALSE;
+
+	/**
 	 * Disable the escaping interceptor because otherwise the child nodes would be escaped before this view helper
 	 * can decode the text's entities.
 	 *
