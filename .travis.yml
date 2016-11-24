@@ -62,5 +62,6 @@ script:
     export typo3DatabasePassword="";
   - >
     ls -la;
+    echo;
     ls -la Build/;
-    ls -la Build/Web;
+    echo;
