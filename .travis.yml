@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7
@@ -15,8 +14,8 @@ matrix:
   exclude:
     - php: 5.5
       env: TYPO3_VERSION="^7.6.0"
-    - php: 5.6
-      env: TYPO3_VERSION="dev-master"
+    - php: 7
+      env: TYPO3_VERSION="^7.6.0"
     - php: 7
       env: TYPO3_VERSION="^8.4.0"
     - php: 7
