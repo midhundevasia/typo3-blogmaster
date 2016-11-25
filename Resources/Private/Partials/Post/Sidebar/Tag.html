@@ -15,7 +15,7 @@
 			<f:for each="{tagList}" as="tag">
 				<span class="btn btn-default tag-item-{tag.uid}">
 				<a href="javascript:removeTag({tag.uid})">
-					<f:be.buttons.icon icon="ext-blogmaster-close"/>
+					<TB:be.buttons.icon icon="ext-blogmaster-close"/>
 				</a>
 				<f:form.checkbox property="tags" value="{tag.uid}" class="hide"/>{tag.title}</span>
 			</f:for>
@@ -30,8 +30,8 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var closeIcon = '<TB:format.removeNl><f:be.buttons.icon icon="ext-blogmaster-close"/></TB:format.removeNl>';
-	var plusIcon = '<TB:format.removeNl><f:be.buttons.icon icon="ext-blogmaster-plus"/></TB:format.removeNl>';
+	var closeIcon = '<TB:format.removeNl><TB:be.buttons.icon icon="ext-blogmaster-close"/></TB:format.removeNl>';
+	var plusIcon = '<TB:format.removeNl><TB:be.buttons.icon icon="ext-blogmaster-plus"/></TB:format.removeNl>';
 	var postId = '{postObject.uid}';
 	function removeTag(currentTag) {
 		TYPO3.jQuery('.tag-item-' + currentTag).find('input').attr('checked', false).parent().hide();
