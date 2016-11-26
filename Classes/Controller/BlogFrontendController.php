@@ -34,14 +34,21 @@ class BlogFrontendController extends AbstractController {
 	public function renderAction() {
 		$settingsService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class);
 		$settingsService->setSettings($this->settings);
-
+		$data = [];
 		$data['contentObject'] = $this->configurationManager->getContentObject()->data;
 		$data['pi_flexform'] = $this->convertFlexFormToArray($this->configurationManager->getContentObject()->data['pi_flexform']);
 		$data['request'] = $this->request->getArguments();
+		$this->view->assign('content', $this->renderContent($data));
+	}
 
+	/**
+	 * Render the content based on the view
+	 * @param string $data Data array
+	 * @return string
+	 */
+	public function renderContent($data) {
 		$contentRenderer = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Frontend\ContentRenderer::class);
 		$contentRenderer->controllerContext = $this->controllerContext;
-		$content = $contentRenderer->render($data);
-		$this->view->assign('content', $content);
+		return $content = $contentRenderer->render($data);
 	}
 }
