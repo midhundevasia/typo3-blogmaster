@@ -63,4 +63,5 @@ Icons
  - http://www.flaticon.com/
 
 ## Screenshot
-![](Documentation/Images/Frontend.HomeView.png)
+![](https://raw.githubusercontent.com/midhundevasia/typo3-blogmaster/master/Documentation/Images/Frontend.HomeView.png)
+![](https://raw.githubusercontent.com/midhundevasia/typo3-blogmaster/master/Documentation/Images/Backend.PostEdit.png)
