@@ -41,7 +41,9 @@ class TagCloudView extends \Tutorboy\Blogmaster\Views\AbstractView {
 		$tagMax = $tags[0]['frequency'];
 		$tagMin = $tags[count($tags) - 1]['frequency'];
 		array_walk($tags, function(&$value, $key, $params) {
-			$value['size'] = ((($params[0]) * ($value['frequency'] - $params[1])) / ($params[2] - $params[1]));
+			$divisor = ($params[2] - $params[1]) <= 0 ? 1 : ($params[2] - $params[1]);
+			$dividend = ($params[0]) * ($value['frequency'] - $params[1]);
+			$value['size'] = (($dividend) / ($divisor));
 			if ($value['size'] <= 0) {
 				$value['size'] = 8;
 			}
