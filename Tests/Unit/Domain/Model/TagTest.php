@@ -25,7 +25,7 @@ class TagTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	protected $fixture = null;
 
 	protected function setUp() {
-		$this->fixture = new \Tutorboy\Blogmaster\Domain\Model\Tag();
+		$this->fixture = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Domain\Model\Tag::class);
 	}
 
 	/**
