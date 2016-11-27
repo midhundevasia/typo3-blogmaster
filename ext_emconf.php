@@ -12,7 +12,7 @@
  *
  * Blogmaster - A blog system for TYPO3!
  */
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
 	'title' => 'Blog system for TYPO3 CMS',
 	'description' => 'A blog system for TYPO3 CMS. Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets, RSS Feed, Comment Feed',
 	'category' => 'plugin',
@@ -20,17 +20,15 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'hello@midhundevasia.com',
 	'state' => 'stable',
 	'internal' => '',
-	'uploadfolder' => '0',
+	'uploadfolder' => 0,
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
 	'version' => '1.0.5',
-	'constraints' => array(
-		'depends' => array(
+	'constraints' => [
+		'depends' => [
 			'typo3' => '7.6.0-8.9.99',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-);
+		],
+		'conflicts' => [],
+		'suggests' => [],
+	],
+];
