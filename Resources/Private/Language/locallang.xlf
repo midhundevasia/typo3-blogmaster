@@ -219,6 +219,12 @@
 				<trans-unit id="label.commentOn">
 					<source>Comment on</source>
 				</trans-unit>
+				<trans-unit id="label.commentsOn">
+					<source>Comments on</source>
+				</trans-unit>
+				<trans-unit id="label.by">
+					<source>By</source>
+				</trans-unit>
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>

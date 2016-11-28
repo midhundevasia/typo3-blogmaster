@@ -49,6 +49,8 @@ class SingleView extends AbstractView {
 				}
 				$this->pageService->setTitle($data->getTitle());
 				$this->pageService->setDescription($data->getContent());
+				$this->pageService->setUrl(\Tutorboy\Blogmaster\Utility\BlogUtility::getPostUrl($data->getUid()));
+				$this->pageService->setImage($data->getImage());
 				$postTags = $data->getTags();
 				$tags = [];
 				foreach ($postTags as $tag) {

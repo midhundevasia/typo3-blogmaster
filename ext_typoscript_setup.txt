@@ -59,6 +59,12 @@ plugin.tx_blogmaster.settings {
 	backend {
 		dateFormat = F j, Y, g:i a
 	}
+
+	enableOpenGraph = 1
+	facebook {
+		appId =
+		admins =
+	}
 }
 
 module.tx_blogmaster {

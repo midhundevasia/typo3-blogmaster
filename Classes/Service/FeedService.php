@@ -43,6 +43,9 @@ class FeedService extends AbstractService {
 	 */
 	public function generateBlogFeed(array &$params, &$pObj) {
 		parent::setup($pObj);
+		if (isset($params['request']['post'])) {
+			$this->generatePostFeed($params['request']['post']);
+		}
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$data = $postRepository->findAllByBlog(0);
 		$this->view->assign('settings', $this->settingsService->getSettings());
@@ -73,9 +76,20 @@ class FeedService extends AbstractService {
 
 	/**
 	 * Generate Post comments feed
+	 * @param int $postId Post Uid
 	 * @return void
-	 * @todo Will update in future release
 	 */
-	public function generatePostFeed() {
+	public function generatePostFeed($postId) {
+		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
+		$commentRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\CommentRepository::class);
+		$data = $postRepository->findOneByUid($postId);
+		$comments = $commentRepository->findByPost($postId);
+		$this->view->assign('settings', $this->settingsService->getSettings());
+		$this->view->assign('data', $data);
+		$this->view->assign('comments', $comments);
+		$this->view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:blogmaster/Resources/Private/Templates/Service/PostFeed.html'));
+		header('Content-type: text/xml');
+		echo $this->view->render();
+		exit(0);
 	}
 }

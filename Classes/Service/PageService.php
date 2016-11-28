@@ -64,6 +64,18 @@ class PageService  implements \TYPO3\CMS\Core\SingletonInterface {
 	private $viewType = 'home';
 
 	/**
+	 * Url
+	 * @var string
+	 */
+	private $url = '';
+
+	/**
+	 * Image
+	 * @var string
+	 */
+	private $image = '';
+
+	/**
 	 * Setter for page title
 	 * @param string $title Page title
 	 * @return void
@@ -103,7 +115,7 @@ class PageService  implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return void
 	 */
 	public function setDescription($description = '') {
-		$this->description = substr(strip_tags($description), 0, 154);
+		$this->description = substr(\Tutorboy\Blogmaster\Utility\StringUtility::convertToPlainString($description), 0, 154);
 	}
 
 	/**
@@ -148,5 +160,43 @@ class PageService  implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	public function getAuthor() {
 		return $this->author;
+	}
+
+	/**
+	 * Get url
+	 * @return string
+	 */
+	public function getUrl() {
+		return $this->url;
+	}
+
+	/**
+	 * Set url
+	 * @param string $url Url
+	 * @return void
+	 */
+	public function setUrl($url) {
+		$this->url = $url;
+	}
+
+	/**
+	 * Get image
+	 * @return string
+	 */
+	public function getImage() {
+		return $this->image;
+	}
+
+	/**
+	 * Set image
+	 * @param string $image Image path
+	 * @return void
+	 */
+	public function setImage($image) {
+		if ($image > 0) {
+			$resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+			$file = $resourceFactory->getFileObject($image);
+			$this->image = $file->getIdentifier();
+		}
 	}
 }

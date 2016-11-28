@@ -41,6 +41,7 @@ class TagView extends AbstractView {
 		$data = $postRepository->findAllByTag($tagId);
 		$tagObject = $tagRepository->findOneByUid($tagId);
 		$this->pageService->setTitle($tagObject->getTitle());
+		$this->pageService->setDescription($tagObject->getDescription());
 		$this->view->assign('data', $data);
 		$this->view->assign('tagObject', $tagObject);
 	}
