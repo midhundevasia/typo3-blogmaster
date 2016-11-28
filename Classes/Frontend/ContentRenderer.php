@@ -84,7 +84,7 @@ class ContentRenderer {
 		if (is_array($this->request['service'])) {
 			foreach ($this->request['service'] as $serviceName => $serviceValue) {
 				$blogService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\BlogService::class);
-				$blogService->doService($serviceName, [$serviceName, $serviceValue, $this->request], $this);
+				$blogService->doService($serviceName, [$serviceName, $serviceValue, 'request' => $this->request], $this);
 			}
 		}
 	}

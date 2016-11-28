@@ -17,6 +17,7 @@ namespace Tutorboy\Blogmaster\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * General utility
@@ -53,5 +54,48 @@ class BlogUtility extends AbstractUtility {
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Get post url
+	 * @param  int $postId Post Uid
+	 * @return string
+	 */
+	public static function getPostUrl($postId) {
+		$settingsService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class);
+		return self::generateUrl($settingsService->getSettings('singlePageId'), '&tx_blogmaster_blog[post]=' . $postId);
+	}
+
+	/**
+	 * Get blog url
+	 * @return string
+	 */
+	public static function getBlogUrl() {
+		$settingsService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class);
+		return self::generateUrl($settingsService->getSettings('blogRootPageId'));
+	}
+
+	/**
+	 * Get current page url
+	 * @return string
+	 */
+	public static function getCurrentUrl() {
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL');
+	}
+
+	/**
+	 * Generate Url
+	 * @param  int $pageId Page Uid
+	 * @param  string $additionalParams Additional params
+	 * @return string
+	 */
+	public static function generateUrl($pageId, $additionalParams = '') {
+		$cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+		$conf['additionalParams'] = $additionalParams;
+		$conf['parameter'] = $pageId;
+		$conf['useCacheHash'] = 1;
+		$conf['forceAbsoluteUrl'] = 1;
+		$conf['returnLast'] = 1;
+		return $url = $cObj->typoLink_URL($conf);
 	}
 }

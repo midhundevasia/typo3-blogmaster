@@ -18,6 +18,7 @@ namespace Tutorboy\Blogmaster\Frontend;
 use Tutorboy\Blogmaster\Service\HookService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use Tutorboy\Blogmaster\Utility\BlogUtility;
 
 /**
  * Renderer class for blog views
@@ -130,7 +131,36 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 			$this->metaTags[] = '<meta name="author" content="' . $this->pageService->getAuthor() . '">';
 		}
 
+		$this->getOpenGraphMetas($this->metaTags);
 		return $this->metaTags;
+	}
+
+	/**
+	 * Add facebook open graph
+	 * @return void
+	 */
+	private function getOpenGraphMetas() {
+		if ($this->settingsService->getSettings('enableOpenGraph') == TRUE) {
+			if ($this->pageService->getViewType() == 'single') {
+				$this->metaTags[] = '<meta property="og:type" content="article"/>';
+			} elseif ($this->pageService->getViewType() == 'list') {
+				$this->metaTags[] = '<meta property="og:type" content="object"/>';
+			} else {
+				$this->metaTags[] = '<meta property="og:type" content="website"/>';
+			}
+			$this->metaTags[] = '<meta property="og:locale" content="' . $this->settingsService->getSettings('locale') . '"/>';
+			$this->metaTags[] = '<meta property="og:title" content="' . $this->getPageTitle() . '"/>';
+			if (NULL !== ($this->getDescription())) {
+				$this->metaTags[] = '<meta property="og:description" content="' . $this->getDescription() . '"/>';
+			}
+			$this->metaTags[] = '<meta property="og:url" content="' . $this->pageService->getUrl() . '"/>';
+			$this->metaTags[] = '<meta property="og:site_name" content="' . $this->settingsService->getSettings('blogTitle') . '"/>';
+			$this->metaTags[] = '<meta property="og:image" content="' . $this->pageService->getImage() . '"/>';
+			if (isset($this->settingsService->getSettings('facebook')['appId'])) {
+				$this->metaTags[] = '<meta property="fb:app_id" content="' . $this->settingsService->getSettings('facebook')['appId'] . '"/>';
+				$this->metaTags[] = '<meta property="fb:admins" content="' . $this->settingsService->getSettings('facebook')['admins'] . '"/>';
+			}
+		}
 	}
 
 	/**
@@ -142,6 +172,7 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 			case 'home':
 				if ($this->settingsService->getSettings('blogTitle')) {
 					$title = $this->settingsService->getSettings('blogTitle') . ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTagline');
+					$this->pageService->setUrl(BlogUtility::getBlogUrl());
 				}
 				break;
 			case 'single':
@@ -153,6 +184,7 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 				if ($this->pageService->getTitle()) {
 					$title = $this->pageService->getTitle() . ' ' . $this->settingsService->getSettings('titleSeparator') . ' ' . $this->settingsService->getSettings('blogTitle');
 				}
+				$this->pageService->setUrl(BlogUtility::getCurrentUrl());
 				break;
 			default:
 		}
@@ -182,15 +214,17 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 			$this->params['headerData'][] = sprintf(
 				$feedTag,
 				$this->settingsService->getSettings('blogTitle') . ' &raquo; Feed',
-				$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
+				BlogUtility::generateUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
 			$this->params['headerData'][] = sprintf(
 				$feedTag,
 				$this->settingsService->getSettings('blogTitle') . ' &raquo; Comments Feed',
-				$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'comments/feed/');
-			// $this->params['headerData'][] = sprintf(
-			// 	$feedTag,
-			// 	$this->settingsService->getSettings('blogTitle') . ' &raquo; ' . $this->pageService->getTitle() . ' Comments Feed',
-			// 	$this->getPageUrl($this->settingsService->getSettings('blogRootPageId')) . 'feed/');
+				BlogUtility::generateUrl($this->settingsService->getSettings('blogRootPageId')) . 'comments/feed/');
+			if ($this->pageService->getViewType() == 'single') {
+				$this->params['headerData'][] = sprintf(
+				$feedTag,
+				$this->settingsService->getSettings('blogTitle') . ' &raquo; ' . $this->pageService->getTitle() . ' Comments Feed',
+				$this->pageService->getUrl() . 'feed/');
+			}
 		}
 	}
 
@@ -199,7 +233,7 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return string
 	 */
 	public function getDescription() {
-		if ($this->pageService->getViewType() == 'single') {
+		if ($this->pageService->getViewType() == 'single' || $this->pageService->getViewType() == 'list') {
 			return $this->pageService->getDescription();
 		} elseif ($this->pageService->getViewType() == 'home') {
 			$settings = $this->settingsService->getSettings();
@@ -239,19 +273,5 @@ class BlogRenderer implements \TYPO3\CMS\Core\SingletonInterface {
 	private function setlocale() {
 		$locale = $this->settingsService->getSettings('locale') ? $this->settingsService->getSettings('locale') : 'en_US';
 		setlocale(LC_TIME, $locale);
-	}
-
-	/**
-	 * Return the page url from page Id
-	 * @param  int $pid Page uid
-	 * @return string
-	 */
-	private function getPageUrl($pid = 1) {
-		$this->cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-		$conf['parameter'] = $pid;
-		$conf['useCacheHash'] = 1;
-		$conf['forceAbsoluteUrl'] = 1;
-		$conf['returnLast'] = 1;
-		return $url = $this->cObj->typoLink_URL($conf);
 	}
 }
