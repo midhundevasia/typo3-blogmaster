@@ -47,7 +47,7 @@ class CommentController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		if ($this->request->hasArgument('bulk-action') && !$this->request->hasArgument('search')) {
+		if ($this->request->hasArgument('bulk-action') && NULL !== $this->request->getArgument('search')) {
 			$action = $this->request->getArgument('bulk-action');
 			if ($this->request->hasArgument('items')) {
 				$items = $this->request->getArgument('items');
@@ -62,7 +62,7 @@ class CommentController extends AbstractController {
 							}
 						}
 						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been moved to trash', 'Done!', FlashMessage::WARNING);
+						$this->addFlashMessage('Comment(s) has been moved to trash', 'Done!', FlashMessage::OK);
 						break;
 					// Publish all selected comments.
 					case 'publish':
@@ -75,7 +75,7 @@ class CommentController extends AbstractController {
 							}
 						}
 						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been published', 'Done!', FlashMessage::WARNING);
+						$this->addFlashMessage('Comment(s) has been published', 'Done!', FlashMessage::OK);
 						break;
 					// Pending all selected comments.
 					case 'pending':
@@ -88,7 +88,7 @@ class CommentController extends AbstractController {
 							}
 						}
 						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been marked as pending', 'Done!', FlashMessage::WARNING);
+						$this->addFlashMessage('Comment(s) has been marked as pending', 'Done!', FlashMessage::OK);
 						break;
 					// Spam all selected comments.
 					case 'spam':
@@ -101,7 +101,7 @@ class CommentController extends AbstractController {
 							}
 						}
 						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been mark as spam', 'Done!', FlashMessage::WARNING);
+						$this->addFlashMessage('Comment(s) has been mark as spam', 'Done!', FlashMessage::OK);
 						break;
 					default:
 				}
@@ -116,7 +116,7 @@ class CommentController extends AbstractController {
 		} elseif ($this->request->hasArgument('filter-by-status') && $this->request->getArgument('filter-by-status') != -1) {
 			// Search filter
 			$status = $this->request->getArgument('filter-by-status');
-			$comments = $this->commentRepository->findByApproved($status);
+			$comments = $this->commentRepository->findByStatus($status);
 			$this->view->assign('filter-by-status', $status);
 		} elseif ($this->request->hasArgument('search')) {
 			// Search filter
@@ -130,12 +130,30 @@ class CommentController extends AbstractController {
 		$this->view->assign('comments', $comments);
 	}
 
+
+	/**
+	 * New comment
+	 * @return void
+	 */
+	public function newAction() {
+		if ($this->request->hasArgument('post')) {
+			$this->view->assign('post', $this->request->getArgument('post'));
+		}
+	}
+
 	/**
 	 * Create new comment
 	 * @param  \Tutorboy\Blogmaster\Domain\Model\Comment $comment Comment object
 	 * @return void
 	 */
 	public function createAction(\Tutorboy\Blogmaster\Domain\Model\Comment $comment) {
+		if (!isset($this->settings['defaultCommentStatus'])) {
+			$comment->setStatus('publish');
+		} else {
+			$comment->setStatus($this->settings['defaultCommentStatus']);
+		}
+		$comment->setAgent($_SERVER['HTTP_USER_AGENT']);
+		$comment->setAuthorIp($_SERVER['REMOTE_ADDR']);
 		$this->commentRepository->add($comment);
 		$this->getPersistenceManager()->persistAll();
 		if ($comment->getUid()) {
@@ -161,6 +179,11 @@ class CommentController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(\Tutorboy\Blogmaster\Domain\Model\Comment $comment) {
+		if (!isset($this->settings['defaultCommentStatus'])) {
+			$comment->setStatus('publish');
+		} else {
+			$comment->setStatus($this->settings['defaultCommentStatus']);
+		}
 		$this->commentRepository->add($comment);
 		$this->getPersistenceManager()->persistAll();
 		if ($comment->getUid()) {
@@ -172,39 +195,56 @@ class CommentController extends AbstractController {
 	}
 
 	/**
-	 * Add new comment for a post. Access from frontend plugin
+	 * Add comment form
 	 * @return NULL
 	 */
+	public function commentFormAction() {
+		return '';
+	}
+
+	/**
+	 * Add new comment for a post. Access from frontend plugin
+	 * @return void
+	 */
 	public function addCommentAction() {
-		if ($this->request->hasArgument('post')) {
-			$post = $this->request->getArgument('post');
-			if ($this->request->hasArgument('comment')) {
-				$commentData = $this->request->getArgument('comment');
-				if ($commentData['message']) {
-					$comment = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Domain\Model\Comment::class);
-					$comment->setContent($commentData['message']);
-					$comment->setAuthorName($commentData['name']);
-					$comment->setAuthorUrl($commentData['url']);
-					$comment->setAuthorEmail($commentData['email']);
-					$comment->setAgent($_SERVER['HTTP_USER_AGENT']);
-					$comment->setAuthorIp($_SERVER['REMOTE_ADDR']);
-					$comment->setType('comment');
-					if (!isset($this->settings['defaultCommentStatus'])) {
-						$comment->setStatus('publish');
-					} else {
-						$comment->setStatus($this->settings['defaultCommentStatus']);
-					}
-					$comment->setPost($post);
-					$this->commentRepository->add($comment);
-					$this->getPersistenceManager()->persistAll();
-					if ($comment->getUid()) {
-						$this->addFlashMessage('Comment has been submitted', 'Done!', FlashMessage::OK);
-					} else {
-						$this->addFlashMessage('Comment could not be update.', 'Error!', FlashMessage::ERROR);
-					}
+		if ($this->request->hasArgument('comment')) {
+			$commentData = $this->request->getArgument('comment');
+			$comment = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Domain\Model\Comment::class);
+			$comment->setContent($commentData['content']);
+			$comment->setAuthorName($commentData['authorName']);
+			$comment->setAuthorUrl($commentData['authorUrl']);
+			$comment->setAuthorEmail($commentData['authorEmail']);
+			$comment->setAgent($_SERVER['HTTP_USER_AGENT']);
+			$comment->setAuthorIp($_SERVER['REMOTE_ADDR']);
+			$comment->setType('comment');
+			if (!isset($this->settings['defaultCommentStatus'])) {
+				$comment->setStatus('publish');
+			} else {
+				$comment->setStatus($this->settings['defaultCommentStatus']);
+			}
+			$comment->setPost($commentData['post']);
+			$validator = $this->validatorResolver->getBaseValidatorConjunction(\Tutorboy\Blogmaster\Domain\Model\Comment::class);
+			$result = $validator->validate($comment);
+			if ($result->hasErrors()) {
+				$validationErrors = $result->getFlattenedErrors();
+				$errors = [];
+				foreach ($validationErrors as $propertyName => $validationError) {
+					$errors[$propertyName] = $validationError[0]->getMessage();
 				}
+				$this->view->assign('validationErrors', $errors);
+			} else {
+				$this->commentRepository->add($comment);
+				$this->getPersistenceManager()->persistAll();
 			}
 		}
-		return '';
+		if (!$comment->getPost()) {
+			$redirect = \Tutorboy\Blogmaster\Utility\BlogUtility::getBlogUrl();
+		}
+		if ($comment->getUid()) {
+			$redirect = \Tutorboy\Blogmaster\Utility\BlogUtility::getPostUrl($comment->getPost()) . '#comment-' . $comment->getUid();
+		} else {
+			$redirect = \Tutorboy\Blogmaster\Utility\BlogUtility::getPostUrl($comment->getPost());
+		}
+		header('Location:' . $redirect);
 	}
 }

@@ -1,0 +1,10 @@
+<f:layout name="Default"/>
+<f:section name="content">
+<h1 class="pull-left page-heading"><f:translate key="label.editComment"/></h1>
+<f:link.action action="list" controller="Comment" class='btn btn-default pull-right'><f:translate key="label.backToList"/></f:link.action>
+<div class="col-sm-12">
+	<div class="row">
+		<f:render partial='Comment/Form' arguments="{_all}"/>
+	</div>
+</div>
+</f:section>

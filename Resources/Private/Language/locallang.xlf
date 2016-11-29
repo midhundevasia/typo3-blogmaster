@@ -291,6 +291,13 @@
 			<trans-unit id="viewhelper.format.bytes.units">
 				<source>B,KB,MB,GB,TB,PB,EB,ZB,YB</source>
 			</trans-unit>
+
+			<trans-unit id="validator.emailaddress.notvalid">
+				<source>Email is not valid</source>
+			</trans-unit>
+			<trans-unit id="validator.url.notvalid">
+				<source>URL is not valid</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

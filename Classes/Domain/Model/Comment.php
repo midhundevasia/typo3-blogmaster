@@ -28,24 +28,28 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Comment content
 	 * @var string
+	 * @validate StringLength(minimum = 3)
 	 */
 	protected $content = '';
 
 	/**
 	 * Comment author
 	 * @var string
+	 * @validate NotEmpty
 	 */
 	protected $authorName = '';
 
 	/**
 	 * Author email
 	 * @var string
+	 * @validate \Tutorboy\Blogmaster\Domain\Validator\EmailValidator
 	 */
 	protected $authorEmail = '';
 
 	/**
 	 * Author url
 	 * @var string
+	 * @validate \Tutorboy\Blogmaster\Domain\Validator\UrlValidator
 	 */
 	protected $authorUrl = '';
 

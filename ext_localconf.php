@@ -26,7 +26,7 @@ defined('TYPO3_MODE') or die();
 	'Tutorboy.' . $_EXTKEY,
 	'Comment',
 	[
-		'Comment' => 'addComment',
+		'Comment' => 'commentForm,addComment',
 	]
 );
 

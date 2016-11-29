@@ -1,6 +1,27 @@
-{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
-<TB:widget.box title="Comments">
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<blog:widget.box title="Comments">
 <div class="form-group">
-	<f:link.action action="new" class="btn btn-default" controller="Comment"><f:translate key="label.addComment"/></f:link.action>
+	<f:link.action action="new" class="btn btn-default" controller="Comment" arguments="{post: postObject.uid}"><f:translate key="label.addComment"/></f:link.action>
 </div>
-</TB:widget.box>
+<div class="list-group comments-list">
+	<table class="table table-striped table-hover">
+	<tbody>
+		<f:for each="{comments}" as="comment">
+			<tr class="bgColor4">
+				<td width="300">
+					<div class="pull-left">
+						<blog:gravatar email="{comment.authorEmail}" itemprop='image' alt="{comment.authorName}" size="100"/>
+					</div>
+					<div class="pull-left col-md-offset-1">
+					<f:link.action action='edit' arguments="{id: comment.uid}">{comment.authorName}</f:link.action><br/>
+						{comment.authorEmail}<br>
+						<f:format.date format="{settings.backend.dateFormat}">{comment.created}</f:format.date>
+					</div>
+				</td>
+				<td><f:format.crop maxCharacters="500">{comment.content}</f:format.crop></td>
+			</tr>
+		</f:for>
+	</tbody>
+	</table>
+</div>
+</blog:widget.box>
