@@ -1,3 +1,4 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
 <f:layout name="Default"/>
 <f:section name="content">
 <h1 class="pull-left page-heading"><f:translate key="label.comments"/></h1>
@@ -46,10 +47,18 @@
 				<f:for each='{pagedPosts}' as='comment'>
 					<tr class="bgColor4">
 						<td><f:form.checkbox value="{comment.uid}" name="items[]" class="item"/></td>
-						<td><f:link.action action='edit' arguments="{id: comment.uid}">{comment.authorName}</f:link.action></td>
+						<td>
+							<div class="pull-left">
+								<blog:gravatar email="{comment.authorEmail}" itemprop='image' alt="{comment.authorName}" size="100"/>
+							</div>
+							<div class="pull-left col-md-offset-1">
+							<f:link.action action='edit' arguments="{id: comment.uid}">{comment.authorName}</f:link.action><br/>
+								{comment.authorEmail}
+							</div>
+						</td>
 						<td><f:format.crop maxCharacters="70">{comment.content}</f:format.crop></td>
-						<td><f:link.action action='edit' controller="Post" arguments="{id: comment.post}">{comment.post}</f:link.action></td>
-						<td><f:format.date format="d.m.Y - H:i:s">{comment.created}</f:format.date></td>
+						<td><f:link.action action='edit' controller="Post" arguments="{id: comment.post}"><f:format.crop maxCharacters="30">{comment.postObject.title}</f:format.crop></f:link.action></td>
+						<td><f:format.date format="{settings.backend.dateFormat}">{comment.created}</f:format.date></td>
 					</tr>
 				</f:for>
 			</tbody>

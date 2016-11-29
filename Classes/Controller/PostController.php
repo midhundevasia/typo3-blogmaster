@@ -301,6 +301,8 @@ class PostController extends AbstractController {
 	public function editAction() {
 		$this->view->assign('categoryList', $this->categoryRepository->findAllByBlog(0));
 		$postObject = $this->postRepository->findOneByUid($this->request->getArgument('id'));
+		$commentRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\CommentRepository::class);
+		$comments = $commentRepository->findByPost($this->request->getArgument('id'));
 		$authors = $this->userRepository->findAll();
 		$this->view->assign('postObject', $postObject);
 		if (is_object($postObject->getTags())) {
@@ -316,7 +318,7 @@ class PostController extends AbstractController {
 		}
 		$this->view->assign('catList', $catList);
 		$this->view->assign('authors', $authors);
-
+		$this->view->assign('comments', $comments);
 	}
 
 	/**

@@ -34,6 +34,8 @@ class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function initializeObject() {
 		$this->querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
 		$this->querySettings->setRespectStoragePage(FALSE);
+		$this->querySettings->setIgnoreEnableFields(FALSE);
+		$this->querySettings->setIncludeDeleted(FALSE);
 		$this->setDefaultQuerySettings($this->querySettings);
 	}
 

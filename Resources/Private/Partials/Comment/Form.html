@@ -1,10 +1,11 @@
+<f:render partial="ValidationError" arguments="{__all}"/>
 <f:form controller="Comment" 
 	action="update" 
 	name="comment" object="{comment}" arguments="{blog: blog}" id="comment-data">
-
+	<f:form.hidden property="post" value="{post}"/>
 	<div class="form-group">
-	 	<label for="comment-title"><f:translate key="label.authorName"/></label>
-		<f:form.textfield property="authorName" id="comment-title" class='form-control' placeholder='eg: Author Name'/>
+	 	<label for="comment-authorName"><f:translate key="label.authorName"/></label>
+		<f:form.textfield property="authorName" id="comment-authorName" class='form-control' placeholder='eg: Author Name'/>
 	</div>
 
 	<div class="form-group">
@@ -13,14 +14,13 @@
 	</div>
 
 	<div class="form-group">
-	 	<label for="comment-title"><f:translate key="label.authorUrl"/></label>
-		<f:form.textfield property="authorUrl" id="comment-title" class='form-control' placeholder='eg: http://example.com'/>
+	 	<label for="comment-authorUrl"><f:translate key="label.authorUrl"/></label>
+		<f:form.textfield property="authorUrl" id="comment-authorUrl" class='form-control' placeholder='eg: http://example.com'/>
 	</div>
 
 	<div class="form-group">
 	 	<label class="" for="comment-content"><f:translate key="label.content"/></label>
 		<f:form.textarea property='content' id="comment-content" class='form-control' cols="10" rows="5"/>
 	</div>
-	
 	<button type="submit" class="btn btn-primary pull-right"><f:translate key="label.updateComment"/></button>
 </f:form>

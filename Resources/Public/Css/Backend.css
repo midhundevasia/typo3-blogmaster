@@ -91,3 +91,6 @@ html,body,.module {
 .module-docheader + .module-body {
 	padding-top: 60px;
 }
+.f3-form-error {
+	border: 1px solid #c83c3c;
+}
