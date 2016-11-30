@@ -76,9 +76,9 @@ class TagController extends AbstractController {
 									$this->tagRepository->remove($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Tag has been moved to trash', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Tag has been moved to trash', 'Done!', FlashMessage::WARNING);
 						break;
 					default:
 				}

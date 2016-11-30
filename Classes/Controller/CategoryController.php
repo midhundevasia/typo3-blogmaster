@@ -61,9 +61,9 @@ class CategoryController extends AbstractController {
 									$this->categoryRepository->remove($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Category has been moved to trash', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Category has been moved to trash', 'Done!', FlashMessage::WARNING);
 						break;
 					default:
 				}
