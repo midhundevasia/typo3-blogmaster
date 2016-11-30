@@ -94,7 +94,8 @@ if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 			'Post' => 'list,new,create,edit,update,delete',
 			'Category' => 'list,new,create,delete,ajax',
 			'Tag' => 'list,new,create,delete,ajax',
-			'Comment' => 'list,new,create,delete,ajax,update,edit'
+			'Comment' => 'list,new,create,delete,ajax,update,edit',
+			'File' => 'getFileInfo'
 		),
 		array(
 			'access' => 'user,group',

@@ -24,9 +24,26 @@ Blogmaster.fileFn = {
 
 	importElement: function(objectId, table, uid, type) {
 		TYPO3.jQuery('#' + objectId).val(uid);
+		Blogmaster.getFilePreview(uid, '#' + objectId)
 		return;
 	}
 };
+
+/**
+ * Get file preivew
+ * @param  {int} fileUid 	  File Uid
+ * @param  {string} container File Preivew Element
+ * @return void
+ */
+Blogmaster.getFilePreview = function(fileUid, container) {
+	TYPO3.jQuery.ajax({
+		url: getFileInfoUrl,
+		data: {uid: fileUid},
+		success: function (fileObject) {
+			TYPO3.jQuery(container + '-preview').attr('src', fileObject.absolutePath);
+		}
+	});
+}
 
 Blogmaster.openFileBrowser = function(mode, params, width, height) {
 	var topwidth = 800, topheight = 800;

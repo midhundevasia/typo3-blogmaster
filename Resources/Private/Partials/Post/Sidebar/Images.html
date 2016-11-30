@@ -4,8 +4,14 @@
 <div id="imageContainer">
 	<f:form.hidden property="image" id="feature-image"/>
 	<f:if condition="{postObject.image}">
-		<f:image image="{postObject.featureImage}" alt="test" minWidth="20"/><br>
-		<a href="javascript:;" onclick="javascript:TYPO3.jQuery('#feature-image').val(0);TYPO3.jQuery('#imageContainer').hide();" class="text-danger"><f:translate key="label.delImage"/></a>
+		<f:then>
+			<f:image image="{postObject.featureImage}" alt="Feature Image" minWidth="20" id="feature-image-preview"/><br>
+			<a href="javascript:;" onclick="javascript:TYPO3.jQuery('#feature-image').val(0);TYPO3.jQuery('#imageContainer').hide();" class="text-danger"><f:translate key="label.delImage"/></a>
+		</f:then>
+		<f:else>
+			<img alt="Feature Image"  src="" id="feature-image-preview"><br>
+			<a href="javascript:;" onclick="javascript:TYPO3.jQuery('#feature-image').val(0);TYPO3.jQuery('#imageContainer').hide();" class="text-danger"><f:translate key="label.delImage"/></a>
+		</f:else>
 	</f:if>
 </div>
 <style type="text/css">
