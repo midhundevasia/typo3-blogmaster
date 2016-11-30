@@ -60,9 +60,9 @@ class CommentController extends AbstractController {
 									$this->commentRepository->remove($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Comment(s) has been moved to trash', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been moved to trash', 'Done!', FlashMessage::OK);
 						break;
 					// Publish all selected comments.
 					case 'publish':
@@ -73,9 +73,9 @@ class CommentController extends AbstractController {
 									$this->commentRepository->update($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Comment(s) has been published', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been published', 'Done!', FlashMessage::OK);
 						break;
 					// Pending all selected comments.
 					case 'pending':
@@ -86,9 +86,9 @@ class CommentController extends AbstractController {
 									$this->commentRepository->update($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Comment(s) has been marked as pending', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been marked as pending', 'Done!', FlashMessage::OK);
 						break;
 					// Spam all selected comments.
 					case 'spam':
@@ -99,9 +99,9 @@ class CommentController extends AbstractController {
 									$this->commentRepository->update($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Comment(s) has been mark as spam', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Comment(s) has been mark as spam', 'Done!', FlashMessage::OK);
 						break;
 					default:
 				}
