@@ -86,7 +86,7 @@ html,body,.module {
 	display: none;
 }
 .module-docheader {
-	min-height: 30px;
+	min-height: 30px !important;
 }
 .module-docheader + .module-body {
 	padding-top: 60px;
