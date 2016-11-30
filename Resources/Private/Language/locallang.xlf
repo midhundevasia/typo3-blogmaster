@@ -225,6 +225,10 @@
 				<trans-unit id="label.by">
 					<source>By</source>
 				</trans-unit>
+				<trans-unit id="label.updateCommentAndMoveToPost">
+					<source>Back to Post edit</source>
+				</trans-unit>
+				
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>

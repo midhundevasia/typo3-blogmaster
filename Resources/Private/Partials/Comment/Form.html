@@ -22,5 +22,9 @@
 	 	<label class="" for="comment-content"><f:translate key="label.content"/></label>
 		<f:form.textarea property='content' id="comment-content" class='form-control' cols="10" rows="5"/>
 	</div>
-	<button type="submit" class="btn btn-primary pull-right"><f:translate key="label.updateComment"/></button>
+
+	<div class="form-group">
+		<f:link.action action='edit' controller="Post" arguments="{id: comment.post}" class='btn btn-default pull-left'><f:translate key="label.updateCommentAndMoveToPost"/></f:link.action>
+		<button type="submit" class="btn btn-success pull-right"><f:translate key="label.updateComment"/></button>
+	</div>
 </f:form>
