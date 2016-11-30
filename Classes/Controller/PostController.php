@@ -136,9 +136,9 @@ class PostController extends AbstractController {
 									$this->postRepository->remove($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Post(s) has been moved to trash', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Post(s) has been moved to trash', 'Done!', FlashMessage::WARNING);
 						break;
 					// Publish all selected posts.
 					case 'publish':
@@ -152,9 +152,9 @@ class PostController extends AbstractController {
 									$this->postRepository->update($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Post(s) has been published', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Post(s) has been published', 'Done!', FlashMessage::WARNING);
 						break;
 					// Draft all selected posts.
 					case 'draft':
@@ -165,9 +165,9 @@ class PostController extends AbstractController {
 									$this->postRepository->update($object);
 								}
 							}
+							$this->getPersistenceManager()->persistAll();
+							$this->addFlashMessage('Post(s) has been updated as draft', 'Done!', FlashMessage::OK);
 						}
-						$this->getPersistenceManager()->persistAll();
-						$this->addFlashMessage('Post(s) has been updated as draft', 'Done!', FlashMessage::WARNING);
 						break;
 					default:
 				}
