@@ -103,8 +103,9 @@ class PostController extends AbstractController {
 		$rteConf = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Rte\RteConfiguration::class)->getConfiguration();
 		$this->pageRenderer->addJsInlineCode('tinymce', $rteConf, FALSE, TRUE);
 		$this->pageRenderer->addJsInlineCode('recordBrowseUrl', '
-			var recordBrowseUrl = ' . GeneralUtility::quoteJSvalue(BackendUtility::getModuleUrl('wizard_element_browser')) . ';',
-			FALSE, TRUE);
+			var recordBrowseUrl = ' . GeneralUtility::quoteJSvalue(BackendUtility::getModuleUrl('wizard_element_browser')) . ';', FALSE, TRUE);
+		$this->pageRenderer->addJsInlineCode('getFileInfoUrl', '
+			var getFileInfoUrl = ' . GeneralUtility::quoteJSvalue(BackendUtility::getModuleUrl('getFileInfo')) . ';', FALSE, TRUE);
 	}
 
 	/**
