@@ -35,8 +35,8 @@ defined('TYPO3_MODE') or die();
 \Tutorboy\Blogmaster\Service\BlogService::addService('commentsFeed', \Tutorboy\Blogmaster\Service\FeedService::class . '->generateCommentsFeed');
 
 // Hooks
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['encodeSpURL_postProc'][] = 'Tutorboy\\Blogmaster\\Hooks\\RealUrlHooks->encodeSpURL_postProc';
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['decodeSpURL_preProc'][] = 'Tutorboy\\Blogmaster\\Hooks\\RealUrlHooks->decodeSpURL_preProc';
+//$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['encodeSpURL_postProc'][] = 'Tutorboy\\Blogmaster\\Hooks\\RealUrlHooks->encodeSpUrl_postProc';
+//$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['decodeSpURL_preProc'][] = 'Tutorboy\\Blogmaster\\Hooks\\RealUrlHooks->decodeSpUrl_preProc';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-postProcess'][$_EXTKEY] = 'Tutorboy\\Blogmaster\\Hooks\\PageRendererHooks->renderPostProcess';
 
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl')) {
