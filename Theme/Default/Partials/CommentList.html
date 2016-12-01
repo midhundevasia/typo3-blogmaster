@@ -5,8 +5,8 @@
 	<ol class="commentlist">
 		<f:for each="{comments}" as="comment">
 			<f:if condition="{comment.status} == 'publish'">
-			<f:cycle values="{0: 'odd-comment', 1: 'even-comment'}" as="oddEvent">
-			<li class="comment depth-1 {oddEvent}" id="comment-{comment.uid}">
+			<f:cycle values="{0: 'odd-comment', 1: 'even-comment'}" as="oddEven">
+			<li class="comment depth-1 {oddEven}" id="comment-{comment.uid}">
 				<p class="comment-author">
 					<blog:gravatar email="{comment.authorEmail}" itemprop='image' alt="{comment.authorName}"/>
 					<cite><a href="{comment.authorUrl}" rel="external nofollow" class="url">{comment.authorName}</a></cite><br>
@@ -17,10 +17,35 @@
 				<div class="commententry">
 					{comment.content}
 				</div>
+				<div class="comment-reply">
+					<a href="javascript:;" onclick="Blogmaster.addCommentForm({comment.uid});" class="comment-reply-link"><f:translate key="label.reply"/></a>
+					<a href="javascript:;" style="visibility: hidden;" onclick="Blogmaster.clearReplyForm({comment.uid});" class="comment-reply-close"><f:translate key="label.clear"/></a>
+				</div>
+				<f:if condition="{comment.replys}">
+					<div class="comment-replys">
+						<ul class="comment-reply-items">
+							<f:for each="{comment.replys}" as="replyComment">
+								<f:cycle values="{0: 'odd-comment', 1: 'even-comment'}" as="oddEvenReply">
+									<li class="comment-reply-item comment depth-1 {oddEvenReply}" id="comment-{replyComment.uid}">
+										<p class="comment-author">
+											<blog:gravatar email="{replyComment.authorEmail}" itemprop='image' alt="{replyComment.authorName}"/>
+											<cite><a href="{replyComment.authorUrl}" rel="external nofollow" class="url">{replyComment.authorName}</a></cite><br>
+											<time class="comment-time" datetime="{replyComment.created}">
+												<f:format.date format="{settings.dateFormat}">{replyComment.created}</f:format.date>
+											</time>
+										</p>
+										<div class="commententry">
+											{replyComment.content}
+										</div>
+									</li>
+								</f:cycle>
+							</f:for>
+						</ul>
+					</div><!-- //comment-replys-->
+				</f:if>
 			</li>
 			</f:cycle>
 			</f:if>
 	</f:for>
 	</ol>
-
 </div>

@@ -1,8 +1,21 @@
-<f:render partial="ValidationError" arguments="{__all}"/>
+<f:render partial="ValidationError" arguments="{_all}"/>
+<f:if condition="{commentParent}">
+<f:render partial="Comment/ReplyTo" arguments="{_all}"/>
+</f:if>
+<div class="col-sm-12"><br>
+<div class="row">
 <f:form controller="Comment" 
 	action="update" 
 	name="comment" object="{comment}" arguments="{blog: blog}" id="comment-data">
-	<f:form.hidden property="post" value="{post}"/>
+	<f:if condition="{post}">
+		<f:then>
+		<f:form.hidden property="post" value="{post}"/>
+		</f:then>
+		<f:else>
+			<f:form.hidden property="post" value="{comment.post}"/>
+		</f:else>
+	</f:if>
+	<f:form.hidden property="parent" value="{replyTo}"/>
 	<div class="form-group">
 	 	<label for="comment-authorName"><f:translate key="label.authorName"/></label>
 		<f:form.textfield property="authorName" id="comment-authorName" class='form-control' placeholder='eg: Author Name'/>
@@ -24,7 +37,11 @@
 	</div>
 
 	<div class="form-group">
+		<f:if condition="{comment.post}">
 		<f:link.action action='edit' controller="Post" arguments="{id: comment.post}" class='btn btn-default pull-left'><f:translate key="label.updateCommentAndMoveToPost"/></f:link.action>
+		</f:if>
 		<button type="submit" class="btn btn-success pull-right"><f:translate key="label.updateComment"/></button>
 	</div>
 </f:form>
+</div>
+</div>

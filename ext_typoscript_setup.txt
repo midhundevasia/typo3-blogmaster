@@ -65,8 +65,14 @@ plugin.tx_blogmaster.settings {
 		appId =
 		admins =
 	}
+
+	defaultCommentStatus = pending
 }
 
 module.tx_blogmaster {
 	settings < plugin.tx_blogmaster.settings
 }
+
+# For frontend comment system
+page.includeJSLibs.sizzle.excludeFromConcatenation = true
+page.includeJSLibs.sizzle = EXT:blogmaster/Resources/Public/Library/sizzle/sizzle.min.js
