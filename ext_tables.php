@@ -140,7 +140,7 @@ if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 		'comment',
 		'',
 		array(
-			'Comment' => 'list,new,edit,update,create,delete,addComment',
+			'Comment' => 'list,new,edit,update,create,delete,addComment,ajax',
 			'Post' => 'edit'
 		),
 		array(

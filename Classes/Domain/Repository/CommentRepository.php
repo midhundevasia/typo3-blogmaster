@@ -54,6 +54,30 @@ class CommentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Find all comments by post
+	 * @param  int $post Post id
+	 * @return array
+	 */
+	public function findAllByPost($post = 0) {
+		$query = $this->createQuery();
+		if (TYPO3_MODE === 'FE') {
+			return $query->matching($query->logicalAnd($query->equals('post', $post), $query->equals('status', 'publish'), $query->equals('parent', 0)))->execute();
+		} else {
+			return $query->matching($query->equals('post', $post))->execute();
+		}
+	}
+
+	/**
+	 * Find all child post
+	 * @param  int $commentId Comment id
+	 * @return array
+	 */
+	public function findAllChild($commentId = 0) {
+		$query = $this->createQuery();
+		return $query->matching($query->logicalAnd($query->equals('status', 'publish'), $query->equals('parent', $commentId)))->execute();
+	}
+
+	/**
 	 * Count all comments for the post
 	 * @param  int $postId Post Id
 	 * @return array

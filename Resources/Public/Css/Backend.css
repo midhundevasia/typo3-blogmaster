@@ -94,3 +94,38 @@ html,body,.module {
 .f3-form-error {
 	border: 1px solid #c83c3c;
 }
+.actions-link {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.data-row:hover .actions-link{
+	visibility: visible;
+}
+.actions-link {
+	visibility: hidden;
+}
+.actions-link li {
+	display: inline-block;
+}
+.actions-link li:before {
+	content: "|";
+	padding: 0 5px;
+	color: #ccc;
+}
+.actions-link li:first-child:before {
+	content: "";
+	padding: 0;
+}
+table.table-fixed {
+	table-layout: fixed !important;
+	width: 100%; /* must have this set */
+}
+.data-row td {
+	word-wrap: break-word !important;
+	word-break: break-all ;
+	white-space: inherit !important;
+	vertical-align: top !important;
+}
+.data-row td.comment {
+	width: 50%;
+}

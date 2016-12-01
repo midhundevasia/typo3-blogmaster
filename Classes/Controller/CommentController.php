@@ -28,6 +28,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class CommentController extends AbstractController {
 
 	/**
+	 * Object cache
+	 * @var \Tutorboy\Blogmaster\Cache\ObjectCache
+	 */
+	protected $objectCache;
+
+	/**
 	 * CommentRepository object
 	 * @var \Tutorboy\Blogmaster\Domain\Repository\CommentRepository
 	 */
@@ -40,6 +46,15 @@ class CommentController extends AbstractController {
 	 */
 	public function injectCommentRepository(\Tutorboy\Blogmaster\Domain\Repository\CommentRepository $commentRepository) {
 		$this->commentRepository = $commentRepository;
+	}
+
+	/**
+	 * Inject object cache
+	 * @param \Tutorboy\Blogmaster\Cache\ObjectCache $objectCache Object cache
+	 * @return void
+	 */
+	public function injectObjectCache(\Tutorboy\Blogmaster\Cache\ObjectCache $objectCache) {
+		$this->objectCache = $objectCache;
 	}
 
 	/**
@@ -61,7 +76,7 @@ class CommentController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Comment(s) has been moved to trash', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.commentsMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					// Publish all selected comments.
@@ -74,7 +89,7 @@ class CommentController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Comment(s) has been published', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.commentsPublished'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					// Pending all selected comments.
@@ -87,7 +102,7 @@ class CommentController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Comment(s) has been marked as pending', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.commentsMarkedAsPending'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					// Spam all selected comments.
@@ -100,7 +115,7 @@ class CommentController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Comment(s) has been mark as spam', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.commentsMarkedAsSpam'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					default:
@@ -139,6 +154,10 @@ class CommentController extends AbstractController {
 		if ($this->request->hasArgument('post')) {
 			$this->view->assign('post', $this->request->getArgument('post'));
 		}
+		if ($this->request->hasArgument('replyTo')) {
+			$this->view->assign('replyTo', $this->request->getArgument('replyTo'));
+			$this->view->assign('commentParent', $this->commentRepository->findOneByUid($this->request->getArgument('replyTo')));
+		}
 	}
 
 	/**
@@ -157,9 +176,9 @@ class CommentController extends AbstractController {
 		$this->commentRepository->add($comment);
 		$this->getPersistenceManager()->persistAll();
 		if ($comment->getUid()) {
-			$this->addFlashMessage('New comment has been created', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.newCommentCreated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Comment could not be saved.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('msg.commentCouldNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('edit', NULL, NULL, ['id' => $comment->getUid()]);
 	}
@@ -187,11 +206,59 @@ class CommentController extends AbstractController {
 		$this->commentRepository->add($comment);
 		$this->getPersistenceManager()->persistAll();
 		if ($comment->getUid()) {
-			$this->addFlashMessage('Comment has been updated', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.commentUpdated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Comment could not be update.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('commentCouldNotUpdate'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('edit', NULL, NULL, ['id' => $comment->getUid()]);
+	}
+
+	/**
+	 * Ajax action to perform additional actions
+	 * @return void
+	 */
+	public function ajaxAction() {
+		if ($this->request->hasArgument('actionName')) {
+			$action = $this->request->getArgument('actionName');
+			$id = $this->request->getArgument('id');
+			switch ($action) {
+				case 'publish':
+					if (($object = $this->commentRepository->findOneByUid($id)) instanceof \Tutorboy\Blogmaster\Domain\Model\Comment) {
+						$object->setStatus('publish');
+						$this->commentRepository->update($object);
+						$this->getPersistenceManager()->persistAll();
+						$this->addFlashMessage($this->translate('msg.commentPublished'), $this->translate('heading.done'), FlashMessage::OK);
+					}
+					break;
+				case 'pending':
+					if (($object = $this->commentRepository->findOneByUid($id)) instanceof \Tutorboy\Blogmaster\Domain\Model\Comment) {
+						$object->setStatus('pending');
+						$this->commentRepository->update($object);
+						$this->getPersistenceManager()->persistAll();
+						$this->addFlashMessage($this->translate('msg.commentMarkedAsPending'), $this->translate('heading.done'), FlashMessage::OK);
+					}
+					break;
+				case 'trash':
+					if (($object = $this->commentRepository->findOneByUid($id)) instanceof \Tutorboy\Blogmaster\Domain\Model\Comment) {
+						$this->commentRepository->remove($object);
+						$this->addFlashMessage($this->translate('msg.commentMarkedAsPending'), $this->translate('heading.done'), FlashMessage::OK);
+					}
+					break;
+				case 'spam':
+					if (($object = $this->commentRepository->findOneByUid($id)) instanceof \Tutorboy\Blogmaster\Domain\Model\Comment) {
+						$object->setStatus('spam');
+						$this->commentRepository->update($object);
+						$this->getPersistenceManager()->persistAll();
+						$this->addFlashMessage($this->translate('msg.commentMarkedAsSpam'), $this->translate('heading.done'), FlashMessage::OK);
+					}
+					break;
+				default:
+			}
+			if ($this->request->hasArgument('returnTo')) {
+				$this->redirect('edit', $this->request->getArgument('returnTo'), NULL, ['id' => $object->getPost()]);
+			}
+		}
+		$this->redirect('list');
 	}
 
 	/**
@@ -217,6 +284,7 @@ class CommentController extends AbstractController {
 			$comment->setAgent($_SERVER['HTTP_USER_AGENT']);
 			$comment->setAuthorIp($_SERVER['REMOTE_ADDR']);
 			$comment->setType('comment');
+			$comment->setParent($commentData['parent']);
 			if (!isset($this->settings['defaultCommentStatus'])) {
 				$comment->setStatus('publish');
 			} else {
@@ -231,8 +299,22 @@ class CommentController extends AbstractController {
 				foreach ($validationErrors as $propertyName => $validationError) {
 					$errors[$propertyName] = $validationError[0]->getMessage();
 				}
+				//@todo need to find another solution instead session
+				$GLOBALS['TSFE']->fe_user->setKey('ses', 'flashmessage.commentForm.msg', ['msg' => implode('<br>', $errors), 'title' => $this->translate('heading.error'), 'status' => FlashMessage::ERROR]);
 				$this->view->assign('validationErrors', $errors);
 			} else {
+				switch ($comment->getStatus('publish')) {
+					case 'publish':
+						$msg = $this->translate('msg.commentSubmitted');
+						break;
+					case 'pending':
+						$msg = $this->translate('msg.commentSubmittedAndWaintingModeration');
+						break;
+					default:
+				}
+				$GLOBALS['TSFE']->fe_user->setKey('ses',
+					'flashmessage.commentForm.msg',
+					['msg' => $msg, 'title' => $this->translate('heading.done'), 'status' => FlashMessage::OK]);
 				$this->commentRepository->add($comment);
 				$this->getPersistenceManager()->persistAll();
 			}

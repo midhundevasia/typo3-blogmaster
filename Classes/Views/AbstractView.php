@@ -19,6 +19,7 @@ use Tutorboy\Blogmaster\Service\HookService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Abstract view
@@ -83,6 +84,7 @@ abstract class AbstractView {
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
 		$this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface::class);
 		$this->settings = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class)->getSettings();
+		$this->objectCache = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Cache\ObjectCache::class);
 		$this->view = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
 		$this->view->setControllerContext($this->controllerContext);
 		$this->view->getRequest()->setControllerExtensionName('Blogmaster');
@@ -151,5 +153,15 @@ abstract class AbstractView {
 		$conf['returnLast'] = 1;
 		$url = $this->cObj->typoLink_URL($conf);
 		header('Location: ' . $url);
+	}
+
+	/**
+	 * Translate
+	 * @param  string $key           Translation key
+	 * @param  string $extensionName Extension name
+	 * @return string
+	 */
+	public function translate($key, $extensionName = 'blogmaster') {
+		return LocalizationUtility::translate($key, $extensionName);
 	}
 }

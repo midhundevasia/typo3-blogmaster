@@ -1,0 +1,18 @@
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<h3>Replyto :</h3>
+<div class="col-sm-12">
+	<div class="col-sm-5">
+		<div class="pull-left">
+			<blog:gravatar email="{commentParent.authorEmail}" itemprop='image' alt="{commentParent.authorName}" size="100"/>
+		</div>
+		<div class="pull-left col-md-offset-1">
+			{commentParent.authorName}<br>
+			{commentParent.authorEmail}<br>
+			<a href="{commentParent.authorUrl}" target="_blank">{commentParent.authorUrl}</a><br>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		{commentParent.content}
+	</div>
+</div>
+<div class="clear"></div>
