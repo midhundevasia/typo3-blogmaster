@@ -2,31 +2,49 @@
 	<f:if condition="{settings.comments.active}">
 		<f:if condition="{post.commentStatus} == 'open'">
 			<f:then>
-				<div id="comment-form">
-				<h3 class="comment-title"><f:translate key="comment.leaveAReply"/></h3>
-				<f:form action="addComment" name="comment" controller="Comment" addQueryString='true' absolute='true' pluginName="Comment">
-					<f:form.hidden property="post" value="{post.uid}" />
-					<div class="form-group">
-						<label for="comment-message"><f:translate key="comment.comment" /></label>
-						<f:form.textarea id="comment-message" property="content" class="form-control" />
+				<div id="comment-form-container">
+					<div id="comment-form">
+						<h3 class="comment-title"><f:translate key="comment.leaveAReply"/></h3>
+						<f:form action="addComment" name="comment" controller="Comment" addQueryString='true' absolute='true' pluginName="Comment">
+							<f:form.hidden property="post" value="{post.uid}" />
+							<f:form.hidden property="parent" value="0" id="comment-parent"/>
+							<div class="form-group">
+								<label for="comment-message"><f:translate key="comment.comment" /></label>
+								<f:form.textarea id="comment-message" property="content" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="comment-author"><f:translate key="comment.name" /></label>
+								<f:form.textfield id="comment-author" property="authorName" class="form-control" placeholder="eg: John Smith"/>
+							</div>
+							<div class="form-group">
+								<label for="comment-email"><f:translate key="comment.email" /></label>
+								<f:form.textfield id="comment-email" property="authorEmail" class="form-control" placeholder="eg: mail@example.com"/>
+							</div>
+							<div class="form-group">
+								<label for="comment-url"><f:translate key="comment.url" /></label>
+								<f:form.textfield id="comment-url" property="authorUrl" class="form-control" placeholder="eg: www.example.com"/>
+							</div>
+							<f:flashMessages />
+							<f:form.submit name="submit"  class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
+						</f:form>
 					</div>
-					<div class="form-group">
-						<label for="comment-author"><f:translate key="comment.name" /></label>
-						<f:form.textfield id="comment-author" property="authorName" class="form-control" placeholder="eg: John Smith"/>
-					</div>
-					<div class="form-group">
-						<label for="comment-email"><f:translate key="comment.email" /></label>
-						<f:form.textfield id="comment-email" property="authorEmail" class="form-control" placeholder="eg: mail@example.com"/>
-					</div>
-					<div class="form-group">
-						<label for="comment-url"><f:translate key="comment.url" /></label>
-						<f:form.textfield id="comment-url" property="authorUrl" class="form-control" placeholder="eg: www.example.com"/>
-					</div>
-					<f:form.submit name="submit"  class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
-				</f:form>
 				</div>
+				<script type="text/javascript">
+					var Blogmaster = {};
+					Blogmaster.addCommentForm = function(commentId) {
+						var _$ = Sizzle;
+						_$('#comment-' + commentId + ' .comment-reply')[0].appendChild(_$('#comment-form')[0]);
+						_$('#comment-' + commentId + ' .comment-reply-close')[0].style.visibility = 'visible';
+						_$('#comment-' + commentId + ' #comment-parent')[0].value = commentId;
+					};
+					Blogmaster.clearReplyForm = function(commentId) {
+						var _$ = Sizzle;
+						_$('#comment-form-container')[0].appendChild(_$('#comment-' + commentId + ' #comment-form')[0]);
+						_$('#comment-' + commentId + ' .comment-reply-close')[0].style.visibility = 'hidden';
+						_$('#comment-form #comment-parent')[0].value = 0;
+					};
+				</script>
 			</f:then>
-
 			<f:else>
 				<h3 class="comment-title"><f:translate key="comment.leaveAReply"/></h3>
 				<p><f:translate key="comment.comments_closed" /></p>

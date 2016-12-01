@@ -228,7 +228,72 @@
 				<trans-unit id="label.updateCommentAndMoveToPost">
 					<source>Back to Post edit</source>
 				</trans-unit>
-				
+				<trans-unit id="label.inReplyTo">
+					<source>In reply to</source>
+				</trans-unit>
+				<trans-unit id="label.clear">
+					<source>Clear</source>
+				</trans-unit>
+				<trans-unit id="label.reply">
+					<source>Reply</source>
+				</trans-unit>
+				<trans-unit id="label.trash">
+					<source>Trash</source>
+				</trans-unit>
+				<trans-unit id="label.spam">
+					<source>Spam</source>
+				</trans-unit>
+				<trans-unit id="label.approve">
+					<source>Approve</source>
+				</trans-unit>
+				<trans-unit id="label.unapprove">
+					<source>Unapprove</source>
+				</trans-unit>
+				<trans-unit id="label.apply">
+					<source>Apply</source>
+				</trans-unit>
+				<trans-unit id="label.filter">
+					<source>Filter</source>
+				</trans-unit>
+				<trans-unit id="label.search">
+					<source>Search</source>
+				</trans-unit>
+				<trans-unit id="label.clear">
+					<source>Clear</source>
+				</trans-unit>
+				<trans-unit id="label.bulkActions">
+					<source>Bulk Actions</source>
+				</trans-unit>
+				<trans-unit id="label.moveToSpam">
+					<source>Move to Spam</source>
+				</trans-unit>
+				<trans-unit id="label.moveToTrash">
+					<source>Move to Trash</source>
+				</trans-unit>
+				<trans-unit id="label.allCommentTypes">
+					<source>All Comment Types</source>
+				</trans-unit>
+				<trans-unit id="label.comment">
+					<source>Comment</source>
+				</trans-unit>
+				<trans-unit id="label.ping">
+					<source>Ping</source>
+				</trans-unit>
+				<trans-unit id="label.all">
+					<source>All</source>
+				</trans-unit>
+				<trans-unit id="label.pending">
+					<source>Pending</source>
+				</trans-unit>
+				<trans-unit id="label.approved">
+					<source>Approved</source>
+				</trans-unit>
+				<trans-unit id="label.trashed">
+					<source>Trashed</source>
+				</trans-unit>
+				<trans-unit id="label.showingComments">
+					<source>Showing Comments</source>
+				</trans-unit>
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>
@@ -270,6 +335,57 @@
 			<trans-unit id="heading.authorView">
 				<source>Author</source>
 			</trans-unit>
+			<trans-unit id="heading.done">
+				<source>Done!</source>
+			</trans-unit>
+			<trans-unit id="heading.error">
+				<source>Error!</source>
+			</trans-unit>
+
+			<trans-unit id="msg.commentSubmitted">
+				<source>Your comment has been submitted.</source>
+			</trans-unit>
+			<trans-unit id="msg.commentSubmitted">
+				<source>Your comment is awaiting moderation.</source>
+			</trans-unit>
+			<trans-unit id="msg.commentMovedToTrash">
+				<source>Comment has been moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.commentsMovedToTrash">
+				<source>Comment(s) has been moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.commentPublished">
+				<source>Comment has been published</source>
+			</trans-unit>
+			<trans-unit id="msg.commentsPublished">
+				<source>Comment(s) has been published</source>
+			</trans-unit>
+			<trans-unit id="msg.commentMarkedAsPending">
+				<source>Comment has been marked as pending</source>
+			</trans-unit>
+			<trans-unit id="msg.commentsMarkedAsPending">
+				<source>Comment(s) has been marked as pending</source>
+			</trans-unit>
+			<trans-unit id="msg.commentMarkedAsSpam">
+				<source>Comment has been marked as spam</source>
+			</trans-unit>
+			<trans-unit id="msg.commentsMarkedAsSpam">
+				<source>Comment(s) has been marked as spam</source>
+			</trans-unit>
+			<trans-unit id="msg.newCommentCreated">
+				<source>New comment has been created</source>
+			</trans-unit>
+			<trans-unit id="msg.commentCouldNotSave">
+				<source>Comment could not be saved.</source>
+			</trans-unit>
+			<trans-unit id="msg.commentUpdated">
+				<source>Comment has been updated.</source>
+			</trans-unit>
+			<trans-unit id="msg.commentCouldNotUpdate">
+				<source>Comment could not be update.</source>
+			</trans-unit>
+			
+
 
 			<trans-unit id="widget.pagination.previous">
 				<source>Previous</source>

@@ -114,6 +114,12 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $type;
 
 	/**
+	 * Parent comment id
+	 * @var int
+	 */
+	protected $parent;
+
+	/**
 	 * Construct
 	 * @return void
 	 */
@@ -335,6 +341,47 @@ class Comment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setPost($post) {
 		$this->post = $post;
+	}
+
+	/**
+	 * Get parent comment id
+	 * @return int
+	 */
+	public function getParent() {
+		return $this->parent;
+	}
+
+	/**
+	 * Set parent comment id
+	 * @param int $commentId Comment id
+	 * @return void
+	 */
+	public function setParent($commentId) {
+		$this->parent = $commentId;
+	}
+
+	/**
+	 * Get the parent comment
+	 * @return null|\Tutorboy\Blogmaster\Domain\Model\Comment
+	 */
+	public function getParentComment() {
+		if ($this->getParent() > 0) {
+			$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+			$comment = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\CommentRepository::class);
+			return $comment->findOneByUid($this->getParent());
+		} else {
+			return NULL;
+		}
+	}
+
+	/**
+	 * Get the reply comments
+	 * @return null|\Tutorboy\Blogmaster\Domain\Model\Comment
+	 */
+	public function getReplys() {
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+		$comment = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\CommentRepository::class);
+		return $comment->findAllChild($this->getUid());
 	}
 
 	/**

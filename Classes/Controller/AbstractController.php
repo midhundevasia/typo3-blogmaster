@@ -16,6 +16,7 @@ namespace Tutorboy\Blogmaster\Controller;
  */
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Abstract action controller
@@ -62,5 +63,15 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 */
 	public static function getDatabaseConnection() {
 		return $GLOBALS['TYPO3_DB'];
+	}
+
+	/**
+	 * Translate
+	 * @param  string $key           Translation key
+	 * @param  string $extensionName Extension name
+	 * @return string
+	 */
+	public function translate($key, $extensionName = 'blogmaster') {
+		return LocalizationUtility::translate($key, $extensionName);
 	}
 }

@@ -40,7 +40,9 @@ class SingleView extends AbstractView {
 		$data = $postRepository->findOneByUid($postId);
 		if (is_object($data)) {
 			if ($data->getStatus() == 'publish') {
-				$comments = $commentRepository->findByPost($postId);
+				$this->objectCache->set('singlePost', $data);
+				$this->objectCache->set('singlePostComments', $commentRepository->findAllByPost($postId));
+				$this->view->assign('comments', $this->objectCache->get('singlePostComments'));
 				if (($nextPost = $postRepository->findNext($data))) {
 					$this->view->assign('nextPost', $nextPost);
 				}
@@ -59,8 +61,16 @@ class SingleView extends AbstractView {
 				$this->pageService->setKeywords($tags);
 				$this->pageService->setAuthor($data->getAuthor()->getDisplayName());
 				$this->pageService->setViewType('single');
+				// @todo will rewrite this later, its dirty now
+				$msg = $GLOBALS['TSFE']->fe_user->getKey('ses', 'flashmessage.commentForm.msg');
+				if (isset($msg) && is_array($msg)) {
+					/* @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
+					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+						\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg['msg'], $msg['title'], $msg['status'], TRUE
+					);
+					$this->controllerContext->getFlashMessageQueue()->enqueue($flashMessage);
+				}
 				$this->view->assign('post', $data);
-				$this->view->assign('comments', $comments);
 			} else {
 				$this->redirectToPage();
 			}
