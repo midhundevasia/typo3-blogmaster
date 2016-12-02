@@ -1,5 +1,5 @@
 {namespace TB=Tutorboy\Blogmaster\ViewHelpers}
-<TB:widget.box title="Publish">
+<TB:widget.box title='<f:translate key="label.publish"/>'>
 	<div>
 		<f:switch expression="{postObject.status}">
 			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button></f:case>
@@ -23,7 +23,7 @@
 					id="post-status"
 					property="status"
 					class="form-control"
-					options="{publish: 'Published', draft: 'Draft', pending: 'Pending Review'}"
+					options="{publish: '{f:translate(key: \'label.published\')}', draft: '{f:translate(key: \'label.draft\')}', pending: '{f:translate(key: \'label.pendingReview\')}'}"
 				/>
 			</div>
 			<div class="panel-label col-sm-6 pull-left">
@@ -42,7 +42,7 @@
 			</f:then>
 			<f:else>
 				<f:switch expression="{postObject.status}">
-					<f:case value="publish"><button class="btn btn-success pull-right" type='submit' onclick="">Update</button></f:case>
+					<f:case value="publish"><button class="btn btn-success pull-right" type='submit' onclick=""><f:translate key="label.update"/></button></f:case>
 					<f:case value="draft"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
 					<f:case value="pending"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
 				</f:switch>
