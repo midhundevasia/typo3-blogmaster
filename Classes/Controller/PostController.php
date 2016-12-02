@@ -137,7 +137,7 @@ class PostController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Post(s) has been moved to trash', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.postsMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					// Publish all selected posts.
@@ -153,7 +153,7 @@ class PostController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Post(s) has been published', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.postsPublished'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					// Draft all selected posts.
@@ -166,7 +166,7 @@ class PostController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Post(s) has been updated as draft', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.postsDrafted'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					default:
@@ -210,7 +210,7 @@ class PostController extends AbstractController {
 		$this->view->assign('posts', $posts);
 
 		$archiveList = $this->postRepository->findAllPostCountByYearAndMonth();
-		$date[-1] = 'All dates';
+		$date[-1] = $this->translate('label.allDates');
 		foreach ($archiveList as $key => $value) {
 			$date[$key] = $value['monthName'] . ' ' . $value['year'];
 		}
@@ -220,7 +220,7 @@ class PostController extends AbstractController {
 		foreach ($categories as $cat) {
 			$catList[$cat->getUid()] = $cat->getTitle();
 		}
-		$catList[-1] = 'All Categories';
+		$catList[-1] = $this->translate('label.allCategories');
 		ksort($catList);
 		$this->view->assign('categories', $catList);
 	}
@@ -251,7 +251,7 @@ class PostController extends AbstractController {
 	public function deleteAction() {
 		$id = $this->request->getArgument('delete');
 		$this->postRepository->remove($this->postRepository->findOneByUid($id));
-		$this->addFlashMessage('One post has been moved to trash', 'Done!', FlashMessage::WARNING);
+		$this->addFlashMessage($this->translate('msg.postMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 		$this->redirect('list', NULL, NULL);
 	}
 
@@ -268,9 +268,9 @@ class PostController extends AbstractController {
 		$this->postRepository->add($newPost);
 		$this->getPersistenceManager()->persistAll();
 		if ($newPost->getUid()) {
-			$this->addFlashMessage('New post has been created', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.newPostCreated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Post could not be saved.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('msg.postCoulddNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('edit', NULL, NULL, ['id' => $newPost->getUid()]);
 	}
@@ -288,9 +288,9 @@ class PostController extends AbstractController {
 		$this->postRepository->add($newPost);
 		$this->getPersistenceManager()->persistAll();
 		if ($newPost->getUid()) {
-			$this->addFlashMessage('Post has been updated', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.newPostCreated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Post could not be update.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('msg.postCoulddNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('edit', NULL, NULL, ['id' => $newPost->getUid()]);
 	}

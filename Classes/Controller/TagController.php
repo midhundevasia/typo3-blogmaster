@@ -77,7 +77,7 @@ class TagController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Tag has been moved to trash', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.tagsMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					default:
@@ -124,9 +124,9 @@ class TagController extends AbstractController {
 		$this->tagRepository->add($tag);
 		$this->getPersistenceManager()->persistAll();
 		if ($tag->getUid()) {
-			$this->addFlashMessage('New tag has been created', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.newTagCreated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Tag could not be saved.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('msg.tagCoulddNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('new', NULL, NULL, ['id' => $tag->getUid()]);
 	}
@@ -139,7 +139,7 @@ class TagController extends AbstractController {
 	public function deleteAction() {
 		$id = $this->request->getArgument('delete');
 		$this->tagRepository->remove($this->tagRepository->findOneByUid($id));
-		$this->addFlashMessage('One tag has been moved to trash', 'Done!', FlashMessage::WARNING);
+		$this->addFlashMessage($this->translate('msg.tagMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 		$this->redirect('new', NULL, NULL);
 	}
 

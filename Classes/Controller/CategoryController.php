@@ -62,7 +62,7 @@ class CategoryController extends AbstractController {
 								}
 							}
 							$this->getPersistenceManager()->persistAll();
-							$this->addFlashMessage('Category has been moved to trash', 'Done!', FlashMessage::OK);
+							$this->addFlashMessage($this->translate('msg.categoriesMovedToTrash'), $this->translate('heading.done'), FlashMessage::OK);
 						}
 						break;
 					default:
@@ -116,9 +116,9 @@ class CategoryController extends AbstractController {
 		$this->categoryRepository->add($category);
 		$this->getPersistenceManager()->persistAll();
 		if ($category->getUid()) {
-			$this->addFlashMessage('New category has been created', 'Done!', FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.newCatCreated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
-			$this->addFlashMessage('Category could not be saved.', 'Error!', FlashMessage::ERROR);
+			$this->addFlashMessage($this->translate('msg.catCouldNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}
 		$this->redirect('new', NULL, NULL, ['id' => $category->getUid()]);
 	}
@@ -131,7 +131,7 @@ class CategoryController extends AbstractController {
 	public function deleteAction() {
 		$id = $this->request->getArgument('delete');
 		$this->categoryRepository->remove($this->categoryRepository->findOneByUid($id));
-		$this->addFlashMessage('One category has been moved to trash', 'Done!', FlashMessage::WARNING);
+		$this->addFlashMessage($this->translate('msg.categoryMovedToTrash'), $this->translate('heading.done'), FlashMessage::WARNING);
 		$this->redirect('new', NULL, NULL);
 	}
 

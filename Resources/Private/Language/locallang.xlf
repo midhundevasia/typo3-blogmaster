@@ -294,6 +294,39 @@
 				<trans-unit id="label.showingComments">
 					<source>Showing Comments</source>
 				</trans-unit>
+				<trans-unit id="label.showingCategories">
+					<source>Showing Categories</source>
+				</trans-unit>
+				<trans-unit id="label.showingTags">
+					<source>Showing Tags</source>
+				</trans-unit>
+				<trans-unit id="label.delete">
+					<source>Delete</source>
+				</trans-unit>
+				<trans-unit id="label.allDates">
+					<source>All Dates</source>
+				</trans-unit>
+				<trans-unit id="label.allCategories">
+					<source>All Categories</source>
+				</trans-unit>
+				<trans-unit id="label.showingPosts">
+					<source>Showing Posts</source>
+				</trans-unit>
+				<trans-unit id="label.excerpt">
+					<source>Excerpt</source>
+				</trans-unit>
+				<trans-unit id="label.update">
+					<source>Update</source>
+				</trans-unit>
+				<trans-unit id="label.published">
+					<source>Published</source>
+				</trans-unit>
+				<trans-unit id="label.pendingReview">
+					<source>Pending Review</source>
+				</trans-unit>
+				<trans-unit id="label.discussion">
+					<source>Discussion</source>
+				</trans-unit>
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>
@@ -384,8 +417,48 @@
 			<trans-unit id="msg.commentCouldNotUpdate">
 				<source>Comment could not be update.</source>
 			</trans-unit>
-			
-
+			<trans-unit id="msg.tagMovedToTrash">
+				<source>Tag has been moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.tagsMovedToTrash">
+				<source>Tag(s) moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.newTagCreated">
+				<source>New Tag has been created</source>
+			</trans-unit>
+			<trans-unit id="msg.tagCoulddNotSave">
+				<source>Tag could not be saved.</source>
+			</trans-unit>
+			<trans-unit id="msg.categoryMovedToTrash">
+				<source>Category has been moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.categoriesMovedToTrash">
+				<source>Selected categories moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.newCatCreated">
+				<source>New Category has been created</source>
+			</trans-unit>
+			<trans-unit id="msg.catCoulddNotSave">
+				<source>Category could not be saved.</source>
+			</trans-unit>
+			<trans-unit id="msg.newPostCreated">
+				<source>New Post has been created</source>
+			</trans-unit>
+			<trans-unit id="msg.postCoulddNotSave">
+				<source>Post could not be saved.</source>
+			</trans-unit>
+			<trans-unit id="msg.postMovedToTrash">
+				<source>Post has been moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.postsMovedToTrash">
+				<source>Selected posts moved to trash</source>
+			</trans-unit>
+			<trans-unit id="msg.postsPublished">
+				<source>Post(s) has been published.</source>
+			</trans-unit>
+			<trans-unit id="msg.postsDrafted">
+				<source>Post(s) has been updated as draft.</source>
+			</trans-unit>
 
 			<trans-unit id="widget.pagination.previous">
 				<source>Previous</source>
