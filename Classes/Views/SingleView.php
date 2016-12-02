@@ -70,6 +70,7 @@ class SingleView extends AbstractView {
 					);
 					$this->controllerContext->getFlashMessageQueue()->enqueue($flashMessage);
 				}
+				$msg = $GLOBALS['TSFE']->fe_user->setKey('ses', 'flashmessage.commentForm.msg', '');
 				$this->view->assign('post', $data);
 			} else {
 				$this->redirectToPage();
