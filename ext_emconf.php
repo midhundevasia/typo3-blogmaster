@@ -14,7 +14,7 @@
  */
 $EM_CONF[$_EXTKEY] = [
 	'title' => 'Blog system for TYPO3 CMS',
-	'description' => 'A blog system for TYPO3 CMS. Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets, RSS Feed, Comment Feed',
+	'description' => 'Features: Posts, Publishing Tools, Categories, Tags, Comments, User Management, Themes, Search, Tag cloud, Archive, Widgets, RSS Feed, Comment Feed, Post Feed, OpenGraph',
 	'category' => 'plugin',
 	'author' => 'Midhun Devasia',
 	'author_email' => 'hello@midhundevasia.com',
@@ -23,7 +23,7 @@ $EM_CONF[$_EXTKEY] = [
 	'uploadfolder' => 0,
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.0.5',
+	'version' => '1.0.6',
 	'constraints' => [
 		'depends' => [
 			'typo3' => '7.6.0-8.9.99',
