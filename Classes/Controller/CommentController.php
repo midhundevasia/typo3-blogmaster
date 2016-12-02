@@ -300,7 +300,7 @@ class CommentController extends AbstractController {
 					$errors[$propertyName] = $validationError[0]->getMessage();
 				}
 				//@todo need to find another solution instead session
-				$GLOBALS['TSFE']->fe_user->setKey('ses', 'flashmessage.commentForm.msg', ['msg' => implode('<br>', $errors), 'title' => $this->translate('heading.error'), 'status' => FlashMessage::ERROR]);
+				$GLOBALS['TSFE']->fe_user->setKey('ses', 'flashmessage.commentForm.msg', ['msg' => implode(' ', $errors), 'title' => $this->translate('heading.error'), 'status' => FlashMessage::ERROR]);
 				$this->view->assign('validationErrors', $errors);
 			} else {
 				switch ($comment->getStatus('publish')) {
