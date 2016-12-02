@@ -13,9 +13,10 @@ The extension includes the following features:
 * Tags
 * Feature Image
 * Search
-* Comments
+* Comments and Reply
 * Widgets
-* RSS (for Blog and Comments)
+* RSS (for Blog, Comments, Single Post)
+* OpenGraph Protocol
 
 Check [complete feature list](https://github.com/midhundevasia/typo3-blogmaster/wiki/)
 
@@ -28,7 +29,10 @@ Goto `Extensions` -> Choose `Get Extensions` from the dropdown -> Search `Blogma
 Download the latest file from the GitHub or TER and copy folder to the `typo3conf/ext/`
 Then install it from the Extensions Module.
 
-##### via Composer
+##### via Composer 
+	composer require "typo3-ter/blogmaster"
+
+##### via Composer for developers
 	composer require "midhundevasia/typo3-blogmaster" --no-scripts
 
 ## Usage
@@ -58,9 +62,12 @@ give some support
 Blogmaster is licensed under GNU General Public License (GPLv3) - see the `LICENSE` file for details.
 
 ## Credits
-Icons 
+#### Icons 
  - https://thenounproject.com
- - http://www.flaticon.com/
+ - http://www.flaticon.com
+#### Libraries
+ - Sizzlejs
+ - TinyMCE
 
 ## Screenshot
 ![](https://raw.githubusercontent.com/midhundevasia/typo3-blogmaster/master/Documentation/Images/Frontend.HomeView.png)

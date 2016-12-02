@@ -6,7 +6,7 @@
 	"support": {
 		"issues": "https://github.com/midhundevasia/typo3-blogmaster/issues"
 	},
-	"version" : "1.0.5",
+	"version" : "1.0.6",
 	"license": ["GPL-3.0+"],
 	"authors": [
 		{
