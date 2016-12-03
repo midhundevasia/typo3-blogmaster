@@ -324,9 +324,28 @@
 				<trans-unit id="label.pendingReview">
 					<source>Pending Review</source>
 				</trans-unit>
+				<trans-unit id="label.lastModified">
+					<source>Last Modified</source>
+				</trans-unit>
 				<trans-unit id="label.discussion">
 					<source>Discussion</source>
 				</trans-unit>
+				<trans-unit id="label.immediately">
+					<source>immediately</source>
+				</trans-unit>
+				<trans-unit id="label.scheduled">
+					<source>Scheduled</source>
+				</trans-unit>
+				<trans-unit id="label.schedule">
+					<source>Schedule</source>
+				</trans-unit>
+				<trans-unit id="label.scheduledFor">
+					<source>Scheduled for</source>
+				</trans-unit>
+				<trans-unit id="label.publishedOn">
+					<source>Published on</source>
+				</trans-unit>
+				 
 
 			<trans-unit id="comment.leaveAReply">
 				<source>Leave a Reply</source>

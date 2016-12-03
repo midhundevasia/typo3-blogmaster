@@ -116,6 +116,13 @@ class PostController extends AbstractController {
 	protected function initializeView(ViewInterface $view) {
 		parent::initializeView($view);
 		$this->view->assign('categoryList', $this->categoryRepository->findAllByBlog(0));
+		$monthName = [];
+		setlocale(LC_TIME, $this->settings['locale']);
+		for ($i = 1; $i <= 12; $i++) {
+			$i = ($i < 10) ? '0' . $i : $i;
+			$monthName[$i] = strftime($i . ' %b', strtotime('20-' . $i . '-1900'));
+		}
+		$this->view->assign('monthNames', $monthName);
 	}
 
 	/**
@@ -232,6 +239,9 @@ class PostController extends AbstractController {
 	 * @dontvalidate $newPost
 	 */
 	public function newAction(\Tutorboy\Blogmaster\Domain\Model\Post $newPost = NULL) {
+		if ($newPost == NULL) {
+			$newPost = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Model\Post::class);
+		}
 		$this->view->assign('postObject', $newPost);
 		$cats = $this->categoryRepository->findAllByBlog(0);
 		$authors = $this->userRepository->findAll();
@@ -265,6 +275,7 @@ class PostController extends AbstractController {
 			$additionalData = GeneralUtility::_GP('__additionalData');
 			$this->processAdditionalData($newPost, $additionalData);
 		}
+		$newPost->setCrdate(strtotime($newPost->getCreated()));
 		$this->postRepository->add($newPost);
 		$this->getPersistenceManager()->persistAll();
 		if ($newPost->getUid()) {
@@ -285,6 +296,7 @@ class PostController extends AbstractController {
 			$additionalData = GeneralUtility::_GP('__additionalData');
 			$this->processAdditionalData($newPost, $additionalData);
 		}
+		$newPost->setCrdate(strtotime($newPost->getCreated()));
 		$this->postRepository->add($newPost);
 		$this->getPersistenceManager()->persistAll();
 		if ($newPost->getUid()) {

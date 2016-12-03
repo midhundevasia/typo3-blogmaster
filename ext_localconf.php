@@ -33,6 +33,7 @@ defined('TYPO3_MODE') or die();
 // Blog services like feed, xmlrpc etc
 \Tutorboy\Blogmaster\Service\BlogService::addService('feed', \Tutorboy\Blogmaster\Service\FeedService::class . '->generateBlogFeed');
 \Tutorboy\Blogmaster\Service\BlogService::addService('commentsFeed', \Tutorboy\Blogmaster\Service\FeedService::class . '->generateCommentsFeed');
+\Tutorboy\Blogmaster\Service\BlogService::addService('init', \Tutorboy\Blogmaster\Service\Core\GeneralService::class . '->activateFuturePosts');
 
 // Hooks
 //$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['encodeSpURL_postProc'][] = 'Tutorboy\\Blogmaster\\Hooks\\RealUrlHooks->encodeSpUrl_postProc';

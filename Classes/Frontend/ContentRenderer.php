@@ -73,14 +73,34 @@ class ContentRenderer {
 	 * @return void
 	 */
 	private function init() {
-		$this->initServices();
+		if ($GLOBALS['blogmasterInit'] == FALSE) {
+			$GLOBALS['blogmasterInit'] = TRUE;
+			// All internal hooks
+			$this->initAllServices();
+			// All services which are associated with the request var
+			$this->initRequestServices();
+		}
 	}
 
 	/**
-	 * Services
+	 * Init all services
 	 * @return void
 	 */
-	private function initServices() {
+	private function initAllServices() {
+		$blogService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\BlogService::class);
+		if (is_array($blogService->getAll('init'))) {
+			$hooks = $blogService->getAll('init');
+			foreach ($hooks as $serviceValue) {
+				$blogService->doService('init', [$serviceName, $serviceValue, 'request' => $this->request], $this);
+			}
+		}
+	}
+
+	/**
+	 * Services requests
+	 * @return void
+	 */
+	private function initRequestServices() {
 		if (is_array($this->request['service'])) {
 			foreach ($this->request['service'] as $serviceName => $serviceValue) {
 				$blogService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\BlogService::class);
