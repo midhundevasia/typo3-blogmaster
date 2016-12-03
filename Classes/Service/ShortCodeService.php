@@ -52,15 +52,10 @@ class ShortCodeService  implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Get all registered shortcodes
-	 * @param  string $hookName Hookname
-	 * @return array|NULL
+	 * @return array
 	 */
-	public static function getAll($hookName) {
-		if (self::hasShortCode($hookName)) {
-			return $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Blogmaster/ShortCode'][$hookName];
-		} else {
-			return NULL;
-		}
+	public static function getAll() {
+		return $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Blogmaster/ShortCode'];
 	}
 
 	/**
@@ -74,7 +69,8 @@ class ShortCodeService  implements \TYPO3\CMS\Core\SingletonInterface {
 			return $content;
 		}
 
-		$hooks = self::getAll('Blogmaster/ShortCode');
+		$hooks = self::getAll(
+			);
 		if (empty($hooks)) {
 			return $content;
 		}
