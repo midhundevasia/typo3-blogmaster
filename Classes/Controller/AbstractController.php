@@ -17,6 +17,7 @@ namespace Tutorboy\Blogmaster\Controller;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Abstract action controller
@@ -27,6 +28,19 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * @author 		Midhun Devasia <hello@midhundevasia.com>
  */
 abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * Inject configuration manager
+	 * @param ConfigurationManagerInterface $configurationManager ConfigurationManager
+	 * @return void
+	 */
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+		$this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+		$settingsService = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Service\SettingsService::class);
+		$settingsService->setSettings($this->settings);
+		$this->settings = $settingsService->getSettings();
+	}
 
 	/**
 	 * Return the persistance manager object instance

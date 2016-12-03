@@ -65,6 +65,7 @@ Blogmaster is licensed under GNU General Public License (GPLv3) - see the `LICEN
 #### Icons 
  - https://thenounproject.com
  - http://www.flaticon.com
+ 
 #### Libraries
  - Sizzlejs
  - TinyMCE

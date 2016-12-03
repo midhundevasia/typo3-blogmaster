@@ -273,6 +273,15 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set created date as timestamp
+	 * @param string $date Date
+	 * @return void
+	 */
+	public function setCrdate($date) {
+		$this->crdate = $date;
+	}
+
+	/**
 	 * Getter for comment count
 	 * @return object
 	 */
@@ -511,6 +520,20 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			$resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
 			$file = $resourceFactory->getFileObject($this->image);
 			return $file;
+		}
+	}
+
+	/**
+	 * Check if the post is a scheduled item
+	 * @return bool
+	 */
+	public function getIsFuture() {
+		$today = new \DateTime();
+		$postDate = new \DateTime($this->getCreated());
+		if ($today->getTimestamp() < $postDate->getTimestamp()) {
+			return TRUE;
+		} else {
+			return FALSE;
 		}
 	}
 

@@ -4,7 +4,7 @@
 		<f:switch expression="{postObject.status}">
 			<f:case value=""><button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button></f:case>
 			<f:case value="draft">
-				<button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/>/button>
+				<button class="btn btn-default" id="btn-draft" type='button' onclick="javascript:saveAsDraft();"><f:translate key="label.saveAsDraft"/></button>
 				<button class="btn btn-default display-none" id="btn-pending" type='button' onclick="javascript:saveAsPending();"><f:translate key="label.saveAsPending"/></button>
 			</f:case>
 			<f:case value="pending">
@@ -16,14 +16,14 @@
 	</div>
 	<br>
 	<div>
-		<div class="clear panel-label"><f:translate key="label.status"/>: <strong id="post-status-label"><f:translate key="label.draft"/></strong> <a class="text-info" id="set-status" href="javascript:;" onclick="javascript:TYPO3.jQuery('#post-status-panel,#set-status').toggle()"><f:translate key="label.edit"/></a></div>
+		<div class="clear panel-label"><f:translate key="label.status"/>: <strong id="post-status-label"><f:translate key="label.draft"/></strong> <a class="text-info" id="set-status" href="javascript:;" onclick="javascript:TYPO3.jQuery('#post-status-panel,#set-status').toggle()"><TB:be.buttons.icon icon="ext-blogmaster-edit"/></a></div>
 		<div id="post-status-panel" class="display-none">
 			<div class="panel-label col-sm-6">
 				<f:form.select 
 					id="post-status"
 					property="status"
 					class="form-control"
-					options="{publish: '{f:translate(key: \'label.published\')}', draft: '{f:translate(key: \'label.draft\')}', pending: '{f:translate(key: \'label.pendingReview\')}'}"
+					options="{publish: '{f:translate(key: \'label.published\')}', future: '{f:translate(key: \'label.scheduled\')}', draft: '{f:translate(key: \'label.draft\')}', pending: '{f:translate(key: \'label.pendingReview\')}'}"
 				/>
 			</div>
 			<div class="panel-label col-sm-6 pull-left">
@@ -31,22 +31,118 @@
 				<a class="btn text-info pull-left" href="javascript:;" onclick="javascript:TYPO3.jQuery('#post-status-panel,#set-status').toggle()"><f:translate key="label.cancel"/></a>
 			</div>
 		</div>
-		<!-- <div class="clear panel-label">Visibility: <strong id="post-visibility-label">Public</strong> <a class=" text-info" href="javascript:;">Edit</a></div>
-		<div class="clear panel-label">Publish: <strong id="post-schedule-label">Draft</strong> <a class=" text-info" href="javascript:;">Edit</a></div>-->
+<!-- 		 <div class="clear panel-label">Visibility: <strong id="post-visibility-label">Public</strong> <a class=" text-info" href="javascript:;">Edit</a></div>
+ -->	<div class="clear panel-label">
+ 			<div id="published-on"><TB:be.buttons.icon icon="ext-blogmaster-cal"/>
+	 			<span id="post-date-label"><f:switch expression="{postObject.isFuture}">
+					<f:case value="future"><f:translate key="label.scheduledFor"/>: </f:case>
+					<f:case default="TRUE"><f:translate key="label.publishedOn"/>: </f:case>
+				</f:switch>
+				</span>
+	 			<strong id="publish-date-display">
+	 			<f:if condition="{postObject.uid}">
+		 			<f:then>
+		 				<f:format.date date='{postObject.created}' format='d M Y @ H:i' />
+		 			</f:then>
+		 			<f:else>
+		 				<f:translate key="label.immediately"/>
+		 			</f:else>
+	 			</f:if>
+ 			</strong>
+ 			<a class="text-info" id="set-publish" onclick="javascript:loadPublishDate();" href="javascript:;"><TB:be.buttons.icon icon="ext-blogmaster-edit"/></a></div>
+ 			<div id='publish-date-form' class="display-none">
+ 				<div class="panel-label col-sm-12">
+		 			<div>
+		 				<f:form.select id="publish-date-month" options="{monthNames}" value="<f:format.date date='{postObject.created}' format='m' />"/>
+			 			<span><input type="text" id="publish-date-day" size="1" maxlength="2" value='<f:format.date date="{postObject.created}" format="d" />'>
+			 			<input type="text" id="publish-date-year" size="4" maxlength="4" value='<f:format.date date="{postObject.created}" format="Y" />'>
+			 			@ <input type="text" id="publish-date-hour" size="1" maxlength="2" value='<f:format.date date="{postObject.created}" format="H"/>'>
+			 			:<input type="text" id="publish-date-min" size="1" maxlength="2" value='<f:format.date date="{postObject.created}" format="i" />'></span>
+	 				</div>
+	 				<f:if condition="{postObject.uid}">
+		 				<f:then>
+		 					<f:form.hidden property="created" id="post-created-date" value="<f:format.date date='{postObject.created}' format='Y-m-d H:i:s' />" />
+		 				</f:then>
+	 					<f:else>
+	 					<f:form.hidden property="created" id="post-created-date" value="<f:format.date date='now' format='Y-m-d H:i:s' />" />
+	 					</f:else>
+	 				</f:if>
+	 				<div class="panel-label col-sm-6 pull-left">
+						<a class="btn btn-default pull-left" href="javascript:;" onclick="javascript:setPublishDate();"><f:translate key="label.ok"/></a>
+						<a class="btn text-info pull-left" href="javascript:;" onclick="javascript:TYPO3.jQuery('#publish-date-form,#set-publish').toggle()"><f:translate key="label.cancel"/></a>
+					</div>
+	 			</div>
+ 			</div>
+ 		</div>
 	 </div>
 	<div>
 		<a class="btn panel-label text-danger" id="delete-post" href="<f:uri.action action='delete' arguments='{delete: \'{postObject.uid}\'}' />"><f:translate key="label.moveToTrash"/></a>
 		<f:if condition="{postObject.uid} == 0">
 			<f:then>
-				<button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button>
+				<button id="save-button" class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button>
 			</f:then>
 			<f:else>
 				<f:switch expression="{postObject.status}">
-					<f:case value="publish"><button class="btn btn-success pull-right" type='submit' onclick=""><f:translate key="label.update"/></button></f:case>
-					<f:case value="draft"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
-					<f:case value="pending"><button class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
+					<f:case value="publish"><button id="save-button" class="btn btn-success pull-right" type='submit' onclick=""><f:translate key="label.update"/></button></f:case>
+					<f:case value="future"><button id="save-button" class="btn btn-success pull-right" type='submit' onclick=""><f:translate key="label.update"/></button></f:case>
+					<f:case value="draft"><button id="save-button" class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
+					<f:case value="pending"><button id="save-button" class="btn btn-success pull-right" type='button' onclick="javascript:saveAndPublish();"><f:translate key="label.publish"/></button></f:case>
 				</f:switch>
 			</f:else>
 		</f:if>
 	</div>
+	<script type="text/javascript">
+		function loadPublishDate() {
+			TYPO3.jQuery('#publish-date-form, #set-publish').toggle();
+		}
+		function setPublishDate() {
+			var monthName = TYPO3.jQuery('#publish-date-month option:selected').text().split(' ')[1];
+			var createdDate = TYPO3.jQuery('#publish-date-year').val() + '-' + TYPO3.jQuery('#publish-date-month').val() + '-' + TYPO3.jQuery('#publish-date-day').val() + ' ' + TYPO3.jQuery('#publish-date-hour').val() + ':' + TYPO3.jQuery('#publish-date-min').val() + ':00';
+			var createdDateLabel = TYPO3.jQuery('#publish-date-day').val() + ' ' + monthName + ' ' + TYPO3.jQuery('#publish-date-year').val() + ' @ ' + TYPO3.jQuery('#publish-date-hour').val() + ':' + TYPO3.jQuery('#publish-date-min').val();
+			
+			require(['moment', 'TYPO3/CMS/Blogmaster/moment-timezone'], function(moment) {
+				var currentTime = new moment.tz(new Date(), "{settings.timezone}");
+				var postTime = new Date(createdDate);
+				if (currentTime.format('YYYY-MM-DD HH:mm:ss') < createdDate) {
+					TYPO3.jQuery('#post-date-label').html('<f:translate key="label.scheduledFor"/>');
+					TYPO3.jQuery('#save-button').html('<f:translate key="label.schedule"/>');
+					TYPO3.jQuery('#post-status').val('future');
+					TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+				} else {
+					TYPO3.jQuery('#post-date-label').html('<f:translate key="label.publishedOn"/>');
+					TYPO3.jQuery('#save-button').html('<f:translate key="label.update"/>');
+					TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+				}
+			});
+			TYPO3.jQuery('#post-created-date').val(createdDate);
+			TYPO3.jQuery('#publish-date-display').html(createdDateLabel);
+			TYPO3.jQuery('#publish-date-form, #set-publish').toggle();
+		}
+
+		TYPO3.jQuery(document).ready(function() {
+			TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+		});
+		function setStatus() {
+			TYPO3.jQuery('#post-status-panel,#set-status').toggle();
+			TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
+			if (TYPO3.jQuery('#post-status').val() == 'pending') {
+				TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
+			}
+			if (TYPO3.jQuery('#post-status').val() == 'draft') {
+				TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
+			}
+		}
+		function saveAsDraft() {
+			TYPO3.jQuery('#post-status').val('draft');
+			TYPO3.jQuery('#post-data').submit();
+		}
+		function saveAsPending() {
+			TYPO3.jQuery('#post-status').val('pending');
+			TYPO3.jQuery('#post-data').submit();
+		}
+		function saveAndPublish() {
+			TYPO3.jQuery('#post-status').val('publish');
+			TYPO3.jQuery('#post-data').submit();
+		}
+	</script>
 </TB:widget.box>

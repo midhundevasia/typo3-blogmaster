@@ -3,7 +3,7 @@
 	action="<f:if condition='{postObject.uid}'><f:then>update</f:then><f:else>create</f:else></f:if>" 
 	name="newPost" object="{postObject}" id="post-data">
 	<input type="hidden" name="__additionalData[]"/>
-	<div class="col-sm-9">
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-9">
 
 		<f:form.hidden property="modified"/><br>
 		<div class="form-group">
@@ -27,7 +27,7 @@
 			<f:render partial="Post/Additional/Author" arguments="{_all}"/>
 		</div>
 	</div>
-	<div class="col-sm-3 pull-right">
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
 		<f:render partial="Post/Sidebar/PostStatus" arguments="{_all}"/>
 		<f:render partial="Post/Sidebar/Category" arguments="{_all}"/>
 		<f:render partial="Post/Sidebar/Tag" arguments="{_all}"/>
@@ -35,30 +35,3 @@
 	</div>
 </f:form>
 </div>
-<script type="text/javascript">
-	TYPO3.jQuery(document).ready(function() {
-		TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
-	});
-	function setStatus() {
-		TYPO3.jQuery('#post-status-panel,#set-status').toggle();
-		TYPO3.jQuery('#post-status-label').html(TYPO3.jQuery('#post-status option:selected').text());
-		if (TYPO3.jQuery('#post-status').val() == 'pending') {
-			TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
-		}
-		if (TYPO3.jQuery('#post-status').val() == 'draft') {
-			TYPO3.jQuery('#btn-draft,#btn-pending').toggle();
-		}
-	}
-	function saveAsDraft() {
-		TYPO3.jQuery('#post-status').val('draft');
-		TYPO3.jQuery('#post-data').submit();
-	}
-	function saveAsPending() {
-		TYPO3.jQuery('#post-status').val('pending');
-		TYPO3.jQuery('#post-data').submit();
-	}
-	function saveAndPublish() {
-		TYPO3.jQuery('#post-status').val('publish');
-		TYPO3.jQuery('#post-data').submit();
-	}
-</script>

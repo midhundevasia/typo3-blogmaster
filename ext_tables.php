@@ -70,6 +70,21 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\
 		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-plus.svg']
 	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-cal',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-date.svg']
+	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-edit',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/actions-edit.svg']
+	);
+	$iconRegistry->registerIcon(
+		'ext-blogmaster-comments',
+		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		['source' => 'EXT:blogmaster/Resources/Public/Icons/chat.svg']
+	);
 
 if (TYPO3_MODE === 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 

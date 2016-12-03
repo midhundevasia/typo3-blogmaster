@@ -54,6 +54,7 @@ plugin.tx_blogmaster.settings {
 	enableFeeds = 1
 
 	locale = en_US
+	timezone = 
 
 	# Backend settings
 	backend {

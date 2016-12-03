@@ -34,6 +34,9 @@ class SettingsService implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	public function setSettings($settings) {
 		$this->settings = $settings;
+		foreach ($settings as $key => $_) {
+			$this->getDefaultValueIfNull($key);
+		}
 	}
 
 	/**
@@ -46,6 +49,28 @@ class SettingsService implements \TYPO3\CMS\Core\SingletonInterface {
 			return $this->settings[$key];
 		} else {
 			return $this->settings;
+		}
+	}
+
+	/**
+	 * Return default value of a settings variable
+	 * @param  string $key Settings key
+	 * @return void
+	 */
+	public function getDefaultValueIfNull($key) {
+		switch ($key) {
+			case 'timezone':
+				if (empty($this->settings[$key]) || !isset($this->settings[$key])) {
+					$this->settings[$key] = date_default_timezone_get();
+				}
+				break;
+			case 'locale':
+				if (empty($this->settings[$key]) || !isset($this->settings[$key])) {
+					$this->settings[$key] = 'en_US';
+				}
+				break;
+			default:
+				$this->settings[$key];
 		}
 	}
 }

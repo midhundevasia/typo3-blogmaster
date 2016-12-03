@@ -25,7 +25,7 @@ namespace Tutorboy\Blogmaster\Domain\Repository;
  */
 class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-	protected $defaultOrderings = ['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
+	protected $defaultOrderings = ['created' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
 
 	/**
 	 * Initialize the repository
@@ -229,7 +229,10 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 		return $query
 				->matching(
-					$query->greaterThan('crdate', $post->getCrdate())
+					$query->logicalAnd(
+						$query->greaterThan('crdate', $post->getCrdate()),
+						$query->equals('status', 'publish')
+					)
 				)
 				->execute()
 				->getFirst();
@@ -244,10 +247,30 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 		return $query
 				->matching(
-					$query->lessThan('crdate', $post->getCrdate())
+					$query->logicalAnd(
+						$query->lessThan('crdate', $post->getCrdate()),
+						$query->equals('status', 'publish')
+					)
 				)
 				->execute()
 				->getFirst();
+	}
+
+	/**
+	 * Find all future posts
+	 * @return array
+	 */
+	public function findAllFuturePosts() {
+		$query = $this->createQuery();
+		$today = new \DateTime();
+		return $query
+				->matching(
+					$query->logicalAnd(
+						$query->lessThanOrEqual('crdate', $today->getTimestamp()),
+						$query->equals('status', 'future')
+					)
+				)
+				->execute();
 	}
 
 	/**
