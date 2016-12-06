@@ -99,6 +99,7 @@ class PostController extends AbstractController {
 		//@todo setlocale(LC_ALL, 'de_DE'); for date chagnes and slug functions
 		$this->pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/JavaScript/Backend.js');
+		$this->pageRenderer->addJsFile($path . 'Resources/Public/JavaScript/Editor.js');
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/Library/tinymce/tinymce.min.js');
 		$rteConf = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Rte\RteConfiguration::class)->getConfiguration();
 		$this->pageRenderer->addJsInlineCode('tinymce', $rteConf, FALSE, TRUE);

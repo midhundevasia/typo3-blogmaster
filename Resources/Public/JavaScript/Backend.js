@@ -57,3 +57,26 @@ Blogmaster.openFileBrowser = function(mode, params, width, height) {
 	window.openedPopupWindow = window.open(url, 'Typo3WinBrowser', 'height=' + height + ',width=' + width + ',status=0,menubar=0,resizable=1,scrollbars=1');
 	window.openedPopupWindow.focus();
 };
+
+/**
+ * User settings object
+ * @type {Object}
+ */
+Blogmaster.UserSettings = {};
+/**
+ * Update user settings
+ * @param {string}   key      Settings key
+ * @param {string}   value    Value
+ * @param {Function} callback Callback function after ajax done
+ */
+Blogmaster.UserSettings.set = function(key, value, callback) {
+	TYPO3.jQuery.ajax(TYPO3.settings.ajaxUrls['usersettings_process'], {data: {'action': 'set', key: 'blogmaster.' + key, value: value}}).done(callback);
+}
+/**
+ * Get user setting
+ * @param  {string}   key      Settings key
+ * @param  {Function} callback Callback function
+ */
+Blogmaster.UserSettings.get = function(key, callback) {
+	TYPO3.jQuery.ajax(TYPO3.settings.ajaxUrls['usersettings_process'], {data: {'action': 'get', key: 'blogmaster.' + key}}).done(callback);
+}

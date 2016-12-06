@@ -10,16 +10,19 @@
 			<f:form.textfield property="title" id="post-title" class='form-control' placeholder='Post Title - eg: Hello World'/>
 			<small class="form-text text-muted"><f:translate key="label.postTitleHelp"/></small>
 		</div>
-		<div class="form-group">
+		<span class="form-group">
 			<f:form.textfield property="slug" id="post-slug" class='form-control' placeholder='Post Slug - eg: hello-world'/>
 			<small class="form-text text-muted"><f:translate key="label.postSlugHelp"/></small>
+		</span>
+		<div class="form-group rte-tools">
+	 		<div class="rte-editor-tabs pull-right">
+	 			<a class="rte-editor-mode" href="javascript:;" data-mode='visual'><span>Visual</span></a>
+	 			<a class="rte-editor-mode" href="javascript:;" data-mode='text'><span>Text</span></a>
+	 		</div><div class="clear"></div>
+	 	</div>
+	 	<div class="form-group">
+	 		<f:form.textarea property='content' id="post-content" class='form-control rte-editor' cols="10" rows="10"/>
 		</div>
-		<div class="form-group">
-<!-- 			<f:link.action action="new" class="btn btn-default" controller="Comment">Add Media</f:link.action>
- -->			<f:form.textarea property='content' id="post-content" class='form-control rte-editor' cols="10" rows="10"/>
-			<small class="form-text text-muted"></small>
-		</div>
-
 		<div>
 			<f:render partial="Post/Additional/Excerpt" arguments="{_all}"/>
 			<f:render partial="Post/Additional/Discussion" arguments="{_all}"/>
