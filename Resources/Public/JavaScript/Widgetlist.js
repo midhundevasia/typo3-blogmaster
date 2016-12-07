@@ -20,7 +20,11 @@ define(['jquery', 'TYPO3/CMS/Backend/Storage', 'TYPO3/CMS/Backend/Icons'], funct
 
 	var Widgetlist = {
 		identifier: {
-			toggle: '.toggle-widgetlist'
+			toggle: '.toggle-widgetlist',
+			icons: {
+				collapse: 'actions-view-list-collapse',
+				expand: 'actions-view-list-expand'
+			}
 		}
 	};
 
@@ -31,18 +35,16 @@ define(['jquery', 'TYPO3/CMS/Backend/Storage', 'TYPO3/CMS/Backend/Icons'], funct
 		e.preventDefault();
 		var $me = $(this),
 			id = $me.data('id'),
-			toggle = $me.data('stage');
-		if (toggle === 'expand') {
-			iconName = 'collapse';
-		} else {
-			iconName = 'expand';
-		}
-		$me.data('stage', toggle);
-		Icons.getIcon('actions-view-list-' + toggle, Icons.sizes.small).done(function(toggleIcon) {
+			isExpanded = $me.attr('data-state') === 'expand',
+			toggle = $me.attr('data-state'),
+			toggleIcon = isExpanded ? Widgetlist.identifier.icons.expand : Widgetlist.identifier.icons.collapse;
+		Icons.getIcon(toggleIcon, Icons.sizes.small).done(function(toggleIcon) {
 			$me.html(toggleIcon);
 		});
-		Blogmaster.UserSettings.set(id, iconName);
-		$('#' + id + ' .panel-body').slideToggle();
+		$me.attr('data-state', isExpanded ? 'collapse' : 'expand');
+		Blogmaster.UserSettings.set(id, $me.data('state'), function() {
+			$('#' + id + ' .panel-body').slideToggle('fast');
+		});
 	};
 
 	$(function() {
