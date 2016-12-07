@@ -34,7 +34,13 @@ class BoxController extends AbstractWidgetController {
 	 * @return void
 	 */
 	public function indexAction() {
+		$id = 'box-' . md5($this->widgetConfiguration['title']);
+		$userSettings = $GLOBALS['BE_USER']->uc['blogmaster'];
 		$this->view->assign('title', $this->widgetConfiguration['title']);
 		$this->view->assign('content', $this->content);
+		$this->view->assign('id', $id);
+		$this->view->assign('state', isset($userSettings[$id]) ? $userSettings[$id] : 'expand');
+		$this->view->assign('stateIcon', ($userSettings[$id] == 'collapse') ? 'expand' : 'collapse');
+		$this->view->assign('stateStyle', ($userSettings[$id] == 'collapse') ? 'display:none;' : 'display:block;');
 	}
 }

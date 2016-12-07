@@ -101,6 +101,7 @@ class PostController extends AbstractController {
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/JavaScript/Backend.js');
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/JavaScript/Editor.js');
 		$this->pageRenderer->addJsFile($path . 'Resources/Public/Library/tinymce/tinymce.min.js');
+		$this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blogmaster/Widgetlist');
 		$rteConf = GeneralUtility::makeInstance(\Tutorboy\Blogmaster\Rte\RteConfiguration::class)->getConfiguration();
 		$this->pageRenderer->addJsInlineCode('tinymce', $rteConf, FALSE, TRUE);
 		$this->pageRenderer->addJsInlineCode('recordBrowseUrl', '

@@ -1,14 +1,14 @@
-{namespace TB=Tutorboy\Blogmaster\ViewHelpers}
-<div class="panel panel-space panel-default clear">
+{namespace blog=Tutorboy\Blogmaster\ViewHelpers}
+<div class="panel panel-space panel-default clear collapse-panel" id="{id}">
 	<div class="panel-heading">
 		{title}
 		<span>
-			<a href="javascript:void(0);" title="Collapse" class="pull-right t3js-toggle-recordlist" data-toggle="collapse" aria-expanded="true">
-				<TB:be.buttons.icon icon="ext-blogmaster-collapse"/>
+			<a href="javascript:;" title="Collapse" class="pull-right toggle-widgetlist" data-stage="{state}" data-id="{id}">
+				<blog:be.buttons.icon icon="ext-blogmaster-{stateIcon}"/>
 			</a>
 		</span>
 	</div>
-	<div class="panel-body">
+	<div class="panel-body" style="{stateStyle}">
 		<f:format.raw>{content}</f:format.raw>
 	</div>
 </div>

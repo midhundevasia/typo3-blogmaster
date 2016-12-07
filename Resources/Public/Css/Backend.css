@@ -150,3 +150,4 @@ table.table-fixed {
 	background: #eee;
 	z-index: 2;
 }
+.toggle-widgetlist:focus { outline: 0 }
