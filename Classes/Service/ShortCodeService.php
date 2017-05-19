@@ -69,8 +69,7 @@ class ShortCodeService  implements \TYPO3\CMS\Core\SingletonInterface {
 			return $content;
 		}
 
-		$hooks = self::getAll(
-			);
+		$hooks = self::getAll();
 		if (empty($hooks)) {
 			return $content;
 		}
