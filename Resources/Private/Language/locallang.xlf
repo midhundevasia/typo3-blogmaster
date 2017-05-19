@@ -466,6 +466,9 @@
 			<trans-unit id="msg.postCoulddNotSave">
 				<source>Post could not be saved.</source>
 			</trans-unit>
+			<trans-unit id="msg.postUpdated">
+				<source>Post updation was successful</source>
+			</trans-unit>
 			<trans-unit id="msg.postMovedToTrash">
 				<source>Post has been moved to trash</source>
 			</trans-unit>

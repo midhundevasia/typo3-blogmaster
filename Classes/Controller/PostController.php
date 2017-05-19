@@ -302,7 +302,7 @@ class PostController extends AbstractController {
 		$this->postRepository->add($newPost);
 		$this->getPersistenceManager()->persistAll();
 		if ($newPost->getUid()) {
-			$this->addFlashMessage($this->translate('msg.newPostCreated'), $this->translate('heading.done'), FlashMessage::OK);
+			$this->addFlashMessage($this->translate('msg.postUpdated'), $this->translate('heading.done'), FlashMessage::OK);
 		} else {
 			$this->addFlashMessage($this->translate('msg.postCoulddNotSave'), $this->translate('heading.error'), FlashMessage::ERROR);
 		}

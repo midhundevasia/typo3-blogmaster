@@ -1,3 +1,4 @@
 Build/bin/*
 Build/vendor/*
 composer.lock
+Build/Web/

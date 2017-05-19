@@ -9,3 +9,6 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
+.bm-preview {
+	border: 1px solid #ccc;
+}
