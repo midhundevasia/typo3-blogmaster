@@ -33,7 +33,7 @@ class CategoriesView extends \Tutorboy\Blogmaster\Views\AbstractView {
 			't.title, mm.uid_foreign as uid, count(distinct mm.uid_local) as count ',
 			'tx_blogmaster_post_category_mm mm
 			join tx_blogmaster_domain_model_category t on (t.uid = mm.uid_foreign)',
-			'1=1',
+			't.deleted = 0',
 			'mm.uid_foreign',
 			'count DESC');
 		$this->view->assign('categories', $categories);
