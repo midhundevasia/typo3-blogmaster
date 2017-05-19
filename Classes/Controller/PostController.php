@@ -122,7 +122,7 @@ class PostController extends AbstractController {
 		setlocale(LC_TIME, $this->settings['locale']);
 		for ($i = 1; $i <= 12; $i++) {
 			$i = ($i < 10) ? '0' . $i : $i;
-			$monthName[$i] = strftime($i . ' %b', strtotime('20-' . $i . '-1900'));
+			$monthName[$i] = strftime('%b', mktime(0, 0, 0, $i, 1, date('Y')));
 		}
 		$this->view->assign('monthNames', $monthName);
 	}

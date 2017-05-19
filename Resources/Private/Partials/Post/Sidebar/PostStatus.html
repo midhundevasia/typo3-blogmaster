@@ -96,7 +96,7 @@
 			TYPO3.jQuery('#publish-date-form, #set-publish').toggle();
 		}
 		function setPublishDate() {
-			var monthName = TYPO3.jQuery('#publish-date-month option:selected').text().split(' ')[1];
+			var monthName = TYPO3.jQuery('#publish-date-month option:selected').text();
 			var createdDate = TYPO3.jQuery('#publish-date-year').val() + '-' + TYPO3.jQuery('#publish-date-month').val() + '-' + TYPO3.jQuery('#publish-date-day').val() + ' ' + TYPO3.jQuery('#publish-date-hour').val() + ':' + TYPO3.jQuery('#publish-date-min').val() + ':00';
 			var createdDateLabel = TYPO3.jQuery('#publish-date-day').val() + ' ' + monthName + ' ' + TYPO3.jQuery('#publish-date-year').val() + ' @ ' + TYPO3.jQuery('#publish-date-hour').val() + ':' + TYPO3.jQuery('#publish-date-min').val();
 			
