@@ -72,13 +72,16 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return array
 	 */
 	public function search($keyword = '') {
-		$parseKey = explode(',', str_replace(' ', '', $keyword));
-		$where = $this->getDatabaseConnection()->searchQuery(
-			$parseKey,
-			['title', 'slug', 'content', 'excerpt'],
-			'tx_blogmaster_domain_model_post',
-			'OR'
-		);
+		$parseKey = array_filter(array_unique(explode(',', str_replace(array(' ', '+'), ',', $keyword))));
+		$where = '1=1';
+		if (count($parseKey)) {
+			$where = $this->getDatabaseConnection()->searchQuery(
+				$parseKey,
+				['title', 'slug', 'content', 'excerpt'],
+				'tx_blogmaster_domain_model_post',
+				'OR'
+			);
+		}
 
 		if (TYPO3_MODE === 'FE') {
 			$published = ' AND status = "publish" ';
