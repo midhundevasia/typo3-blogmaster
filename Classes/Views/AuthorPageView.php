@@ -43,9 +43,12 @@ class AuthorPageView extends AbstractView {
 		} else {
 			$userData = $userRepository->findOneByUsername($this->request['author']);
 		}
-		$data = $postRepository->findByCruserId($userData->getUid());
-		$this->pageService->setTitle($userData->getDisplayName());
-		$this->view->assign('data', $data);
-		$this->view->assign('userData', $userData);
+
+		if (is_object($userData)) {
+			$data = $postRepository->findByCruserId($userData->getUid());
+			$this->pageService->setTitle($userData->getDisplayName());
+			$this->view->assign('data', $data);
+			$this->view->assign('userData', $userData);
+		}
 	}
 }

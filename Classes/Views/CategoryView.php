@@ -37,12 +37,14 @@ class CategoryView extends AbstractView {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$categoryRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\CategoryRepository::class);
 		$catId = $this->request['category'];
-		$data = $postRepository->findAllByCategory($catId);
-		$categoryObject = $categoryRepository->findOneByUid($catId);
-		$this->pageService->setViewType('list');
-		$this->pageService->setTitle($categoryObject->getTitle());
-		$this->pageService->setDescription($categoryObject->getDescription());
-		$this->view->assign('data', $data);
-		$this->view->assign('categoryObject', $categoryObject);
+		if (isset($catId)) {
+			$data = $postRepository->findAllByCategory($catId);
+			$categoryObject = $categoryRepository->findOneByUid($catId);
+			$this->pageService->setViewType('list');
+			$this->pageService->setTitle($categoryObject->getTitle());
+			$this->pageService->setDescription($categoryObject->getDescription());
+			$this->view->assign('data', $data);
+			$this->view->assign('categoryObject', $categoryObject);
+		}
 	}
 }

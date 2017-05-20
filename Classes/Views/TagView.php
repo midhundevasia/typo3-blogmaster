@@ -37,12 +37,13 @@ class TagView extends AbstractView {
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
 		$tagRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\TagRepository::class);
 		$this->pageService->setViewType('list');
-		$tagId = $this->request['tag'];
-		$data = $postRepository->findAllByTag($tagId);
-		$tagObject = $tagRepository->findOneByUid($tagId);
-		$this->pageService->setTitle($tagObject->getTitle());
-		$this->pageService->setDescription($tagObject->getDescription());
-		$this->view->assign('data', $data);
-		$this->view->assign('tagObject', $tagObject);
+		if (($tagId = $this->request['tag'])) {
+			$data = $postRepository->findAllByTag($tagId);
+			$tagObject = $tagRepository->findOneByUid($tagId);
+			$this->pageService->setTitle($tagObject->getTitle());
+			$this->pageService->setDescription($tagObject->getDescription());
+			$this->view->assign('data', $data);
+			$this->view->assign('tagObject', $tagObject);
+		}
 	}
 }
