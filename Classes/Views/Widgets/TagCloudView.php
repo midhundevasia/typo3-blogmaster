@@ -31,10 +31,11 @@ class TagCloudView extends \Tutorboy\Blogmaster\Views\AbstractView {
 	 */
 	public function process() {
 		$tags = $this->getDatabaseConnection()->exec_SELECTgetRows(
-			't.title, mm.uid_foreign as uid, count(distinct mm.uid_local) as frequency ',
+			't.title, mm.uid_foreign AS uid, count(distinct mm.uid_local) AS frequency ',
 			'tx_blogmaster_post_tag_mm mm
-			join tx_blogmaster_domain_model_tag t on (t.uid = mm.uid_foreign)',
-			'1=1',
+			JOIN tx_blogmaster_domain_model_tag t ON (t.uid = mm.uid_foreign)
+			LEFT JOIN tx_blogmaster_domain_model_post p ON (p.uid = mm.uid_local)',
+			'p.status = "publish"',
 			'mm.uid_foreign',
 			'frequency DESC');
 		$maxFont = 32;
