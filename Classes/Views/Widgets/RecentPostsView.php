@@ -29,9 +29,14 @@ class RecentPostsView extends \Tutorboy\Blogmaster\Views\AbstractView {
 	 * @return void
 	 */
 	public function process() {
+		$categories = $this->configuration['pi_flexform']['CategorySelection'];
 		$postLimit = $this->settings['widgets']['recentPost']['list'] ? $this->settings['widgets']['recentPost']['list'] : 5;
 		$postRepository = $this->objectManager->get(\Tutorboy\Blogmaster\Domain\Repository\PostRepository::class);
-		$postList = $postRepository->findAllByBlog(0, $postLimit);
+		if (isset($categories) && $categories != '') {
+			$postList = $postRepository->findAllByBlogAndCategories(0, $categories, $postLimit);
+		} else {
+			$postList = $postRepository->findAllByBlog(0, $postLimit);
+		}
 		$this->view->assign('postList', $postList);
 	}
 }

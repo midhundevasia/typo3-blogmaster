@@ -58,6 +58,36 @@ class PostRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Find all post by blog and categories
+	 * @param  int $blog   Blog ID
+	 * @param  int $categories  Category ids
+	 * @param  int $limit  Query limit
+	 * @param  int $offset Query offset
+	 * @return array
+	 */
+	public function findAllByBlogAndCategories($blog = 0, $categories, $limit = 999999, $offset = 0) {
+		$res = $this->getDatabaseConnection()->sql_query(
+			'SELECT tx_blogmaster_domain_model_post.uid
+			FROM tx_blogmaster_domain_model_post
+			WHERE ((tx_blogmaster_domain_model_post.blog = ' . $blog . '
+				AND tx_blogmaster_domain_model_post.status = "publish")
+				AND tx_blogmaster_domain_model_post.uid IN (
+					SELECT uid_local FROM tx_blogmaster_post_category_mm
+					WHERE uid_foreign in (' . $categories . ')))
+						AND tx_blogmaster_domain_model_post.deleted = 0
+						AND tx_blogmaster_domain_model_post.hidden = 0
+						ORDER BY tx_blogmaster_domain_model_post.created
+						DESC
+						LIMIT ' .  $offset . ', ' . $limit);
+
+		while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
+			$uids[] = $row['uid'];
+		}
+		$query = $this->createQuery();
+		return $results = $query->matching($query->in('uid', $uids))->execute();
+	}
+
+	/**
 	 * Get all deleted items
 	 * @return array
 	 */

@@ -69,8 +69,11 @@
 					<trans-unit id="flexform.blog.displayType.search">
 						<source>Search Form</source>
 					</trans-unit>
-				
-			
+
+				<trans-unit id="flexform.blog.general.chooseCategories">
+					<source>Choose categories</source>
+				</trans-unit>
+
 			<trans-unit id="flexform.tabTwo">
 				<source>Configuration</source>
 			</trans-unit>
